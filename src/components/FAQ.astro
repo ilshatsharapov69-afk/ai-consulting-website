@@ -1,0 +1,25 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  questions: FAQItem[];
+  title?: string;
+}
+
+const { questions, title = 'Frequently Asked Questions' } = Astro.props;
+---
+
+<section class="py-12">
+  <h2 class="text-2xl sm:text-3xl font-bold text-navy mb-8">{title}</h2>
+  <div class="max-w-3xl">
+    {questions.map((q) => (
+      <details>
+        <summary>{q.question}</summary>
+        <div>{q.answer}</div>
+      </details>
+    ))}
+  </div>
+</section>

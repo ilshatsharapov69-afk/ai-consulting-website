@@ -1,0 +1,377 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { SITE } from '../../config';
+---
+
+<BaseLayout
+  title="How AI-Ready Is Your HVAC Business?"
+  description="Take this free 12-question quiz to score your HVAC business AI readiness. Get instant results and personalized recommendations."
+  breadcrumbs={[{ name: 'Resources', url: '/resources/' }, { name: 'AI Readiness Quiz', url: '/resources/ai-readiness-quiz/' }]}
+>
+  <section class="py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h1 class="text-3xl sm:text-4xl font-bold text-navy mb-4">How AI-Ready Is Your Business?</h1>
+        <p class="text-lg text-gray-600">
+          Answer 12 questions to get your AI Readiness Score. Takes about 3 minutes.
+          Your results are instant — no email required.
+        </p>
+      </div>
+
+      <!-- Quiz Container -->
+      <div id="quiz-container">
+        <div id="quiz-questions" class="space-y-8 transition-opacity duration-300">
+          <!-- Questions rendered by JS -->
+        </div>
+
+        <div id="quiz-progress" class="mt-8 mb-4">
+          <div class="flex justify-between text-sm text-gray-500 mb-2">
+            <span>Question <span id="current-q">1</span> of 12</span>
+            <span><span id="progress-pct">0</span>% complete</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div id="progress-bar" class="bg-blue rounded-full h-2 transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-6">
+          <button id="prev-btn" class="px-6 py-2.5 rounded-lg border border-gray-300 text-gray-600 font-medium hover:bg-gray-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+            Previous
+          </button>
+          <button id="next-btn" class="px-6 py-2.5 rounded-lg bg-blue text-white font-medium hover:bg-blue-light transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>
+            Next
+          </button>
+        </div>
+      </div>
+
+      <!-- Results (hidden initially) -->
+      <div id="quiz-results" class="hidden">
+        <!-- Score -->
+        <div class="text-center p-8 bg-gray-50 rounded-xl border border-gray-200 mb-8">
+          <div class="text-6xl font-bold text-blue mb-2" id="result-score">0</div>
+          <div class="text-sm text-gray-500 mb-4">out of 100</div>
+          <h2 class="text-2xl font-bold text-navy mb-2" id="result-level"></h2>
+          <p class="text-gray-600 mb-6" id="result-description"></p>
+        </div>
+
+        <!-- Category Bar Charts -->
+        <div class="p-6 bg-white rounded-xl border border-gray-200 mb-8">
+          <h3 class="font-bold text-navy mb-6">Your Scores by Category</h3>
+          <div class="space-y-4" id="category-bars">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+
+        <!-- Per-category Recommendations -->
+        <div class="p-6 bg-white rounded-xl border border-gray-200 mb-8">
+          <h3 class="font-bold text-navy mb-4">Recommendations</h3>
+          <div class="space-y-4" id="category-recs">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center mb-8 space-y-4">
+          <a href={SITE.ctaUrl} class="inline-flex items-center px-6 py-3 rounded-lg bg-green text-white font-semibold no-underline hover:bg-green-light transition-colors">
+            {SITE.ctaText}
+          </a>
+          <p class="text-sm text-gray-500">
+            Want a professional assessment?
+            <a href="/services/ai-audit/" class="text-blue">Learn about our AI Business Analysis</a>.
+          </p>
+        </div>
+
+        <!-- Email capture -->
+        <div class="p-6 rounded-xl border border-gray-200">
+          <h3 class="font-bold text-navy mb-3">Get Your Detailed Breakdown</h3>
+          <p class="text-gray-600 text-sm mb-4">Optional: enter your email to receive a detailed analysis with specific recommendations for your score level.</p>
+          <form class="flex gap-3" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value={SITE.formApiKey} />
+            <input type="hidden" name="subject" value="AI Readiness Quiz - Email Request" />
+            <input type="hidden" name="quiz_score" id="form-score" value="" />
+            <input type="hidden" name="quiz_level" id="form-level" value="" />
+            <input type="checkbox" name="botcheck" class="hidden" />
+            <input type="email" name="email" placeholder="your@email.com" required class="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-base" />
+            <button type="submit" class="px-5 py-2.5 rounded-lg bg-navy text-white font-medium hover:bg-navy-light transition-colors">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABlock />
+</BaseLayout>
+
+<script>
+const questions = [
+  // Data Maturity (weight: 30%)
+  { category: 'Data', question: 'Where do you keep your customer records?', options: [
+    { text: 'Mostly in my head or on paper', score: 0 },
+    { text: 'Scattered across spreadsheets and email', score: 1 },
+    { text: 'In a CRM or job management app', score: 2 },
+    { text: 'Centralized system with clean, searchable records', score: 3 },
+  ]},
+  { category: 'Data', question: 'Can you pull up cost history for a job you did 2 years ago?', options: [
+    { text: 'No, I\'d have to dig through old files', score: 0 },
+    { text: 'Maybe, if I search long enough', score: 1 },
+    { text: 'Yes, in QuickBooks or my PM tool', score: 2 },
+    { text: 'Yes, instantly with detailed breakdowns', score: 3 },
+  ]},
+  { category: 'Data', question: 'How do you track which marketing channels bring in leads?', options: [
+    { text: 'I don\'t really track that', score: 0 },
+    { text: 'I ask "how did you hear about us?"', score: 1 },
+    { text: 'I use Google Analytics or call tracking', score: 2 },
+    { text: 'Full attribution tracking across channels', score: 3 },
+  ]},
+  // Team Capability (weight: 25%)
+  { category: 'Team', question: 'How comfortable is your office staff with new software?', options: [
+    { text: 'They resist any change', score: 0 },
+    { text: 'They\'ll use it if they have to', score: 1 },
+    { text: 'They adapt after some training', score: 2 },
+    { text: 'They actively look for better tools', score: 3 },
+  ]},
+  { category: 'Team', question: 'Has anyone on your team used ChatGPT or similar AI tools?', options: [
+    { text: 'No one', score: 0 },
+    { text: 'Maybe for personal stuff', score: 1 },
+    { text: 'Yes, a few have tried it for work', score: 2 },
+    { text: 'Yes, we use it regularly', score: 3 },
+  ]},
+  { category: 'Team', question: 'Who handles your technology decisions?', options: [
+    { text: 'Nobody — we just use what we\'ve always used', score: 0 },
+    { text: 'I make all tech decisions myself', score: 1 },
+    { text: 'I make decisions with input from key staff', score: 2 },
+    { text: 'We have someone who manages our tech stack', score: 3 },
+  ]},
+  // Process Documentation (weight: 20%)
+  { category: 'Process', question: 'If your best estimator quit tomorrow, could someone else pick up their jobs?', options: [
+    { text: 'No — it\'s all in their head', score: 0 },
+    { text: 'Partially — they\'d figure it out eventually', score: 1 },
+    { text: 'Yes, with some guidance from documented processes', score: 2 },
+    { text: 'Yes, our estimating process is fully documented', score: 3 },
+  ]},
+  { category: 'Process', question: 'How standardized is your lead-to-close process?', options: [
+    { text: 'Every job is handled differently', score: 0 },
+    { text: 'We have a general flow but it varies', score: 1 },
+    { text: 'Consistent process with some documentation', score: 2 },
+    { text: 'Fully documented with checklists and automation', score: 3 },
+  ]},
+  // Infrastructure (weight: 15%)
+  { category: 'Infrastructure', question: 'How many separate software tools does your team use?', options: [
+    { text: '1-2 (QuickBooks and maybe a scheduling app)', score: 1 },
+    { text: '3-5 tools that mostly don\'t connect', score: 1 },
+    { text: '3-5 tools with some integrations', score: 2 },
+    { text: '5+ tools that are well-integrated', score: 3 },
+  ]},
+  { category: 'Infrastructure', question: 'Is your data in the cloud or on local computers?', options: [
+    { text: 'Mostly local (desktop, filing cabinets)', score: 0 },
+    { text: 'Mix — some cloud, some local', score: 1 },
+    { text: 'Mostly cloud-based', score: 2 },
+    { text: 'Fully cloud with backups', score: 3 },
+  ]},
+  // Budget Alignment (weight: 10%)
+  { category: 'Budget', question: 'What do you currently spend monthly on business software?', options: [
+    { text: 'Under $100', score: 0 },
+    { text: '$100-500', score: 1 },
+    { text: '$500-1,500', score: 2 },
+    { text: '$1,500+', score: 3 },
+  ]},
+  { category: 'Budget', question: 'If an AI tool could save you 10+ hours/week, what would you invest monthly?', options: [
+    { text: 'Nothing — I don\'t trust it', score: 0 },
+    { text: 'Maybe $50-100/month to try', score: 1 },
+    { text: '$100-300/month if I saw proof', score: 2 },
+    { text: '$300+ if the ROI was clear', score: 3 },
+  ]},
+];
+
+const weights: Record<string, number> = { Data: 0.30, Team: 0.25, Process: 0.20, Infrastructure: 0.15, Budget: 0.10 };
+const maxPerCategory: Record<string, number> = { Data: 9, Team: 9, Process: 6, Infrastructure: 6, Budget: 6 };
+
+let currentQuestion = 0;
+const answers: (number | null)[] = new Array(questions.length).fill(null);
+
+const container = document.getElementById('quiz-questions')!;
+const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+const currentQEl = document.getElementById('current-q')!;
+const progressPct = document.getElementById('progress-pct')!;
+const progressBar = document.getElementById('progress-bar')!;
+const resultsDiv = document.getElementById('quiz-results')!;
+const quizContainer = document.getElementById('quiz-container')!;
+
+function renderQuestion() {
+  // Fade out
+  container.style.opacity = '0';
+  setTimeout(() => {
+    const q = questions[currentQuestion];
+    container.innerHTML = `
+      <div class="p-6 bg-white rounded-xl border border-gray-200">
+        <div class="text-xs text-gray-400 uppercase tracking-wider mb-2">${q.category}</div>
+        <h3 class="text-lg font-bold text-navy mb-4">${q.question}</h3>
+        <div class="space-y-3">
+          ${q.options.map((opt, i) => `
+            <label class="flex items-center gap-3 p-4 rounded-lg border cursor-pointer transition-colors ${answers[currentQuestion] === i ? 'border-blue bg-blue/5' : 'border-gray-200 hover:border-gray-300'}">
+              <input type="radio" name="q${currentQuestion}" value="${i}" ${answers[currentQuestion] === i ? 'checked' : ''} class="w-5 h-5 text-blue">
+              <span class="text-gray-700">${opt.text}</span>
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    container.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        answers[currentQuestion] = parseInt((e.target as HTMLInputElement).value);
+        nextBtn.disabled = false;
+        // Re-render without fade for selection highlight
+        const q = questions[currentQuestion];
+        container.querySelectorAll('label').forEach((label, idx) => {
+          if (idx === answers[currentQuestion]) {
+            label.className = 'flex items-center gap-3 p-4 rounded-lg border cursor-pointer transition-colors border-blue bg-blue/5';
+          } else {
+            label.className = 'flex items-center gap-3 p-4 rounded-lg border cursor-pointer transition-colors border-gray-200 hover:border-gray-300';
+          }
+        });
+      });
+    });
+
+    // Fade in
+    container.style.opacity = '1';
+  }, 150);
+
+  currentQEl.textContent = String(currentQuestion + 1);
+  const answered = answers.filter(a => a !== null).length;
+  const pct = Math.round((answered / questions.length) * 100);
+  progressPct.textContent = String(pct);
+  progressBar.style.width = `${pct}%`;
+  prevBtn.disabled = currentQuestion === 0;
+  nextBtn.disabled = answers[currentQuestion] === null;
+  nextBtn.textContent = currentQuestion === questions.length - 1 ? 'See Results' : 'Next';
+}
+
+prevBtn.addEventListener('click', () => {
+  if (currentQuestion > 0) { currentQuestion--; renderQuestion(); }
+});
+
+nextBtn.addEventListener('click', () => {
+  if (currentQuestion < questions.length - 1) {
+    currentQuestion++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+});
+
+function showResults() {
+  const catScores: Record<string, number> = {};
+  questions.forEach((q, i) => {
+    const ans = answers[i] ?? 0;
+    catScores[q.category] = (catScores[q.category] || 0) + q.options[ans].score;
+  });
+
+  let totalScore = 0;
+  for (const cat of Object.keys(weights)) {
+    const raw = catScores[cat] || 0;
+    const normalized = (raw / maxPerCategory[cat]) * 100;
+    totalScore += normalized * weights[cat];
+  }
+  totalScore = Math.round(totalScore);
+
+  let level = '', description = '';
+  if (totalScore <= 40) {
+    level = 'Foundation Building';
+    description = 'Your business runs mostly on manual processes. Before AI tools, you need to digitize the basics — get your data into a system and document your key workflows. The good news: there are quick wins even at this stage.';
+  } else if (totalScore <= 60) {
+    level = 'Emerging Readiness';
+    description = 'You\'re using some software but your tools don\'t talk to each other. You\'re ready for 1-2 targeted AI pilots — like an AI answering service or ChatGPT for proposals. Most contractors with 10-50 employees are at this level.';
+  } else if (totalScore <= 80) {
+    level = 'Strong Preparation';
+    description = 'You have a solid tech foundation with integrated tools and documented workflows. You\'re ready for 3-5 AI initiatives that can deliver significant ROI. A strategy roadmap would help you prioritize.';
+  } else {
+    level = 'AI-Ready Leader';
+    description = 'Your business is well-positioned for full AI integration. You have the data, the team, and the infrastructure. A comprehensive roadmap can help you capitalize on your advantage.';
+  }
+
+  document.getElementById('result-score')!.textContent = String(totalScore);
+  document.getElementById('result-level')!.textContent = level;
+  document.getElementById('result-description')!.textContent = description;
+  document.getElementById('form-score')!.setAttribute('value', String(totalScore));
+  document.getElementById('form-level')!.setAttribute('value', level);
+
+  // Bar charts
+  const catBarsContainer = document.getElementById('category-bars')!;
+  const catLabels: Record<string, string> = {
+    Data: 'Data Maturity',
+    Team: 'Team Capability',
+    Process: 'Process Documentation',
+    Infrastructure: 'Infrastructure',
+    Budget: 'Budget Alignment',
+  };
+  const catRecs: Record<string, Record<string, string>> = {
+    Data: {
+      low: 'Start with a CRM or job management app. Get your customer records and job history into one searchable system.',
+      mid: 'Connect your existing tools so data flows between them. Consider integrating QuickBooks with your scheduling app.',
+      high: 'Your data foundation is solid. Focus on using AI to find patterns in your historical data.',
+    },
+    Team: {
+      low: 'Introduce one simple AI tool (like ChatGPT for emails) and let the team get comfortable before adding more.',
+      mid: 'Your team is open to tech. Schedule a 30-minute training session on your highest-impact AI opportunity.',
+      high: 'Your team is ready for AI tools. Focus on choosing the right ones and tracking ROI.',
+    },
+    Process: {
+      low: 'Document your top 3 workflows: lead intake, estimating, and invoicing. Even a basic checklist helps.',
+      mid: 'Your processes are partially documented. Identify the biggest bottleneck and standardize that first.',
+      high: 'Strong process documentation. AI can now automate or augment your well-defined workflows.',
+    },
+    Infrastructure: {
+      low: 'Move to cloud-based tools for key functions. Start with cloud backup and a cloud scheduling app.',
+      mid: 'Your tools need better integration. Look for apps with built-in API connections or use Zapier.',
+      high: 'Well-integrated infrastructure. You\'re ready for AI tools that plug into your existing stack.',
+    },
+    Budget: {
+      low: 'Start with free AI tools (ChatGPT free tier, Google AI features) to prove value before investing.',
+      mid: 'Allocate $200-500/month for AI tool pilots. Track hours saved to build the ROI case.',
+      high: 'Your budget supports AI investment. Focus on highest-ROI opportunities from your analysis.',
+    },
+  };
+
+  catBarsContainer.innerHTML = Object.keys(weights).map(cat => {
+    const raw = catScores[cat] || 0;
+    const pct = Math.round((raw / maxPerCategory[cat]) * 100);
+    const color = pct >= 70 ? 'bg-green' : pct >= 40 ? 'bg-blue' : 'bg-gray-400';
+    return `<div>
+      <div class="flex justify-between text-sm mb-1">
+        <span class="font-medium text-navy">${catLabels[cat] || cat}</span>
+        <span class="font-bold text-navy">${pct}%</span>
+      </div>
+      <div class="w-full bg-gray-100 rounded-full h-3">
+        <div class="${color} rounded-full h-3 transition-all duration-700" style="width: ${pct}%"></div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Recommendations
+  const catRecsContainer = document.getElementById('category-recs')!;
+  catRecsContainer.innerHTML = Object.keys(weights).map(cat => {
+    const raw = catScores[cat] || 0;
+    const pct = Math.round((raw / maxPerCategory[cat]) * 100);
+    const recLevel = pct >= 70 ? 'high' : pct >= 40 ? 'mid' : 'low';
+    const rec = catRecs[cat]?.[recLevel] || '';
+    const icon = pct >= 70 ? '✓' : pct >= 40 ? '→' : '!';
+    const iconColor = pct >= 70 ? 'text-green' : pct >= 40 ? 'text-blue' : 'text-orange-500';
+    return `<div class="flex items-start gap-3">
+      <span class="${iconColor} font-bold shrink-0 mt-0.5">${icon}</span>
+      <div>
+        <span class="font-semibold text-navy">${catLabels[cat] || cat}:</span>
+        <span class="text-gray-600 text-sm"> ${rec}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  quizContainer.classList.add('hidden');
+  resultsDiv.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+renderQuestion();
+</script>

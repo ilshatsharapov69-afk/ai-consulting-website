@@ -1,0 +1,127 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import JsonLd from '../components/JsonLd.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { SITE } from '../config';
+import { getCollection } from 'astro:content';
+
+type Props = CollectionEntry<'blog'>['data'] & { slug?: string };
+
+const { title, description, pubDate, updatedDate, heroImage, tags, readingTime, slug } = Astro.props;
+const articleUrl = `${SITE.url}/blog/${slug}/`;
+
+// Get related posts (same tags, excluding current)
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+  .filter(p => p.id !== slug)
+  .filter(p => p.data.tags?.some((t: string) => tags?.includes(t)))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  type="article"
+  publishedDate={pubDate}
+  breadcrumbs={[{ name: 'Blog', url: '/blog/' }, { name: title, url: `/blog/${slug}/` }]}
+>
+  <JsonLd
+    type="blogPosting"
+    data={{
+      title,
+      description,
+      pubDate: pubDate.toISOString(),
+      updatedDate: updatedDate?.toISOString(),
+      url: articleUrl,
+    }}
+  />
+
+  <article class="py-12">
+    <!-- Header -->
+    <header class="max-w-3xl mx-auto px-4 sm:px-6 mb-8 text-center">
+      <div class="flex items-center justify-center gap-3 text-sm text-gray-500 mb-4">
+        <time datetime={pubDate.toISOString()}>
+          {pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        <span>·</span>
+        <span>{readingTime}</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy leading-tight mb-4">
+        {title}
+      </h1>
+      {tags && tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 justify-center">
+          {tags.map((tag: string) => (
+            <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Hero Image -->
+    {heroImage && (
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 mb-12">
+        <img src={typeof heroImage === 'string' ? heroImage : heroImage.src} alt={title} class="w-full rounded-xl shadow-lg" />
+      </div>
+    )}
+
+    <!-- Article content -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 prose">
+      <slot />
+    </div>
+
+    <!-- Mid-article CTA (after content) -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 mt-8">
+      <CTABlock variant="inline" />
+    </div>
+
+    <!-- Author Box -->
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 mt-12">
+      <div class="p-6 bg-gray-50 rounded-xl border border-gray-200 flex items-start gap-4">
+        <div class="shrink-0 w-14 h-14 rounded-full bg-navy/10 flex items-center justify-center">
+          <svg class="w-7 h-7 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+        </div>
+        <div>
+          <div class="font-bold text-navy mb-1">{SITE.author}</div>
+          <p class="text-gray-600 text-sm leading-relaxed">
+            10+ years in construction, now helping contractors find where their business is losing money using AI analysis.
+          </p>
+          <div class="flex gap-3 mt-2">
+            <a href="/about/" class="text-blue text-sm font-medium no-underline hover:underline">About →</a>
+            {SITE.social.youtube && (
+              <a href={SITE.social.youtube} target="_blank" rel="noopener noreferrer" class="text-blue text-sm font-medium no-underline hover:underline">YouTube →</a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Posts -->
+    {relatedPosts.length > 0 && (
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 mt-12">
+        <h3 class="text-xl font-bold text-navy mb-6">Related Articles</h3>
+        <div class="space-y-4">
+          {relatedPosts.map((post) => (
+            <a href={`/blog/${post.id}/`} class="block no-underline group">
+              <div class="p-4 rounded-lg border border-gray-200 hover:border-blue/30 hover:shadow-sm transition-all">
+                <div class="text-sm text-gray-500 mb-1">
+                  {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  <span class="mx-2">·</span>
+                  {post.data.readingTime}
+                </div>
+                <h4 class="font-semibold text-navy group-hover:text-blue transition-colors">{post.data.title}</h4>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </article>
+
+  <!-- Full-width bottom CTA -->
+  <CTABlock />
+</BaseLayout>

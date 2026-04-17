@@ -1,0 +1,80 @@
+---
+import { SITE, SERVICES } from '../config';
+
+const features = [
+  { label: 'AI Readiness Assessment', audit: true, roadmap: true, retainer: true },
+  { label: 'Opportunity Scoring Matrix', audit: true, roadmap: true, retainer: true },
+  { label: 'Detailed PDF Report', audit: true, roadmap: true, retainer: true },
+  { label: '90-Day Implementation Plan', audit: false, roadmap: true, retainer: true },
+  { label: 'Vendor Evaluation', audit: false, roadmap: true, retainer: true },
+  { label: 'Monthly Check-ins', audit: false, roadmap: false, retainer: true },
+  { label: 'Team Training', audit: false, roadmap: false, retainer: true },
+  { label: 'Priority Support', audit: false, roadmap: false, retainer: true },
+];
+---
+
+<div class="overflow-x-auto">
+  <table class="w-full border-collapse">
+    <thead>
+      <tr>
+        <th class="text-left p-4 border-b-2 border-gray-200"></th>
+        {SERVICES.map((service) => (
+          <th class="text-center p-4 border-b-2 border-gray-200">
+            <div class="text-lg font-bold text-navy">{service.title}</div>
+            <div class="text-2xl font-bold text-blue mt-1">{service.price}</div>
+            <div class="text-sm text-gray-500">{service.priceNote}</div>
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {features.map((feature) => (
+        <tr class="border-b border-gray-100">
+          <td class="p-4 text-gray-700 font-medium">{feature.label}</td>
+          <td class="p-4 text-center">
+            {feature.audit ? (
+              <svg class="w-5 h-5 text-green mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            ) : (
+              <span class="text-gray-300">—</span>
+            )}
+          </td>
+          <td class="p-4 text-center">
+            {feature.roadmap ? (
+              <svg class="w-5 h-5 text-green mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            ) : (
+              <span class="text-gray-300">—</span>
+            )}
+          </td>
+          <td class="p-4 text-center">
+            {feature.retainer ? (
+              <svg class="w-5 h-5 text-green mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            ) : (
+              <span class="text-gray-300">—</span>
+            )}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="p-4"></td>
+        {SERVICES.map((service) => (
+          <td class="p-4 text-center">
+            <a
+              href={`/services/${service.slug}/`}
+              class="inline-flex items-center px-4 py-2 rounded-lg bg-green text-white text-sm font-semibold no-underline hover:bg-green-light transition-colors"
+            >
+              Learn More
+            </a>
+          </td>
+        ))}
+      </tr>
+    </tfoot>
+  </table>
+</div>

@@ -1,0 +1,256 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JsonLd from '../../components/JsonLd.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { SITE } from '../../config';
+
+const faqs = [
+  {
+    question: 'Do I need to do the AI Analysis first?',
+    answer: 'Yes. The roadmap builds directly on your analysis results — your readiness score, identified opportunities, and prioritized quick wins. Without the analysis, we\'d be guessing instead of using data.',
+  },
+  {
+    question: 'What\'s included in the roadmap?',
+    answer: 'A 90-day implementation plan broken into phases (30/60/90 day milestones), specific vendor recommendations with pricing, integration architecture showing how tools connect to your existing stack, team training requirements, and success metrics to track.',
+  },
+  {
+    question: 'Why does the price range vary?',
+    answer: 'It depends on complexity. A 2-tool implementation for a 10-person company is $5,000. A full-stack AI transformation for a 50-person operation with multiple integrations is closer to $15,000. You\'ll know the exact price after the analysis.',
+  },
+  {
+    question: 'Do you implement the tools too?',
+    answer: 'The roadmap includes vendor evaluation and selection. For hands-on implementation, configuration, and team training, that\'s covered by the Monthly Advisory retainer.',
+  },
+];
+---
+
+<BaseLayout
+  title="Deep Dive Analysis"
+  description="Turn your AI audit results into a concrete 90-day implementation plan. Vendor evaluations, integration architecture, and step-by-step execution guide. From $5,000."
+  breadcrumbs={[{ name: 'Services', url: '/services/' }, { name: 'Deep Dive Analysis', url: '/services/roadmap/' }]}
+>
+  <JsonLd type="service" data={{ name: 'Deep Dive Analysis', description: '90-day AI implementation plan for contractors', price: '5000' }} />
+  <JsonLd type="faqPage" data={{ questions: faqs }} />
+
+  <!-- Hero -->
+  <section class="py-16 bg-navy text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 text-blue-light text-sm font-medium mb-4">
+        <a href="/services/" class="hover:text-white no-underline">Services</a>
+        <span>/</span>
+        <span>Deep Dive Analysis</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+        You Know AI Can Help.<br />Now You Need the Plan.
+      </h1>
+      <p class="text-xl text-gray-300 mb-6 leading-relaxed">
+        Your analysis identified the opportunities. The Deep Dive turns those findings into a
+        concrete 90-day plan — with specific tools, timelines, costs, and expected ROI.
+      </p>
+      <div class="flex items-baseline gap-2 mb-8">
+        <span class="text-4xl font-bold">From $5,000</span>
+        <span class="text-gray-400">project-based</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-4">
+        <a href={SITE.ctaUrl} class="inline-flex items-center px-6 py-3 rounded-lg bg-green text-white font-semibold no-underline hover:bg-green-light transition-colors">
+          {SITE.ctaText}
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+        <a href="/services/ai-audit/" class="text-gray-300 text-sm font-medium no-underline hover:text-white transition-colors">
+          Need the analysis first? Start here →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prerequisite Note -->
+  <section class="py-6 bg-blue/5 border-b border-blue/10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-3">
+      <svg class="w-5 h-5 text-blue shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <p class="text-sm text-gray-700">
+        This service builds on the <a href="/services/ai-audit/" class="text-blue font-medium">AI Business Analysis</a>.
+        The analysis identifies your opportunities — the Deep Dive creates the plan to capture them.
+      </p>
+    </div>
+  </section>
+
+  <!-- What You Get -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-navy mb-8">What You Get</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {[
+          { title: '90-Day Implementation Plan', desc: 'Phased milestones at 30, 60, and 90 days. Each phase has specific deliverables, tool deployments, and success criteria.', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01' },
+          { title: 'Vendor Evaluation Matrix', desc: 'Side-by-side comparison of the best tools for your specific needs. Pricing, features, integration capabilities, and our recommendation.', icon: 'M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3' },
+          { title: 'Integration Architecture', desc: 'Visual map showing how new AI tools connect to QuickBooks, your scheduling app, CRM, and existing workflows.', icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z' },
+          { title: 'Budget & ROI Model', desc: 'Detailed cost breakdown per tool per month and projected ROI timeline. So you can justify the investment to your partner or spouse.', icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
+          { title: 'Team Training Plan', desc: 'Who needs training on what, in what order. Different plans for office staff vs. field crews.', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
+          { title: 'Risk Mitigation', desc: 'What could go wrong and how to handle it. Rollback plans for every tool deployment.', icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' },
+        ].map((item) => (
+          <div class="p-5 border border-gray-200 rounded-lg">
+            <div class="flex items-start gap-3">
+              <div class="shrink-0 w-10 h-10 rounded-lg bg-blue/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-navy mb-1">{item.title}</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 30/60/90 Timeline -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-navy text-center mb-12">The 90-Day Timeline</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl border-2 border-blue/20 p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-blue text-white flex items-center justify-center font-bold text-sm">30</div>
+            <h3 class="font-bold text-navy">Days 1-30: Quick Wins</h3>
+          </div>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li class="flex items-start gap-2">
+              <span class="text-blue shrink-0">→</span>
+              Deploy 1-2 highest-impact AI tools
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue shrink-0">→</span>
+              Train core office staff
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue shrink-0">→</span>
+              Set up tracking & baseline metrics
+            </li>
+          </ul>
+          <div class="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-500">
+            Expected: first measurable ROI
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-navy text-white flex items-center justify-center font-bold text-sm">60</div>
+            <h3 class="font-bold text-navy">Days 31-60: Expand</h3>
+          </div>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li class="flex items-start gap-2">
+              <span class="text-blue shrink-0">→</span>
+              Roll out to remaining team members
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue shrink-0">→</span>
+              Add integrations between tools
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue shrink-0">→</span>
+              Optimize based on first month data
+            </li>
+          </ul>
+          <div class="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-500">
+            Expected: workflow improvements visible
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-green text-white flex items-center justify-center font-bold text-sm">90</div>
+            <h3 class="font-bold text-navy">Days 61-90: Scale</h3>
+          </div>
+          <ul class="space-y-2 text-sm text-gray-600">
+            <li class="flex items-start gap-2">
+              <span class="text-blue shrink-0">→</span>
+              Full system operational
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue shrink-0">→</span>
+              ROI review vs. projections
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-blue shrink-0">→</span>
+              Plan for next phase of opportunities
+            </li>
+          </ul>
+          <div class="mt-4 pt-4 border-t border-gray-100 text-xs text-gray-500">
+            Expected: compound ROI, team self-sufficient
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before vs After -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-navy text-center mb-12">Before vs. After the Roadmap</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="p-6 rounded-xl border border-red-200 bg-red-50/50">
+          <h3 class="font-bold text-red-700 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            Before
+          </h3>
+          <ul class="space-y-3 text-sm text-gray-700">
+            {[
+              '"We know we need AI but don\'t know where to start"',
+              'Paralyzed by too many tool options',
+              'No idea which vendors to trust or how much to budget',
+              'Team skeptical — "another software we won\'t use"',
+              'No way to measure if AI is actually working',
+            ].map((item) => (
+              <li class="flex items-start gap-2">
+                <span class="text-red-400 shrink-0">✕</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-xl border border-green/30 bg-green/5">
+          <h3 class="font-bold text-green mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            After
+          </h3>
+          <ul class="space-y-3 text-sm text-gray-700">
+            {[
+              'Clear 90-day plan with specific milestones',
+              'Vetted vendors with pricing — ready to sign up',
+              'Budget approved because ROI is documented',
+              'Team trained and bought in — they see the benefit',
+              'KPIs tracked weekly — you know what\'s working',
+            ].map((item) => (
+              <li class="flex items-start gap-2">
+                <svg class="w-4 h-4 text-green shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <FAQ questions={faqs} />
+  </div>
+
+  <!-- CTA -->
+  <CTABlock headline="Ready for a Clear AI Implementation Plan?" description="Start with a free 20-minute call to see if the Deep Dive is right for your business." />
+</BaseLayout>

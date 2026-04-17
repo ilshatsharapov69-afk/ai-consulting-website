@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { SITE } from '../../config';
+---
+
+<BaseLayout
+  title="AI Savings Calculator"
+  description="Estimate how much money AI could save your contracting business. Enter your numbers and see your potential ROI in 30 seconds."
+  breadcrumbs={[{ name: 'Resources', url: '/resources/' }, { name: 'AI Savings Calculator', url: '/resources/roi-calculator/' }]}
+>
+  <section class="py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h1 class="text-3xl sm:text-4xl font-bold text-navy mb-4">How Much Could AI Save Your Business?</h1>
+        <p class="text-lg text-gray-600">
+          Answer 4 questions. Get your estimated annual savings in 30 seconds. No email required.
+        </p>
+      </div>
+
+      <!-- Calculator -->
+      <div id="calculator" class="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8">
+        <div class="space-y-6">
+          <!-- Q1: Employees -->
+          <div>
+            <label for="employees" class="block text-sm font-semibold text-navy mb-2">
+              How many employees do you have?
+            </label>
+            <input
+              type="range"
+              id="employees"
+              min="3"
+              max="100"
+              value="15"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue"
+            />
+            <div class="flex justify-between text-xs text-gray-400 mt-1">
+              <span>3</span>
+              <span id="employees-val" class="text-sm font-bold text-navy">15</span>
+              <span>100</span>
+            </div>
+          </div>
+
+          <!-- Q2: Revenue -->
+          <div>
+            <label for="revenue" class="block text-sm font-semibold text-navy mb-2">
+              Approximate annual revenue?
+            </label>
+            <select
+              id="revenue"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-base bg-white focus:ring-2 focus:ring-blue focus:border-blue"
+            >
+              <option value="500000">$500K - $1M</option>
+              <option value="1500000" selected>$1M - $2M</option>
+              <option value="3000000">$2M - $5M</option>
+              <option value="7500000">$5M - $10M</option>
+              <option value="15000000">$10M+</option>
+            </select>
+          </div>
+
+          <!-- Q3: Missed calls -->
+          <div>
+            <label for="missed-calls" class="block text-sm font-semibold text-navy mb-2">
+              What percentage of calls do you think go unanswered?
+            </label>
+            <select
+              id="missed-calls"
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-base bg-white focus:ring-2 focus:ring-blue focus:border-blue"
+            >
+              <option value="5">Less than 5%</option>
+              <option value="10">About 10%</option>
+              <option value="20" selected>About 20% (industry average)</option>
+              <option value="30">30% or more</option>
+              <option value="0">I don't know</option>
+            </select>
+          </div>
+
+          <!-- Q4: Admin time -->
+          <div>
+            <label for="admin-hours" class="block text-sm font-semibold text-navy mb-2">
+              Hours per week your office staff spends on manual admin tasks?
+            </label>
+            <input
+              type="range"
+              id="admin-hours"
+              min="5"
+              max="60"
+              value="20"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue"
+            />
+            <div class="flex justify-between text-xs text-gray-400 mt-1">
+              <span>5 hrs</span>
+              <span id="admin-val" class="text-sm font-bold text-navy">20 hrs</span>
+              <span>60 hrs</span>
+            </div>
+          </div>
+
+          <!-- Calculate Button -->
+          <button
+            id="calc-btn"
+            class="w-full px-6 py-3 rounded-lg bg-blue text-white font-semibold hover:bg-blue-light transition-colors"
+          >
+            Calculate My Savings
+          </button>
+        </div>
+      </div>
+
+      <!-- Results (hidden initially) -->
+      <div id="results" class="hidden mt-8">
+        <!-- Total Savings -->
+        <div class="text-center p-8 bg-green/5 rounded-2xl border-2 border-green/20 mb-8">
+          <div class="text-sm text-gray-500 uppercase tracking-wider mb-2">Estimated Annual Savings</div>
+          <div class="text-5xl sm:text-6xl font-bold text-green mb-2" id="total-savings">$0</div>
+          <p class="text-gray-600" id="roi-text">That's a <span id="roi-multiple" class="font-bold text-navy">0x</span> return on a $2,500 AI Business Analysis.</p>
+        </div>
+
+        <!-- Breakdown -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8 mb-8">
+          <h3 class="font-bold text-navy mb-6">Where the Savings Come From</h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between p-4 rounded-lg bg-gray-50">
+              <div>
+                <div class="font-semibold text-navy">Missed Call Recovery</div>
+                <div class="text-sm text-gray-500">AI answering captures leads 24/7</div>
+              </div>
+              <div class="text-xl font-bold text-blue" id="savings-calls">$0</div>
+            </div>
+            <div class="flex items-center justify-between p-4 rounded-lg bg-gray-50">
+              <div>
+                <div class="font-semibold text-navy">Admin Time Reduction</div>
+                <div class="text-sm text-gray-500">AI automates 30-40% of manual tasks</div>
+              </div>
+              <div class="text-xl font-bold text-blue" id="savings-admin">$0</div>
+            </div>
+            <div class="flex items-center justify-between p-4 rounded-lg bg-gray-50">
+              <div>
+                <div class="font-semibold text-navy">Estimating Efficiency</div>
+                <div class="text-sm text-gray-500">Faster, more accurate bids win more jobs</div>
+              </div>
+              <div class="text-xl font-bold text-blue" id="savings-estimating">$0</div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 mt-4">
+            * Estimates based on industry averages. Your actual savings depend on your specific situation.
+            An AI Business Analysis will give you exact numbers for your business.
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center space-y-4">
+          <a
+            href={SITE.ctaUrl}
+            class="inline-flex items-center px-8 py-4 rounded-lg bg-green text-white font-semibold text-lg no-underline hover:bg-green-light transition-colors"
+          >
+            {SITE.ctaText}
+            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+          <p class="text-sm text-gray-500">
+            Want exact numbers? <a href="/services/ai-audit/" class="text-blue font-medium">Learn about our AI Business Analysis</a> — we analyze your actual data.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABlock />
+</BaseLayout>
+
+<script>
+  const employeesSlider = document.getElementById('employees') as HTMLInputElement;
+  const employeesVal = document.getElementById('employees-val')!;
+  const adminSlider = document.getElementById('admin-hours') as HTMLInputElement;
+  const adminVal = document.getElementById('admin-val')!;
+  const calcBtn = document.getElementById('calc-btn')!;
+  const resultsDiv = document.getElementById('results')!;
+
+  employeesSlider.addEventListener('input', () => {
+    employeesVal.textContent = employeesSlider.value;
+  });
+
+  adminSlider.addEventListener('input', () => {
+    adminVal.textContent = `${adminSlider.value} hrs`;
+  });
+
+  calcBtn.addEventListener('click', () => {
+    const employees = parseInt(employeesSlider.value);
+    const revenue = parseInt((document.getElementById('revenue') as HTMLSelectElement).value);
+    let missedCallPct = parseInt((document.getElementById('missed-calls') as HTMLSelectElement).value);
+    const adminHours = parseInt(adminSlider.value);
+
+    // If "I don't know", use industry average of 22%
+    if (missedCallPct === 0) missedCallPct = 22;
+
+    // Missed call savings: based on average job value and missed call rate
+    // Average HVAC/contractor job: $1,200-$3,000. Use revenue-proportional estimate.
+    const avgJobValue = revenue / (employees * 80); // rough: revenue / estimated jobs per year
+    const callsPerMonth = employees * 15; // ~15 calls per employee per month
+    const missedCalls = callsPerMonth * (missedCallPct / 100) * 12;
+    const callConversionRate = 0.35; // 35% of answered calls convert to jobs
+    const savingsCalls = Math.round(missedCalls * callConversionRate * Math.min(avgJobValue, 2500));
+
+    // Admin time savings: 35% reduction in admin hours, valued at $25/hr
+    const adminHourlyRate = 25;
+    const adminReduction = 0.35;
+    const savingsAdmin = Math.round(adminHours * adminReduction * adminHourlyRate * 52);
+
+    // Estimating efficiency: 2-5% revenue improvement from better/faster bids
+    const estimatingImprovement = 0.02; // conservative 2%
+    const savingsEstimating = Math.round(revenue * estimatingImprovement);
+
+    const totalSavings = savingsCalls + savingsAdmin + savingsEstimating;
+    const roiMultiple = (totalSavings / 2500).toFixed(1);
+
+    // Display results
+    document.getElementById('total-savings')!.textContent = `$${totalSavings.toLocaleString()}`;
+    document.getElementById('savings-calls')!.textContent = `$${savingsCalls.toLocaleString()}/yr`;
+    document.getElementById('savings-admin')!.textContent = `$${savingsAdmin.toLocaleString()}/yr`;
+    document.getElementById('savings-estimating')!.textContent = `$${savingsEstimating.toLocaleString()}/yr`;
+    document.getElementById('roi-multiple')!.textContent = `${roiMultiple}x`;
+
+    resultsDiv.classList.remove('hidden');
+    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

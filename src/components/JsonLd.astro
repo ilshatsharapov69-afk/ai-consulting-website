@@ -1,0 +1,127 @@
+---
+import { SITE } from '../config';
+
+interface Props {
+  type: 'organization' | 'service' | 'blogPosting' | 'person' | 'faqPage' | 'breadcrumb';
+  data?: Record<string, any>;
+}
+
+const { type, data = {} } = Astro.props;
+const siteUrl = SITE.url;
+
+function getSchema() {
+  switch (type) {
+    case 'organization':
+      return [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: SITE.name,
+          url: siteUrl,
+          description: SITE.description,
+          sameAs: [
+            SITE.social.youtube,
+            SITE.social.linkedin,
+          ].filter(Boolean),
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: SITE.name,
+          url: siteUrl,
+        },
+      ];
+
+    case 'service':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: data.name,
+        description: data.description,
+        provider: {
+          '@type': 'Organization',
+          name: SITE.name,
+        },
+        ...(data.price && {
+          offers: {
+            '@type': 'Offer',
+            price: data.price,
+            priceCurrency: 'USD',
+          },
+        }),
+      };
+
+    case 'blogPosting':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: data.title,
+        description: data.description,
+        datePublished: data.pubDate,
+        ...(data.updatedDate && { dateModified: data.updatedDate }),
+        author: {
+          '@type': 'Person',
+          name: SITE.author,
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: SITE.name,
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': data.url,
+        },
+      };
+
+    case 'person':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: SITE.author,
+        jobTitle: 'AI Implementation Consultant',
+        description: data.description || SITE.description,
+        url: `${siteUrl}/about/`,
+        sameAs: [
+          SITE.social.youtube,
+          SITE.social.linkedin,
+        ].filter(Boolean),
+      };
+
+    case 'faqPage':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: (data.questions || []).map((q: { question: string; answer: string }) => ({
+          '@type': 'Question',
+          name: q.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: q.answer,
+          },
+        })),
+      };
+
+    case 'breadcrumb':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: (data.items || []).map((item: { name: string; url: string }, i: number) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: item.name,
+          item: `${siteUrl}${item.url}`,
+        })),
+      };
+
+    default:
+      return null;
+  }
+}
+
+const schema = getSchema();
+const schemas = Array.isArray(schema) && schema.length > 0 && !schema[0]?.['@context'] ? schema : Array.isArray(schema) ? schema : [schema];
+---
+
+{schemas.filter(Boolean).map((s) => (
+  <script type="application/ld+json" set:html={JSON.stringify(s)} />
+))}

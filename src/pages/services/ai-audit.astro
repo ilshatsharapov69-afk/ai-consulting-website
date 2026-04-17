@@ -1,0 +1,351 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JsonLd from '../../components/JsonLd.astro';
+import FAQ from '../../components/FAQ.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { SITE } from '../../config';
+
+const faqs = [
+  {
+    question: 'What exactly is an AI Business Analysis?',
+    answer: 'It\'s a comprehensive 5-7 day assessment of your business processes, technology stack, team readiness, and data maturity. You get a detailed PDF report (12-20 pages) with scored AI opportunities, ROI projections for each, and a prioritized action plan. Think of it as a blueprint for where AI can actually save you time and money.',
+  },
+  {
+    question: 'How long does the analysis take?',
+    answer: 'The analysis takes 5-7 business days from kickoff to delivery. Your time commitment is about 3 hours total: a 90-minute discovery call, 30-60 minutes for tech stack review, and a 60-minute delivery walkthrough. We handle the rest.',
+  },
+  {
+    question: 'What do I get at the end?',
+    answer: 'A branded PDF report (12-20 pages) with your AI Readiness Score, a scored opportunity matrix showing 8-15 AI use cases ranked by impact and effort, ROI estimates for each opportunity, a phased implementation roadmap (30/60/90 day), and a slide deck you can share with your team.',
+  },
+  {
+    question: 'Is $2,500 worth it?',
+    answer: 'Consider what you\'re already paying: IT consultants charge $3,750-6,250/month. Safety consultants are $2,500-3,500/month. Even a basic ServiceTitan implementation runs $3,000-5,000. The analysis is a one-time investment that shows you exactly where to get the highest ROI from AI — before you spend anything else.',
+  },
+  {
+    question: 'What if AI isn\'t right for my business?',
+    answer: 'We\'ll tell you. In the discovery call, if we don\'t think we can deliver real value, we\'ll say so and save everyone time. The analysis scores your readiness objectively — if you\'re at the "Foundation Building" level (score 0-40), the report will focus on the basics you need first, not expensive AI tools.',
+  },
+  {
+    question: 'Do I need any special tech or IT staff?',
+    answer: 'No. Most of our clients use QuickBooks, a scheduling app, and spreadsheets. That\'s enough to start. The analysis evaluates what you have and recommends tools that work with your existing setup — no IT department required.',
+  },
+];
+---
+
+<BaseLayout
+  title="AI Business Analysis"
+  description="Find out exactly where your contracting business is losing money. AI analyzes your calls, estimates, scheduling, and finances. $2,500 one-time. Zero risk guarantee."
+  breadcrumbs={[{ name: 'Services', url: '/services/' }, { name: 'AI Business Analysis', url: '/services/ai-audit/' }]}
+>
+  <JsonLd type="service" data={{ name: 'AI Business Analysis', description: 'Comprehensive business analysis for contractors — finds where revenue is leaking and what to fix first.', price: '2500' }} />
+  <JsonLd type="faqPage" data={{ questions: faqs }} />
+
+  <!-- Hero — pain-driven -->
+  <section class="py-16 bg-navy text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 text-blue-light text-sm font-medium mb-4">
+        <a href="/services/" class="hover:text-white no-underline">Services</a>
+        <span>/</span>
+        <span>AI Business Analysis</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+        Stop Guessing Where Your Money Goes
+      </h1>
+      <p class="text-xl text-gray-300 mb-6 leading-relaxed">
+        AI analyzes your calls, estimates, scheduling, and finances — then delivers a report
+        showing every dollar you're losing, and what to fix first.
+      </p>
+      <div class="flex flex-wrap items-center gap-6 mb-8">
+        <div>
+          <span class="text-4xl font-bold">$2,500</span>
+          <span class="text-gray-400 ml-2">one-time</span>
+        </div>
+        <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-green/20 border border-green/30">
+          <svg class="w-5 h-5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <span class="text-green text-sm font-semibold">$25K savings guarantee or full refund</span>
+        </div>
+      </div>
+      <div class="flex flex-wrap items-center gap-4">
+        <a href={SITE.ctaUrl} class="inline-flex items-center px-6 py-3 rounded-lg bg-green text-white font-semibold no-underline hover:bg-green-light transition-colors">
+          {SITE.ctaText}
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+        <a href="/resources/ai-readiness-quiz/" class="text-gray-300 text-sm font-medium no-underline hover:text-white transition-colors">
+          or take the free AI Readiness Quiz →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Is This For You? -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-navy text-center mb-12">Is This For You?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- For You -->
+        <div class="p-6 rounded-xl border-2 border-green/30 bg-green/5">
+          <h3 class="font-bold text-navy mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            This analysis is for you if...
+          </h3>
+          <ul class="space-y-3">
+            {[
+              'You run a contracting business with 5-50+ employees',
+              'You use QuickBooks, a scheduling app, or a CRM',
+              'You know money is leaking somewhere but can\'t pinpoint where',
+              'You\'re open to using technology to save time and money',
+              'You can invest $2,500 to potentially save $25,000+/year',
+            ].map((item) => (
+              <li class="flex items-start gap-2 text-gray-700 text-sm">
+                <svg class="w-4 h-4 text-green shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Not For You -->
+        <div class="p-6 rounded-xl border border-gray-200 bg-gray-50">
+          <h3 class="font-bold text-navy mb-4 flex items-center gap-2">
+            <span class="text-gray-400">—</span>
+            This is probably NOT for you if...
+          </h3>
+          <ul class="space-y-3">
+            {[
+              'You\'re a one-person operation with no employees',
+              'Your business does under $500K in annual revenue',
+              'You don\'t use any digital tools (no email, no apps)',
+              'You\'re looking for someone to run your business for you',
+              'You need results tomorrow (the analysis takes 5-7 days)',
+            ].map((item) => (
+              <li class="flex items-start gap-2 text-gray-600 text-sm">
+                <span class="text-gray-400 shrink-0">—</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What You Get (Value Stack) -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-navy text-center mb-12">
+        What You Get for $2,500
+      </h2>
+      <div class="bg-white rounded-2xl border-2 border-blue p-8 sm:p-10">
+        <!-- Deliverables -->
+        <div class="space-y-4 mb-8">
+          {[
+            '12-20 page PDF report with your AI Readiness Score',
+            '8-15 scored opportunities ranked by impact and ROI',
+            'Exact dollar amounts — what you\'re losing, where, and how much you\'d save',
+            '30/60/90 day action plan with specific tools and costs',
+            '60-minute walkthrough call — we go through every finding together',
+          ].map((item) => (
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-gray-700">{item}</span>
+            </div>
+          ))}
+        </div>
+
+        <!-- Value Breakdown -->
+        <div class="p-5 bg-blue/5 rounded-lg mb-8">
+          <h4 class="font-semibold text-navy mb-3">What this analysis is worth:</h4>
+          <div class="space-y-2 text-sm">
+            {[
+              { item: 'Business process audit (6 dimensions)', value: '$1,500' },
+              { item: 'Technology stack review & integration mapping', value: '$800' },
+              { item: 'AI opportunity mapping (8-15 use cases)', value: '$2,000' },
+              { item: 'ROI calculation per opportunity', value: '$1,200' },
+              { item: '30/60/90 day action plan', value: '$500' },
+            ].map((row) => (
+              <div class="flex justify-between">
+                <span class="text-gray-600">{row.item}</span>
+                <span class="text-gray-400">{row.value}</span>
+              </div>
+            ))}
+            <div class="border-t border-gray-200 pt-2 mt-3 flex justify-between font-semibold">
+              <span class="text-gray-500">Total value</span>
+              <span class="text-gray-400 line-through">$6,000+</span>
+            </div>
+            <div class="flex justify-between text-lg font-bold">
+              <span class="text-navy">Your investment</span>
+              <span class="text-blue">$2,500</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- What's NOT included -->
+        <div class="space-y-3 p-4 bg-gray-50 rounded-lg mb-6">
+          <h4 class="font-semibold text-navy">What's NOT included (we're upfront):</h4>
+          {[
+            'We don\'t implement anything — this is analysis only',
+            'We don\'t sell you software',
+            'You get the report and decide what to do with it',
+          ].map((item) => (
+            <div class="flex items-start gap-3">
+              <span class="text-gray-400 shrink-0">—</span>
+              <span class="text-gray-600 text-sm">{item}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="flex flex-wrap gap-6 text-sm text-gray-500">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            5-7 business days
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            ~3 hours of your time
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Assess (6 Dimensions) -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-navy mb-4">We Analyze Six Dimensions of Your Business</h2>
+      <p class="text-gray-600 mb-8">Each dimension gets scored individually, so you know exactly where you're strong and where to focus.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {[
+          { title: 'Business Processes', desc: 'Lead intake, estimating, proposals, scheduling, field work, invoicing, and follow-up workflows.', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
+          { title: 'Data Maturity', desc: 'Where your data lives, its quality, accessibility, and centralization. Customer records, job cost history, past projects.', icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4' },
+          { title: 'Technology Stack', desc: 'Current software, integrations (or lack thereof), cloud vs. on-premise. QuickBooks, Buildertrend, ServiceTitan, spreadsheets.', icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
+          { title: 'Team Readiness', desc: 'Digital literacy across office staff and field crews, change readiness, and existing AI awareness.', icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z' },
+          { title: 'Governance & Security', desc: 'Compliance requirements, data privacy practices, OSHA reporting, contract confidentiality.', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
+          { title: 'Financial Readiness', desc: 'Budget for tools, ROI expectations, current tech spend as % of revenue.', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
+        ].map((item) => (
+          <div class="p-5 border border-gray-200 rounded-lg hover:border-blue/30 transition-colors">
+            <div class="flex items-start gap-3">
+              <div class="shrink-0 w-10 h-10 rounded-lg bg-blue/10 flex items-center justify-center">
+                <svg class="w-5 h-5 text-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-navy mb-1">{item.title}</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Readiness Scoring -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-navy mb-4">Your AI Readiness Score</h2>
+      <p class="text-gray-600 mb-8">Your business gets scored on a 100-point scale. Most contractors with 10-50 employees score 41-60 (Emerging Readiness).</p>
+      <div class="space-y-4">
+        {[
+          { range: '0-40', level: 'Foundation Building', desc: 'Processes are mostly manual. Focus on digitizing basics first.', width: '40%', color: 'bg-gray-300' },
+          { range: '41-60', level: 'Emerging Readiness', desc: 'Using apps but they don\'t talk to each other. Ready for 1-2 AI pilots.', width: '60%', color: 'bg-blue/40', highlight: true },
+          { range: '61-80', level: 'Strong Preparation', desc: 'Integrated stack, documented workflows. Ready for 3-5 AI initiatives.', width: '80%', color: 'bg-green/40' },
+          { range: '81-100', level: 'AI-Ready Leader', desc: 'AI already embedded, measuring ROI. Full roadmap execution.', width: '100%', color: 'bg-green/60' },
+        ].map((item) => (
+          <div class={`p-5 rounded-lg border ${item.highlight ? 'border-blue bg-blue/5' : 'border-gray-200 bg-white'}`}>
+            <div class="flex items-baseline justify-between mb-2">
+              <div>
+                <span class="text-lg font-bold text-navy">{item.range}</span>
+                <span class="text-navy font-semibold ml-2">— {item.level}</span>
+                {item.highlight && <span class="ml-2 text-xs text-blue font-medium">(Most contractors are here)</span>}
+              </div>
+            </div>
+            <div class="w-full bg-gray-100 rounded-full h-2 mb-2">
+              <div class={`${item.color} rounded-full h-2`} style={`width: ${item.width}`}></div>
+            </div>
+            <p class="text-gray-600 text-sm">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-center mt-6">
+        <a href="/resources/ai-readiness-quiz/" class="text-blue font-medium hover:underline">Take the free quiz to estimate your score →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Real Results -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-navy mb-8">What AI Analysis Actually Finds</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[
+          { stat: '$91K/yr', label: 'in missed calls recovered', source: 'AgentZap' },
+          { stat: '928%', label: 'ROI on AI estimating tools', source: 'AI Building Tools' },
+          { stat: '41.3%', label: 'admin time reduction in 30 days', source: 'Industry data' },
+          { stat: '20 hrs/wk', label: 'saved on field reporting', source: 'AI Building Tools' },
+          { stat: '+53%', label: 'year-over-year revenue growth', source: 'CNN Business' },
+          { stat: '3.4x', label: 'ROI in the first 30 days', source: 'Industry data' },
+        ].map((item) => (
+          <div class="bg-white p-5 rounded-lg border border-gray-200 text-center">
+            <div class="text-3xl font-bold text-blue mb-1">{item.stat}</div>
+            <div class="text-navy font-medium text-sm">{item.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process (Timeline) -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-navy mb-8 text-center">The Process (5-7 Days)</h2>
+      <div class="relative">
+        <!-- Timeline line -->
+        <div class="absolute left-6 top-6 bottom-6 w-0.5 bg-blue/20 hidden sm:block"></div>
+
+        <div class="space-y-8">
+          {[
+            { n: 1, title: 'Kickoff — Day 1', desc: 'We send you a 20-question assessment form. Takes 15-20 minutes. Covers your workflows, pain points, and goals.' },
+            { n: 2, title: 'Discovery Call — Day 2', desc: '90-minute deep dive into your business. We ask about your biggest bottlenecks, current tools, and where money is being left on the table.' },
+            { n: 3, title: 'Tech Stack Review — Day 3', desc: '30-60 minutes of your time to walk us through your systems. We map integrations, identify gaps, and document everything.' },
+            { n: 4, title: 'AI Analysis — Days 4-5', desc: 'We map 8-15 AI opportunities, score each by impact and effort, calculate ROI estimates, and build your prioritized roadmap.' },
+            { n: 5, title: 'Report Delivery — Days 6-7', desc: '60-minute walkthrough of your complete report. You leave with a clear action plan and specific recommendations.' },
+          ].map((step) => (
+            <div class="flex gap-4 relative">
+              <div class="shrink-0 w-12 h-12 rounded-full bg-blue text-white flex items-center justify-center font-bold text-lg z-10">
+                {step.n}
+              </div>
+              <div class="pt-1">
+                <h3 class="text-lg font-bold text-navy mb-1">{step.title}</h3>
+                <p class="text-gray-600 leading-relaxed">{step.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <FAQ questions={faqs} />
+  </div>
+
+  <!-- CTA -->
+  <CTABlock headline="Ready to Find Out Where Your Money Is Going?" description="Book a free 20-minute call. You'll walk away knowing your top 3 money leaks — even if you never hire us." />
+</BaseLayout>
