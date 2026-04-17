@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ai-consulting-website.sherlock753cc.workers.dev',
+  site: 'https://setpointaudit.com',
   integrations: [mdx(), sitemap()],
 
   fonts: [

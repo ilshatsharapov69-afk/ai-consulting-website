@@ -1,15 +1,14 @@
-// TODO: replace [YOUR BRAND] after brand-name research (see handoff notes)
 export const SITE = {
-  name: '[YOUR BRAND]',
-  tagline: 'Find the money leaks in your HVAC business — with data, not guesswork.',
-  description: 'We analyze your HVAC business — calls, estimates, scheduling, financials — and show you exactly where you\'re losing money. You get a clear report. No guesswork.',
-  url: 'https://ai-consulting-website.sherlock753cc.workers.dev',
-  author: '[YOUR BRAND]',
+  name: 'Setpoint Audit',
+  tagline: 'Find the money leaks in your small business — with data, not guesswork.',
+  description: 'We analyze your small business data — CRM, spreadsheets, POS, calendar, invoices — and show you exactly where you\'re losing money. Any industry. No guesswork.',
+  url: 'https://setpointaudit.com',
+  author: 'Setpoint Audit',
   calUrl: 'https://cal.com/ilshat-sharapov-uk7uld/audit',
   ctaText: 'Show Me Where I\'m Losing Money',
   ctaUrl: '/contact/',
   formApiKey: '598ae70c-fada-44c2-b48b-0b3b777f4e10',
-  email: 'hello@example.com',
+  email: 'hello@setpointaudit.com',
   social: {
     linkedin: '',
     youtube: 'https://youtube.com/@Ilshatai',
@@ -30,7 +29,7 @@ export const SERVICES = [
     slug: 'ai-audit',
     price: '$2,500',
     priceNote: 'one-time',
-    description: 'We plug AI into your business data — calls, estimates, scheduling, financials — and deliver a detailed report showing exactly where you\'re losing money and what to fix first.',
+    description: 'We plug AI into your business data — CRM exports, spreadsheets, POS, scheduling, invoices — and deliver a report showing exactly where you\'re losing money and what to fix first.',
     icon: 'clipboard-check',
   },
   {
@@ -38,7 +37,7 @@ export const SERVICES = [
     slug: 'roadmap',
     price: 'From $5,000',
     priceNote: 'project-based',
-    description: 'A more comprehensive analysis with vendor evaluations, integration mapping, and a 90-day action plan built from your data.',
+    description: 'A comprehensive analysis with vendor evaluations, integration mapping, and a 90-day action plan — built from your own data, tailored to your industry.',
     icon: 'map',
   },
   {
@@ -46,7 +45,7 @@ export const SERVICES = [
     slug: 'retainer',
     price: 'From $2,000/mo',
     priceNote: 'ongoing',
-    description: 'Monthly analysis of your business metrics. We track what\'s improving, what\'s not, and give you updated recommendations.',
+    description: 'Monthly analysis of your business metrics. We track what\'s improving, what\'s not, and give you updated recommendations as your data evolves.',
     icon: 'phone',
   },
 ] as const;
