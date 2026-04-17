@@ -5,10 +5,10 @@ export const SITE = {
   description: 'We analyze your HVAC business — calls, estimates, scheduling, financials — and show you exactly where you\'re losing money. You get a clear report. No guesswork.',
   url: 'https://ai-consulting-website.sherlock753cc.workers.dev',
   author: '[YOUR BRAND]',
-  calUrl: 'https://cal.com/YOUR_LINK',
+  calUrl: 'https://cal.com/ilshat-sharapov-uk7uld/audit',
   ctaText: 'Show Me Where I\'m Losing Money',
   ctaUrl: '/contact/',
-  formApiKey: 'YOUR_WEB3FORMS_KEY',
+  formApiKey: '598ae70c-fada-44c2-b48b-0b3b777f4e10',
   email: 'hello@example.com',
   social: {
     linkedin: '',

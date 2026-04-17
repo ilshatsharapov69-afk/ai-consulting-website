@@ -1,0 +1,44 @@
+{
+  "name": "AI Consulting Website",
+  "slug": "ai-consulting-website",
+  "path": "D:/ai-consulting-website",
+  "repo": "https://github.com/ilshatsharapov69-afk/ai-consulting-website",
+  "framework": "Astro + Tailwind",
+  "progress": 85,
+  "stage": "Deploy-ready; Cloudflare Pages setup pending",
+  "lastUpdated": "2026-04-17",
+  "milestones": [
+    { "name": "Structure (homepage, 3 services, about, contact, 5 blog posts)", "status": "done" },
+    { "name": "AI Readiness Quiz + ROI Calculator", "status": "done" },
+    { "name": "Blog stats fact-check + source attribution", "status": "done" },
+    { "name": "Research-driven CTA copy rewrite", "status": "done" },
+    { "name": "YouTube trust-block in hero (VSL placeholder)", "status": "done" },
+    { "name": "Person schema + jargon cleanup", "status": "done" },
+    { "name": "GitHub repo + push", "status": "done" },
+    { "name": "Cloudflare Pages deploy (user action)", "status": "pending" },
+    { "name": "Brand name research (user async)", "status": "pending" },
+    { "name": "VSL video recording", "status": "pending" },
+    { "name": "Custom domain purchase + setup", "status": "pending" },
+    { "name": "GA4 + Clarity + Web3Forms + Cal.com creds", "status": "pending" }
+  ],
+  "log": [
+    {
+      "date": "2026-04-17",
+      "session": 4,
+      "summary": "Deep research audit (6 agents) + conversion fixes + GitHub deploy. Research-driven CTA copy, YouTube continuity micro-copy, jargon removal, Person schema. Build passes 1.93s, 16 pages. Repo pushed. Cloudflare Pages setup handed off to user."
+    }
+  ],
+  "nextAction": "User creates Cloudflare Pages project from GitHub repo (3 min through dashboard). Then async: brand-name research + VSL script.",
+  "blockers": [
+    "Brand name — requires separate research session (see wiki/knowledge/seo-website-for-ai-consulting.md Deployment notes)",
+    "Domain purchase — blocked on brand",
+    "VSL video — blocked on script research + recording"
+  ],
+  "metrics": {
+    "pages": 16,
+    "buildTimeMs": 1930,
+    "blogPosts": 5,
+    "leadMagnets": 2,
+    "internalLinksPerPost": "5-9"
+  }
+}

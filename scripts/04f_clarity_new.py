@@ -1,0 +1,39 @@
+"""Go to Clarity projects, create new project."""
+import sys, io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+from patchright.sync_api import sync_playwright
+
+
+def main():
+    with sync_playwright() as pw:
+        browser = pw.chromium.connect_over_cdp("http://localhost:9333")
+        ctx = browser.contexts[0]
+        page = None
+        for p in ctx.pages:
+            if "clarity" in p.url:
+                page = p; break
+        if not page:
+            page = ctx.new_page()
+        page.bring_to_front()
+
+        page.goto("https://clarity.microsoft.com/projects", wait_until="domcontentloaded")
+        page.wait_for_timeout(5000)
+        print("URL:", page.url)
+        print("TITLE:", page.title())
+        for h in page.locator("h1, h2, h3").all()[:5]:
+            try:
+                t = h.inner_text().strip()[:80]
+                if t: print(f"  h: {t!r}")
+            except Exception:
+                pass
+        print("--- visible buttons ---")
+        for b in page.locator("button:visible, a:visible").all()[:20]:
+            try:
+                t = b.inner_text().strip()[:80]
+                if t and len(t) < 100: print(f"  {t!r}")
+            except Exception:
+                pass
+
+
+if __name__ == "__main__":
+    main()
