@@ -8,7 +8,7 @@ export const SITE = {
   ctaText: 'Show Me Where I\'m Losing Money',
   ctaUrl: '/contact/',
   formApiKey: '598ae70c-fada-44c2-b48b-0b3b777f4e10',
-  email: 'hello@setpointaudit.com',
+  email: 'ilshat@setpointaudit.com',
   social: {
     linkedin: '',
     youtube: 'https://youtube.com/@Ilshatai',
