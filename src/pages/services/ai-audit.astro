@@ -8,7 +8,7 @@ import { SITE } from '../../config';
 const faqs = [
   {
     question: 'What exactly is an AI Business Analysis?',
-    answer: 'It\'s a comprehensive 5-7 day assessment of your business processes, technology stack, team readiness, and data maturity. You get a detailed PDF report (12-20 pages) with scored AI opportunities, ROI projections for each, and a prioritized action plan. Think of it as a blueprint for where AI can actually save you time and money.',
+    answer: 'It\'s a comprehensive 5-7 day assessment of your business processes, technology stack, team readiness, and data maturity. You get a detailed PDF report (12-20 pages) with scored AI opportunities, ROI projections for each, and a prioritized action plan. Think of it as a blueprint for where AI can actually save you time and money — built from your own data, tailored to your industry.',
   },
   {
     question: 'How long does the analysis take?',
@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     question: 'Is $2,500 worth it?',
-    answer: 'Consider what you\'re already paying: IT consultants charge $3,750-6,250/month. Safety consultants are $2,500-3,500/month. Even a basic ServiceTitan implementation runs $3,000-5,000. The analysis is a one-time investment that shows you exactly where to get the highest ROI from AI — before you spend anything else.',
+    answer: 'Consider what you\'re already paying: IT consultants charge $3,750-6,250/month. Fractional ops or marketing consultants run $2,500-5,000/month. Even a basic all-in-one SMB platform implementation (ServiceTitan, Shopify Plus, Toast, Salesforce) runs $10,000-25,000. The analysis is a one-time investment that shows you exactly where to get the highest ROI from AI — before you spend anything else.',
   },
   {
     question: 'What if AI isn\'t right for my business?',
@@ -28,17 +28,21 @@ const faqs = [
   },
   {
     question: 'Do I need any special tech or IT staff?',
-    answer: 'No. Most of our clients use QuickBooks, a scheduling app, and spreadsheets. That\'s enough to start. The analysis evaluates what you have and recommends tools that work with your existing setup — no IT department required.',
+    answer: 'No. Most of our clients use QuickBooks, a CRM or POS, and spreadsheets — whatever their business runs on. That\'s enough to start. The analysis evaluates what you have and recommends tools that work with your existing setup — no IT department required.',
+  },
+  {
+    question: 'Which industries does this work for?',
+    answer: 'Any small business that generates data: service trades (HVAC, plumbing, electrical, cleaning), restaurants, e-commerce & retail, professional services (accounting, legal, consulting), construction & remodeling, home services, fitness & wellness, healthcare clinics, automotive. If you have digital records and $500K+ annual revenue, the method works.',
   },
 ];
 ---
 
 <BaseLayout
   title="AI Business Analysis"
-  description="Find out exactly where your contracting business is losing money. AI analyzes your calls, estimates, scheduling, and finances. $2,500 one-time. Zero risk guarantee."
+  description="Find out exactly where your small business is losing money. AI analyzes your CRM, spreadsheets, POS, scheduling data. $2,500 one-time. Any industry."
   breadcrumbs={[{ name: 'Services', url: '/services/' }, { name: 'AI Business Analysis', url: '/services/ai-audit/' }]}
 >
-  <JsonLd type="service" data={{ name: 'AI Business Analysis', description: 'Comprehensive business analysis for contractors — finds where revenue is leaking and what to fix first.', price: '2500' }} />
+  <JsonLd type="service" data={{ name: 'AI Business Analysis', description: 'Comprehensive AI business analysis for small businesses — finds where revenue is leaking and what to fix first. Any industry.', price: '2500' }} />
   <JsonLd type="faqPage" data={{ questions: faqs }} />
 
   <!-- Hero — pain-driven -->
@@ -53,8 +57,8 @@ const faqs = [
         Stop Guessing Where Your Money Goes
       </h1>
       <p class="text-xl text-gray-300 mb-6 leading-relaxed">
-        AI analyzes your calls, estimates, scheduling, and finances — then delivers a report
-        showing every dollar you're losing, and what to fix first.
+        AI analyzes your business data — CRM, spreadsheets, calendar, POS, invoices — then
+        delivers a report showing every dollar you're losing, and what to fix first.
       </p>
       <div class="flex flex-wrap items-center gap-6 mb-8">
         <div>
@@ -97,10 +101,10 @@ const faqs = [
           </h3>
           <ul class="space-y-3">
             {[
-              'You run a contracting business with 5-50+ employees',
-              'You use QuickBooks, a scheduling app, or a CRM',
+              'You run a small business with 5-50+ employees',
+              'You use QuickBooks, a CRM, a POS, or business spreadsheets',
               'You know money is leaking somewhere but can\'t pinpoint where',
-              'You\'re open to using technology to save time and money',
+              'You\'re open to using AI to save time and money',
               'You can invest $2,500 to potentially save $25,000+/year',
             ].map((item) => (
               <li class="flex items-start gap-2 text-gray-700 text-sm">
@@ -121,7 +125,7 @@ const faqs = [
           </h3>
           <ul class="space-y-3">
             {[
-              'You\'re a one-person operation with no employees',
+              'You\'re a solo operator with no employees',
               'Your business does under $500K in annual revenue',
               'You don\'t use any digital tools (no email, no apps)',
               'You\'re looking for someone to run your business for you',
@@ -230,11 +234,11 @@ const faqs = [
       <p class="text-gray-600 mb-8">Each dimension gets scored individually, so you know exactly where you're strong and where to focus.</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {[
-          { title: 'Business Processes', desc: 'Lead intake, estimating, proposals, scheduling, field work, invoicing, and follow-up workflows.', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
-          { title: 'Data Maturity', desc: 'Where your data lives, its quality, accessibility, and centralization. Customer records, job cost history, past projects.', icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4' },
-          { title: 'Technology Stack', desc: 'Current software, integrations (or lack thereof), cloud vs. on-premise. QuickBooks, Buildertrend, ServiceTitan, spreadsheets.', icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
-          { title: 'Team Readiness', desc: 'Digital literacy across office staff and field crews, change readiness, and existing AI awareness.', icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z' },
-          { title: 'Governance & Security', desc: 'Compliance requirements, data privacy practices, OSHA reporting, contract confidentiality.', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
+          { title: 'Business Processes', desc: 'Lead intake, sales, operations, fulfillment, invoicing, customer service workflows.', icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4' },
+          { title: 'Data Maturity', desc: 'Customer records, transaction history, operational data. Where it lives, how clean it is, whether you can actually query it.', icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4' },
+          { title: 'Technology Stack', desc: 'Current software and integrations. QuickBooks, Stripe, Shopify, Toast, CRM, scheduling — whatever you run on.', icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
+          { title: 'Team Readiness', desc: 'Digital literacy across office staff and frontline employees, change readiness, and existing AI awareness.', icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z' },
+          { title: 'Governance & Security', desc: 'Compliance requirements (PCI, HIPAA, state privacy), data privacy practices, customer confidentiality.', icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },
           { title: 'Financial Readiness', desc: 'Budget for tools, ROI expectations, current tech spend as % of revenue.', icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z' },
         ].map((item) => (
           <div class="p-5 border border-gray-200 rounded-lg hover:border-blue/30 transition-colors">
@@ -259,7 +263,7 @@ const faqs = [
   <section class="py-16 bg-gray-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl sm:text-3xl font-bold text-navy mb-4">Your AI Readiness Score</h2>
-      <p class="text-gray-600 mb-8">Your business gets scored on a 100-point scale. Most contractors with 10-50 employees score 41-60 (Emerging Readiness).</p>
+      <p class="text-gray-600 mb-8">Your business gets scored on a 100-point scale. Most small businesses with 10-50 employees score 41-60 (Emerging Readiness).</p>
       <div class="space-y-4">
         {[
           { range: '0-40', level: 'Foundation Building', desc: 'Processes are mostly manual. Focus on digitizing basics first.', width: '40%', color: 'bg-gray-300' },
@@ -272,7 +276,7 @@ const faqs = [
               <div>
                 <span class="text-lg font-bold text-navy">{item.range}</span>
                 <span class="text-navy font-semibold ml-2">— {item.level}</span>
-                {item.highlight && <span class="ml-2 text-xs text-blue font-medium">(Most contractors are here)</span>}
+                {item.highlight && <span class="ml-2 text-xs text-blue font-medium">(Most small businesses are here)</span>}
               </div>
             </div>
             <div class="w-full bg-gray-100 rounded-full h-2 mb-2">
@@ -294,16 +298,17 @@ const faqs = [
       <h2 class="text-2xl sm:text-3xl font-bold text-navy mb-8">What AI Analysis Actually Finds</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {[
-          { stat: '$91K/yr', label: 'in missed calls recovered', source: 'AgentZap' },
-          { stat: '928%', label: 'ROI on AI estimating tools', source: 'AI Building Tools' },
-          { stat: '41.3%', label: 'admin time reduction in 30 days', source: 'Industry data' },
-          { stat: '20 hrs/wk', label: 'saved on field reporting', source: 'AI Building Tools' },
-          { stat: '+53%', label: 'year-over-year revenue growth', source: 'CNN Business' },
-          { stat: '3.4x', label: 'ROI in the first 30 days', source: 'Industry data' },
+          { stat: '70%', label: 'e-commerce cart abandonment rate', source: 'Baymard Institute' },
+          { stat: '4-10%', label: 'food cost lost to waste in restaurants', source: 'NRA / LeanPath' },
+          { stat: '37%', label: 'lawyer billable utilization — 5 hrs/day on admin', source: 'Clio 2024' },
+          { stat: '62%', label: 'of small business calls go unanswered', source: '411 Locals study' },
+          { stat: '60-70%', label: 'of employee time AI can automate', source: 'McKinsey' },
+          { stat: '20-50%', label: 'inventory reduction with AI forecasting', source: 'McKinsey' },
         ].map((item) => (
           <div class="bg-white p-5 rounded-lg border border-gray-200 text-center">
             <div class="text-3xl font-bold text-blue mb-1">{item.stat}</div>
             <div class="text-navy font-medium text-sm">{item.label}</div>
+            <div class="text-xs text-gray-400 mt-1">{item.source}</div>
           </div>
         ))}
       </div>

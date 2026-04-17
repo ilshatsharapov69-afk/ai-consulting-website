@@ -5,8 +5,8 @@ import { SITE } from '../../config';
 ---
 
 <BaseLayout
-  title="How AI-Ready Is Your HVAC Business?"
-  description="Take this free 12-question quiz to score your HVAC business AI readiness. Get instant results and personalized recommendations."
+  title="How AI-Ready Is Your Small Business?"
+  description="Take this free 12-question quiz to score your small business AI readiness. Get instant results and personalized recommendations. Any industry."
   breadcrumbs={[{ name: 'Resources', url: '/resources/' }, { name: 'AI Readiness Quiz', url: '/resources/ai-readiness-quiz/' }]}
 >
   <section class="py-16">
@@ -15,7 +15,7 @@ import { SITE } from '../../config';
         <h1 class="text-3xl sm:text-4xl font-bold text-navy mb-4">How AI-Ready Is Your Business?</h1>
         <p class="text-lg text-gray-600">
           Answer 12 questions to get your AI Readiness Score. Takes about 3 minutes.
-          Your results are instant — no email required.
+          Your results are instant — no email required. Works for any industry.
         </p>
       </div>
 
@@ -109,23 +109,23 @@ const questions = [
   { category: 'Data', question: 'Where do you keep your customer records?', options: [
     { text: 'Mostly in my head or on paper', score: 0 },
     { text: 'Scattered across spreadsheets and email', score: 1 },
-    { text: 'In a CRM or job management app', score: 2 },
+    { text: 'In a CRM, POS, or job management app', score: 2 },
     { text: 'Centralized system with clean, searchable records', score: 3 },
   ]},
-  { category: 'Data', question: 'Can you pull up cost history for a job you did 2 years ago?', options: [
+  { category: 'Data', question: 'Can you pull up records for a transaction, project, or customer from 2 years ago?', options: [
     { text: 'No, I\'d have to dig through old files', score: 0 },
     { text: 'Maybe, if I search long enough', score: 1 },
-    { text: 'Yes, in QuickBooks or my PM tool', score: 2 },
+    { text: 'Yes, in QuickBooks, CRM, or my main tool', score: 2 },
     { text: 'Yes, instantly with detailed breakdowns', score: 3 },
   ]},
-  { category: 'Data', question: 'How do you track which marketing channels bring in leads?', options: [
+  { category: 'Data', question: 'How do you track which marketing channels bring in customers?', options: [
     { text: 'I don\'t really track that', score: 0 },
     { text: 'I ask "how did you hear about us?"', score: 1 },
-    { text: 'I use Google Analytics or call tracking', score: 2 },
+    { text: 'I use Google Analytics, UTMs, or call tracking', score: 2 },
     { text: 'Full attribution tracking across channels', score: 3 },
   ]},
   // Team Capability (weight: 25%)
-  { category: 'Team', question: 'How comfortable is your office staff with new software?', options: [
+  { category: 'Team', question: 'How comfortable is your team with new software?', options: [
     { text: 'They resist any change', score: 0 },
     { text: 'They\'ll use it if they have to', score: 1 },
     { text: 'They adapt after some training', score: 2 },
@@ -144,21 +144,21 @@ const questions = [
     { text: 'We have someone who manages our tech stack', score: 3 },
   ]},
   // Process Documentation (weight: 20%)
-  { category: 'Process', question: 'If your best estimator quit tomorrow, could someone else pick up their jobs?', options: [
+  { category: 'Process', question: 'If your best-trained employee quit tomorrow, could someone else pick up their work?', options: [
     { text: 'No — it\'s all in their head', score: 0 },
     { text: 'Partially — they\'d figure it out eventually', score: 1 },
     { text: 'Yes, with some guidance from documented processes', score: 2 },
-    { text: 'Yes, our estimating process is fully documented', score: 3 },
+    { text: 'Yes, our workflows are fully documented', score: 3 },
   ]},
   { category: 'Process', question: 'How standardized is your lead-to-close process?', options: [
-    { text: 'Every job is handled differently', score: 0 },
+    { text: 'Every customer is handled differently', score: 0 },
     { text: 'We have a general flow but it varies', score: 1 },
     { text: 'Consistent process with some documentation', score: 2 },
     { text: 'Fully documented with checklists and automation', score: 3 },
   ]},
   // Infrastructure (weight: 15%)
   { category: 'Infrastructure', question: 'How many separate software tools does your team use?', options: [
-    { text: '1-2 (QuickBooks and maybe a scheduling app)', score: 1 },
+    { text: '1-2 (QuickBooks or a similar basic setup)', score: 1 },
     { text: '3-5 tools that mostly don\'t connect', score: 1 },
     { text: '3-5 tools with some integrations', score: 2 },
     { text: '5+ tools that are well-integrated', score: 3 },
@@ -283,7 +283,7 @@ function showResults() {
     description = 'Your business runs mostly on manual processes. Before AI tools, you need to digitize the basics — get your data into a system and document your key workflows. The good news: there are quick wins even at this stage.';
   } else if (totalScore <= 60) {
     level = 'Emerging Readiness';
-    description = 'You\'re using some software but your tools don\'t talk to each other. You\'re ready for 1-2 targeted AI pilots — like an AI answering service or ChatGPT for proposals. Most contractors with 10-50 employees are at this level.';
+    description = 'You\'re using some software but your tools don\'t talk to each other. You\'re ready for 1-2 targeted AI pilots — like an AI answering service, ChatGPT for drafting, or automated customer follow-ups. Most small businesses with 10-50 employees are at this level.';
   } else if (totalScore <= 80) {
     level = 'Strong Preparation';
     description = 'You have a solid tech foundation with integrated tools and documented workflows. You\'re ready for 3-5 AI initiatives that can deliver significant ROI. A strategy roadmap would help you prioritize.';
@@ -309,8 +309,8 @@ function showResults() {
   };
   const catRecs: Record<string, Record<string, string>> = {
     Data: {
-      low: 'Start with a CRM or job management app. Get your customer records and job history into one searchable system.',
-      mid: 'Connect your existing tools so data flows between them. Consider integrating QuickBooks with your scheduling app.',
+      low: 'Start with a CRM or POS. Get your customer records and transaction history into one searchable system.',
+      mid: 'Connect your existing tools so data flows between them. Consider integrating QuickBooks with your CRM, POS, or scheduling app.',
       high: 'Your data foundation is solid. Focus on using AI to find patterns in your historical data.',
     },
     Team: {
@@ -319,13 +319,13 @@ function showResults() {
       high: 'Your team is ready for AI tools. Focus on choosing the right ones and tracking ROI.',
     },
     Process: {
-      low: 'Document your top 3 workflows: lead intake, estimating, and invoicing. Even a basic checklist helps.',
+      low: 'Document your top 3 workflows: lead intake, sales, and invoicing. Even a basic checklist helps.',
       mid: 'Your processes are partially documented. Identify the biggest bottleneck and standardize that first.',
       high: 'Strong process documentation. AI can now automate or augment your well-defined workflows.',
     },
     Infrastructure: {
-      low: 'Move to cloud-based tools for key functions. Start with cloud backup and a cloud scheduling app.',
-      mid: 'Your tools need better integration. Look for apps with built-in API connections or use Zapier.',
+      low: 'Move to cloud-based tools for key functions. Start with cloud backup and a cloud CRM or POS.',
+      mid: 'Your tools need better integration. Look for apps with built-in API connections or use Zapier / Make.',
       high: 'Well-integrated infrastructure. You\'re ready for AI tools that plug into your existing stack.',
     },
     Budget: {

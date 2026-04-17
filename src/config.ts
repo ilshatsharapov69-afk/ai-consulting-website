@@ -4,7 +4,7 @@ export const SITE = {
   description: 'We analyze your small business data — CRM, spreadsheets, POS, calendar, invoices — and show you exactly where you\'re losing money. Any industry. No guesswork.',
   url: 'https://setpointaudit.com',
   author: 'Setpoint Audit',
-  calUrl: 'https://cal.com/ilshat-sharapov-uk7uld/audit',
+  calUrl: 'https://cal.com/ilshatai/audit',
   ctaText: 'Show Me Where I\'m Losing Money',
   ctaUrl: '/contact/',
   formApiKey: '598ae70c-fada-44c2-b48b-0b3b777f4e10',
