@@ -3,7 +3,7 @@ export const SITE = {
   name: '[YOUR BRAND]',
   tagline: 'Find the money leaks in your HVAC business — with data, not guesswork.',
   description: 'We analyze your HVAC business — calls, estimates, scheduling, financials — and show you exactly where you\'re losing money. You get a clear report. No guesswork.',
-  url: 'https://ilshat-ai-audit.pages.dev',
+  url: 'https://ai-consulting-website.sherlock753cc.workers.dev',
   author: '[YOUR BRAND]',
   calUrl: 'https://cal.com/YOUR_LINK',
   ctaText: 'Show Me Where I\'m Losing Money',
