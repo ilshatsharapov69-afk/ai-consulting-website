@@ -102,10 +102,13 @@ function getSchema() {
         ...(data.updatedDate && { dateModified: data.updatedDate }),
         author: {
           '@type': 'Person',
-          name: SITE.author,
+          '@id': `${siteUrl}/#person`,
+          name: SITE.authorPerson,
+          url: `${siteUrl}/about/`,
         },
         publisher: {
           '@type': 'Organization',
+          '@id': `${siteUrl}/#organization`,
           name: SITE.name,
         },
         mainEntityOfPage: {

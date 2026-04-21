@@ -1,0 +1,70 @@
+---
+import { SITE } from '../config';
+
+interface Props {
+  pubDate: Date;
+  readingTime: string;
+  variant?: 'top' | 'bottom';
+}
+
+const { pubDate, readingTime, variant = 'top' } = Astro.props;
+const isoDate = pubDate.toISOString();
+const displayDate = pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+{variant === 'top' ? (
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 mb-8 not-prose">
+    <div class="flex items-center gap-3 py-3 border-t border-b border-gray-200">
+      <img
+        src={SITE.authorPhoto}
+        alt={SITE.authorPerson}
+        width="40"
+        height="40"
+        class="w-10 h-10 rounded-full object-cover shrink-0"
+        loading="eager"
+      />
+      <div class="min-w-0 flex-1">
+        <div class="text-sm font-semibold text-navy leading-tight">
+          <a href="/about/" class="no-underline hover:underline">{SITE.authorPerson}</a>
+          <span class="text-gray-500 font-normal"> · {SITE.authorCredential}</span>
+        </div>
+        <div class="text-xs text-gray-500 mt-0.5">
+          <time datetime={isoDate}>{displayDate}</time>
+          <span class="mx-1.5">·</span>
+          <span>{readingTime}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+) : (
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 mt-12 not-prose">
+    <div class="p-6 bg-gray-50 rounded-xl border border-gray-200 flex items-start gap-4">
+      <img
+        src={SITE.authorPhoto}
+        alt={SITE.authorPerson}
+        width="56"
+        height="56"
+        class="w-14 h-14 rounded-full object-cover shrink-0"
+        loading="lazy"
+      />
+      <div>
+        <div class="font-bold text-navy mb-1">{SITE.authorPerson}</div>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          {SITE.authorCredential}. Runs the Data-to-Dollars Audit for US small businesses
+          doing $500K–$10M. Reads QuickBooks, CRM, calendar and invoices for five working
+          days and names where the revenue is leaking.
+        </p>
+        <div class="flex gap-3 mt-2">
+          <a href="/about/" class="text-blue text-sm font-medium no-underline hover:underline">About →</a>
+          {SITE.social.youtube && (
+            <a href={SITE.social.youtube} target="_blank" rel="noopener noreferrer" class="text-blue text-sm font-medium no-underline hover:underline">YouTube →</a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+)}

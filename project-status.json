@@ -5,7 +5,7 @@
   "repo": "https://github.com/ilshatsharapov69-afk/ai-consulting-website",
   "framework": "Astro + Tailwind",
   "progress": 99,
-  "stage": "LIVE with transparent $2,500 pricing + audit-or-refund guarantee + AI-crawler allowlist + unified @graph schema + llms.txt. Session 8 'no price' rule reversed per HockeyStack data (1.7x pipeline conversion). Next: Session B flagship pillar post 'Data-to-Dollars Audit methodology' + blog retrofit. Services/about still legacy palette.",
+  "stage": "LIVE + Session B complete: 3,500-word flagship pillar post 'Small Business Data Audit Guide' published, 5 existing posts retrofitted with FAQPage schema + pillar links, AuthorByline component with Person schema, blog/index featured callout for pillar. 9 external citations, 6 Data-to-Dollars Audit mentions, zero fabrication (AVA Dental dropped per research verification — vendor-only source). Next: Session C — Entity building (LinkedIn URL, Crunchbase), AEO monitoring (5-prompt × 2-LLM weekly), YouTube flagship video, case study capture protocol.",
   "lastUpdated": "2026-04-21",
   "milestones": [
     { "name": "Structure (homepage, 3 services, about, contact, 5 blog posts)", "status": "done" },
@@ -43,6 +43,11 @@
     { "name": "Session C: Wikidata-alt entity signals (Crunchbase + LinkedIn Company Page) + YouTube explainer + AEO monitoring + case study protocol", "status": "pending" }
   ],
   "log": [
+    {
+      "date": "2026-04-21",
+      "session": 10,
+      "summary": "Session B complete — flagship pillar post + blog retrofit. (B0) Infrastructure: AuthorByline component with BlogPosting + Person @id graph refs, BlogPost.astro renders FAQ section + FAQPage JSON-LD from frontmatter, content.config.ts Zod schema extended with faqs[], config.ts split authorPerson/authorCredential/authorPhoto (founder-avatar-round.jpg). about.astro duplicate <JsonLd type=person> removed (Person lives in @graph via organization call). (B1) Keyword findings saved to research/2026-04-21_pillar-keywords/report.md — primary target 'small business data audit methodology' verified rankable (Improvado/MonteCarlo, no McKinsey/HBR), secondary 'find revenue leaks small business data' micro-niche, 'data-to-dollars audit' brand term uncontested. (B2) Pillar post src/content/blog/small-business-data-audit-guide.md: 3,496 file wc, 6 Data-to-Dollars Audit mentions, 9 external citations, 6 H2 sections + 8-question FAQ, front-loaded direct answers in every H2 (44.2% AI citations from first 30% — upGrowth 2026). Zero fabrication: AVA Dental DROPPED post-verification (Adit.com vendor-only, no named practice); Goop Kitchen 2% margin attributed strictly to ClearCOGS case study; Misfit Toys NPR quotes reframed accurately as margin-erosion pattern not data-blindness; Baymard 70.22% (Sept 2025 update); Clio 2024 replaces AVA. (B3) 5 existing posts retrofitted: faqs[] frontmatter (4 Q&A each), single contextual link to pillar per post. (B4) blog/index featured callout with 'Flagship · Methodology' badge + 'Read the full methodology →' CTA. (B5) llms.txt updated with pillar URL + 5 supporting posts listed. Build: 17 pages, 0 errors, 2.20s. FAQPage schema in 6/6 blog posts. Git tag pre-session-b-2026-04-21 created before B2."
+    },
     {
       "date": "2026-04-17",
       "session": 4,

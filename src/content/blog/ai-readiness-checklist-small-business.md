@@ -5,9 +5,18 @@ pubDate: 2026-04-02
 tags: ["small-business", "ai", "checklist", "readiness"]
 keywords: ["AI readiness checklist", "AI readiness small business", "is my business ready for AI", "small business AI assessment"]
 readingTime: "8 min read"
+faqs:
+  - question: "What score means my small business is actually ready for AI?"
+    answer: "70+ out of 100 means you can adopt most small-business AI tools with low risk. 40-69 means pick one focused use case (usually the one where your data is cleanest) and pilot there. Below 40, fix the data foundations first — AI on top of bad data amplifies the bad data."
+  - question: "How long does it take to move from a 45 score to a 70?"
+    answer: "Three to six months for most businesses. The fastest gains come from centralizing customer records (fixing Data Maturity) and documenting one or two key workflows (Process Documentation). Team capability and budget tend to follow once the first two land."
+  - question: "Do I need to score well in every category?"
+    answer: "No. Data Maturity and Process Documentation are the two that gate everything else — those need to be at 2 or 3 on every question. Team Capability, Infrastructure, and Budget can trail and still support a useful pilot."
+  - question: "Can I skip the checklist and just buy an AI tool?"
+    answer: "You can, and you might be fine — or you'll be in the group that cancels after 90 days because nobody uses it. The checklist exists because buying AI is easier than adopting it, and the gap between the two is where most small-business AI spend goes to waste."
 ---
 
-Every small business owner hears "you should be using AI." Fewer hear the honest follow-up: **not yet** — or **not this tool**. Adopting AI tools before your business has the foundations to support them is a fast way to waste money on software nobody uses.
+Every small business owner hears "you should be using AI." Fewer hear the honest follow-up: **not yet** — or **not this tool**. Adopting AI tools before your business has the foundations to support them is a fast way to waste money on software nobody uses. Readiness is upstream of return. (If you score below 60 on data maturity, reading a [small business data audit methodology guide](/blog/small-business-data-audit-guide/) first is usually a better next step than buying a tool.)
 
 This checklist helps you score yourself honestly. 12 questions across 5 categories. Takes about 10 minutes. The result is not a number to brag about — it is a map of where to focus before (or while) investing in AI tools.
 

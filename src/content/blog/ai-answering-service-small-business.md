@@ -5,11 +5,20 @@ pubDate: 2026-04-10
 tags: ["small-business", "ai", "answering-service", "lead-generation"]
 keywords: ["AI answering service small business", "virtual receptionist AI", "24/7 AI phone answering", "missed calls small business"]
 readingTime: "10 min read"
+faqs:
+  - question: "How much does an AI answering service cost for a small business?"
+    answer: "Entry-tier AI receptionist services run $150-$400/month for small call volumes (under 200 calls). Higher volume or industry-specific integrations push costs to $600-$1,200/month. Compare that to one missed lead per week at your average ticket — usually the service pays for itself inside 60 days."
+  - question: "Will an AI receptionist sound robotic to my customers?"
+    answer: "The good ones in 2026 don't. Voice quality is close to indistinguishable from a human receptionist for 30-60 second interactions like intake, scheduling, and routing. For emotionally charged calls (complaints, crises), set it to route to a human immediately — don't have AI handle what needs empathy."
+  - question: "Do AI answering services work for trades and service businesses specifically?"
+    answer: "Yes — HVAC, plumbing, electrical, cleaning, and home-services businesses tend to get the highest ROI because they miss the highest share of calls (late-evening emergencies, weekend requests) and their average ticket is high enough to pay for the service with one recovered lead per month."
+  - question: "What happens if the AI gets a question it can't handle?"
+    answer: "Well-configured services hand off to a human backup or take a message and notify you immediately. The worst-configured services loop the caller or hang up. Ask any vendor to demo the hand-off behavior before you sign — that's where the cheap services fall apart."
 ---
 
 A prospect calls your business. Rings four times. Voicemail picks up. They hang up without leaving a message and call the next company on their list.
 
-You never even knew they called.
+You never even knew they called. (A missed-call rate north of 40% is one of the most common [revenue leak patterns a small business data audit](/blog/small-business-data-audit-guide/) surfaces — and it's also one of the fastest to dollar-size once you know your average ticket.)
 
 Across small businesses generally — not one industry — the problem is staggering. A [30-day study by 411 Locals](https://411locals.us/small-business-owners-dont-answer-62-of-phone-calls/) monitoring 85 small businesses across 58 different industries found that only 37.8% of incoming calls were answered by a live person. That is 62% of calls going to voicemail or ringing out with nobody picking up. Every one of those calls represents a prospect who had money to spend and could not reach you.
 

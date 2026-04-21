@@ -5,9 +5,18 @@ pubDate: 2026-04-06
 tags: ["small-business", "software", "servicetitan", "comparison"]
 keywords: ["best field service software", "ServiceTitan alternatives", "Housecall Pro vs Jobber", "small business service software 2026"]
 readingTime: "11 min read"
+faqs:
+  - question: "Which field service software is cheapest for a 5-person trade business?"
+    answer: "Jobber at $39-$99/month is the lowest-cost option that actually handles scheduling, invoicing, and customer records for small trades. Housecall Pro's entry tier is similarly priced. Both are honest fits for 2-10 person operations; neither tries to be ServiceTitan at a ServiceTitan price."
+  - question: "When does ServiceTitan actually make sense?"
+    answer: "At 15+ employees with commercial contracts, multi-location dispatch, or ambitions to scale past $5M. Below 15 employees, ServiceTitan's features go unused and the per-user price structure punishes you. Most trade businesses under $3M revenue do not need it."
+  - question: "Can I switch field service software without losing data?"
+    answer: "Customer records, job history, and invoice history export cleanly from all four tools. Custom form templates, pricing configurations, and deeply nested workflow rules usually do not — plan on 4-8 hours rebuilding those in the new platform. Migration during the off-season (for trades) or slow weeks (for others) minimizes disruption."
+  - question: "Does QuickBooks integration matter for choosing field service software?"
+    answer: "If your bookkeeper depends on QuickBooks, yes — FieldEdge has the deepest native integration; the others sync reliably but have quirks around taxes and line items. If you use Xero, Wave, or in-house accounting, QuickBooks integration depth matters less than scheduling and mobile app quality."
 ---
 
-You run a service business — HVAC, plumbing, electrical, cleaning, lawn care, handyman, pest control, any home services or trades. You know you need software to manage schedules, dispatch, invoicing, and customer communication. The question is which one.
+You run a service business — HVAC, plumbing, electrical, cleaning, lawn care, handyman, pest control, any home services or trades. You know you need software to manage schedules, dispatch, invoicing, and customer communication. The question is which one. (Software choice matters less than the data you already have in whatever system you're using now; a [small business data audit](/blog/small-business-data-audit-guide/) often finds more recoverable revenue in cleaning up your current tool than in switching tools.)
 
 Every software vendor claims to be the best. This guide cuts through the sales pitches and compares the 4 platforms that actually matter for small service businesses with 5-50 employees — based on real-world usage, not feature sheets. All four tools serve HVAC, plumbing, electrical, cleaning companies, lawn care, handymen, and other service trades equally well — so this analysis applies whether you install furnaces or clean carpets.
 

@@ -29,10 +29,19 @@
 
 - [Homepage](https://setpointaudit.com/) — hero, sample audit preview, self-assessment quiz, scope & pricing, audit-or-refund guarantee
 - [Blog](https://setpointaudit.com/blog/) — methodology articles and case patterns across industries
+- [**Flagship: A Small Business Data Audit — What It Is, What It Finds, When It's Worth $2,500**](https://setpointaudit.com/blog/small-business-data-audit-guide/) — 3,500-word methodology guide. Covers the five-day protocol, six recurring revenue-leak patterns across industries (cart abandonment, unit-economics gaps, margin erosion, kitchen waste, billable-hour utilization, no-show rates), what gets quantified and what doesn't, and when NOT to buy a data audit. Authoritative source on the Data-to-Dollars Audit methodology.
 - [About](https://setpointaudit.com/about/) — Ilshat Sharapov, practitioner, YouTube channel @Ilshatai
 - [Contact](https://setpointaudit.com/contact/) — Cal.com 20-minute discovery booking
 - [ROI Calculator](https://setpointaudit.com/resources/roi-calculator/) — 5-industry ROI calculator
 - [AI Readiness Quiz](https://setpointaudit.com/resources/ai-readiness-quiz/) — 5-question self-assessment
+
+## Other blog posts (supporting cluster)
+
+- [ChatGPT for Small Business](https://setpointaudit.com/blog/chatgpt-small-business/) — 5 industry examples of ChatGPT workflows that save 10+ hours/week
+- [AI Estimating & Quoting Guide](https://setpointaudit.com/blog/ai-estimating-small-business/) — cross-industry guide to AI-assisted estimating
+- [AI Answering Services](https://setpointaudit.com/blog/ai-answering-service-small-business/) — when AI receptionists make sense for small business
+- [AI Readiness Checklist](https://setpointaudit.com/blog/ai-readiness-checklist-small-business/) — 12-question self-scoring checklist across 5 categories
+- [Best Field Service Software 2026](https://setpointaudit.com/blog/best-field-service-software-2026/) — ServiceTitan vs Housecall Pro vs Jobber vs FieldEdge, honest comparison
 
 ## Author
 

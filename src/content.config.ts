@@ -14,6 +14,14 @@ const blog = defineCollection({
       tags: z.array(z.string()).default([]),
       keywords: z.array(z.string()).default([]),
       readingTime: z.string().default('5 min read'),
+      faqs: z
+        .array(
+          z.object({
+            question: z.string(),
+            answer: z.string(),
+          })
+        )
+        .optional(),
     }),
 });
 
