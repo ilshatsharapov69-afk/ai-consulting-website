@@ -4,9 +4,9 @@
   "path": "D:/ai-consulting-website",
   "repo": "https://github.com/ilshatsharapov69-afk/ai-consulting-website",
   "framework": "Astro + Tailwind",
-  "progress": 85,
-  "stage": "Deploy-ready; Cloudflare Pages setup pending",
-  "lastUpdated": "2026-04-17",
+  "progress": 99,
+  "stage": "LIVE with transparent $2,500 pricing + audit-or-refund guarantee + AI-crawler allowlist + unified @graph schema + llms.txt. Session 8 'no price' rule reversed per HockeyStack data (1.7x pipeline conversion). Next: Session B flagship pillar post 'Data-to-Dollars Audit methodology' + blog retrofit. Services/about still legacy palette.",
+  "lastUpdated": "2026-04-21",
   "milestones": [
     { "name": "Structure (homepage, 3 services, about, contact, 5 blog posts)", "status": "done" },
     { "name": "AI Readiness Quiz + ROI Calculator", "status": "done" },
@@ -15,30 +15,81 @@
     { "name": "YouTube trust-block in hero (VSL placeholder)", "status": "done" },
     { "name": "Person schema + jargon cleanup", "status": "done" },
     { "name": "GitHub repo + push", "status": "done" },
+    { "name": "Cross-industry positioning pivot (HVAC-only → SMB methodology niche)", "status": "done" },
+    { "name": "ROI calculator industry picker (4 industry formulas + fallback)", "status": "done" },
+    { "name": "Blog posts rewritten + slugs renamed with 301 redirects", "status": "done" },
     { "name": "Cloudflare Pages deploy (user action)", "status": "pending" },
     { "name": "Brand name research (user async)", "status": "pending" },
-    { "name": "VSL video recording", "status": "pending" },
+    { "name": "VSL script written (Data-to-Dollars Audit, 9:24, score 97/100)", "status": "done" },
+    { "name": "VSL video recording (script ready, awaiting shoot day)", "status": "pending" },
     { "name": "Custom domain purchase + setup", "status": "pending" },
-    { "name": "GA4 + Clarity + Web3Forms + Cal.com creds", "status": "pending" }
+    { "name": "GA4 + Clarity + Web3Forms + Cal.com creds", "status": "pending" },
+    { "name": "New flagship blog post: The Ninety-Minute Data Audit methodology", "status": "pending" },
+    { "name": "Premium redesign — research (4 parallel agents, full plan locked)", "status": "done" },
+    { "name": "Premium redesign — baseline (global.css tokens + fonts + config CTA)", "status": "done" },
+    { "name": "Premium redesign — index.astro rewrite (10 sections problem-first)", "status": "done" },
+    { "name": "Premium redesign — 3 new components (GrainyAurora, DifferenceTable, SelfAssessment)", "status": "done" },
+    { "name": "Homepage 10x rewrite — voice unified to 'I', sample-audit visual, practitioner-tone trust rebuild", "status": "done" },
+    { "name": "Homepage Header/Footer dark variant scoped to body.home", "status": "done" },
+    { "name": "Quiz email capture + tailored 3-leaks reveal + Cal embed", "status": "done" },
+    { "name": "Services/about/contact pages palette + voice unification (next session)", "status": "pending" },
+    { "name": "Claude Design access (support ticket filed 2026-04-19, waiting for rollout)", "status": "pending" },
+    { "name": "Session 9: transparent pricing ($2,500 pill + Scope section + FAQ Q6/Q7 + DifferenceTable anchor)", "status": "done" },
+    { "name": "Session 9: audit-or-refund guarantee (Scope section + FAQ)", "status": "done" },
+    { "name": "Session 9: robots.txt expanded for 18 AI crawlers", "status": "done" },
+    { "name": "Session 9: llms.txt created (public/llms.txt)", "status": "done" },
+    { "name": "Session 9: JsonLd @graph unified (Organization + Person + Service + WebSite cross-refs)", "status": "done" },
+    { "name": "Session B: flagship pillar post + 5 blog posts retrofit (FAQPage + author bylines + internal links)", "status": "pending" },
+    { "name": "Session C: Wikidata-alt entity signals (Crunchbase + LinkedIn Company Page) + YouTube explainer + AEO monitoring + case study protocol", "status": "pending" }
   ],
   "log": [
     {
       "date": "2026-04-17",
       "session": 4,
       "summary": "Deep research audit (6 agents) + conversion fixes + GitHub deploy. Research-driven CTA copy, YouTube continuity micro-copy, jargon removal, Person schema. Build passes 1.93s, 16 pages. Repo pushed. Cloudflare Pages setup handed off to user."
+    },
+    {
+      "date": "2026-04-17",
+      "session": 5,
+      "summary": "Cross-industry pivot: HVAC-only → methodology niche (AI audit for any SMB with data). Full redesign based on 15 sourced cross-industry benchmarks (Baymard, NRA, Winnow, Clio, McKinsey, U.S. Chamber, IHL Group). Files: config.ts + 9 pages + 5 blog posts fully rewritten. 5 HVAC blog slugs renamed with 301 redirects (public/_redirects). ROI calc redesigned with industry picker (Service/Restaurant/E-commerce/Professional/Other) and 4 tailored formulas. Contact form Trade dropdown → Industry dropdown (11 options). About page reframed: Russian construction = operational empathy, not US authority claim. Tools list expanded (Stripe/Shopify/Toast/Square/Salesforce/HubSpot/Clio/Mindbody). Added Industries section on About. Author box in BlogPost.astro agnostic. Build passes 1.92s, 16 pages. Grep audit: 0 HVAC/contractor as primary framing; all remaining mentions are legitimate industry-list examples or biographical (Russian construction)."
+    },
+    {
+      "date": "2026-04-18",
+      "session": 6,
+      "summary": "First Video VSL script complete — dual-use (YouTube first video + website hero). Mechanism: 'The Data-to-Dollars Audit' ($2,500). Lead magnet: 'The Data Diagnostic' (free, 15-20 min). Hook based on real NPR-verified Paulina Gamino quote (Misfit Toys, Houston). Proof block: 3 cross-industry cases (Goop Kitchen LA, e-commerce ad audit, AVA Dental — $66K in 90 days). Length 9:24 (1,223 words at 130 wpm). Score 97/100 Excellent. 7 deliverables on Desktop: script + description + pinned + thumbnail brief + trailer cut + sources. Research base: 7 parallel agents (SMB cases, construction cases, voice-of-customer, B2B VSL 2026, competitor scan + 2 deep follow-ups). 'The Ninety-Minute Data Audit' name verified clean during research; user pivoted to 'Data-to-Dollars Audit' for outcome-clarity (90-min time-frame couldn't be guaranteed). Closest competitor: Dmytro Negodiuk (negodiuk.ai) — same $2,500-$3,000 price, no YouTube presence. Ready for shoot day."
+    },
+    {
+      "date": "2026-04-19",
+      "session": 7,
+      "summary": "Premium redesign research + baseline + blocked Claude Design access. Phase 1-2: 4 parallel researcher agents (conversion patterns / premium aesthetics / competitor teardowns incl Negodiuk / advanced 2026 techniques). Phase 3: plan locked via AskUserQuestion (hybrid dark+light, Fraunces+Plex free fonts, problem-first hero). Phase 4 baseline DONE: global.css +new semantic tokens (--ink #141413 / --cream #faf9f5 / --amber #d97757 / --sage #788c5d) + Fraunces+Plex utility classes + aurora/kinetic/reveal CSS + body.home scoped overrides. BaseHead +Google Fonts preload. config.ts ctaText='Book Your Free Diagnostic'. Old navy/blue/green tokens kept intact for blog/services/about compat. Phase 5 Claude Design access BLOCKED: despite Max $200 active, /design returns infinite 302 redirect loop to /login. Full diagnosis via Patchright+API probes: capabilities=[chat,claude_max] confirmed server-side, session valid, NOT cache/billing/outage/geo, GrowthBook feature flags hashed (base64), client-side override impossible. Support ticket filed via Fin bot at support.claude.com. Hypothesis: gradual rollout gate per-account (launch 2026-04-17). Session ended — next session: direct Astro implementation per plan (index.astro rewrite + 3 new components GrainyAurora/DifferenceTable/SelfAssessment). Detailed continuation prompt: d:/DeepReserch/next-session-setpoint-redesign-DIRECT.md"
+    },
+    {
+      "date": "2026-04-21",
+      "session": 9,
+      "summary": "Session A of the CRO+SEO+AEO plan (flickering-toasting-noodle.md). Reversed Session 8 'no price on landing' rule based on HockeyStack data (31M visits, 80 B2B companies → transparent pricing gives 1.7x pipeline conversion despite -40% form fills). SHIPPED: (1) Hero price pill under CTA wrap — '$2,500 · 5 days · fixed · audit-or-refund'. (2) DifferenceTable row 4 — market anchor '$15,000–$30,000 for a strategy deck' vs '$2,500 fixed for the audit, delivered in 5 days'. (3) NEW Scope & Pricing section (between PractitionerNote and FAQ) — 3-column grid (Deliverable/Timeline/Scope) + highlighted audit-or-refund guarantee block (amber left-border, italic Fraunces body). (4) FAQ Q6 added — 'Why $2,500? Why fixed?'. (5) FAQ Q7 added — 'What if the audit doesn\\'t find anything valuable?' with refund policy. (6) config.ts — SITE.price='$2,500', SITE.priceNumeric='2500', SITE.currency='USD', SITE.deliveryDays=5, SITE.description rewritten with price and guarantee mention. (7) robots.txt — expanded from 4 AI bots to 18 (OpenAI GPTBot/OAI-SearchBot/ChatGPT-User, Anthropic ClaudeBot/Claude-SearchBot/Claude-User/anthropic-ai, PerplexityBot/Perplexity-User, Google-Extended, Bingbot, CCBot, FacebookBot, Applebot, Applebot-Extended, Bytespider, MistralAI-User, Diffbot) + absolute Sitemap URL. (8) NEW public/llms.txt — markdown description with service spec, 5-day protocol, page index, author attribution. (9) JsonLd.astro — organization type now emits unified @graph (Organization + Person + Service + WebSite) with cross-referenced @id URIs (/#organization, /#person, /#service, /#website), Organization.founder→Person, Person.worksFor→Organization, Service.provider→Organization, WebSite.publisher→Organization; Service carries offers.price=2500 USD with availability=InStock. (10) Git tag pre-session-a-2026-04-21 created for rollback. BASELINE captured: research/2026-04-21_setpoint-baseline/baseline.md (GA4/GSC/PageSpeed/Schema/Cal.com/Clarity metrics template for 30/60/90-day comparison). KNOWN MINOR ISSUE: about.astro still calls JsonLd type='person' separately — will duplicate Person node now that organization @graph embeds Person; fix deferred to Session B when about page palette/voice unification happens. Decisions received via AskUserQuestion: show price YES, scope=homepage-only, AEO priorities=Wikidata-alt+pillar+YouTube, VSL DEFERRED. Wikidata specifically REJECTED from plan after critical review (notability risk for non-notable person); replaced with Crunchbase + LinkedIn Company Page + Google Knowledge Panel via schema sameAs. Plan file: C:/Users/GigaByte/.claude/plans/flickering-toasting-noodle.md."
+    },
+    {
+      "date": "2026-04-19",
+      "session": 8,
+      "summary": "Homepage 10x rewrite — copy + trust architecture overhaul. Parallel audit (3 agents: code state, live-site harsh critique, 2026 conversion research) found that visual redesign was already shipped from session 7, but copy execution read as $500 freelancer template: fake 'We' (single person pretending to be team), AI-slop hero subhead, infomercial $6,000+ value stack, unfalsifiable $25K guarantee, fake '4/month' scarcity, public-research stats instead of own work. Locked decisions via AskUserQuestion: voice='I' everywhere, scope=homepage+Header/Footer dark variant only, no founder photo this session, drop Russia/construction origin entirely (methodology-niche pitch). DELIVERED: (1) Hero subhead rewrite — kill feature dump, specific falsifiable claim '$50K hiding' + scope '$500K-$10M US small businesses'. (2) Hero CTA primary='See sample audit' (anchor) + secondary='skip preview, book 20-min call' (Cal direct). (3) Authority strip — replaced public stats with author-grounded ('5 days', '20 min', '14 pages', '$500K-$10M'). (4) NEW SampleAuditPreview component — replaces 6-card industry-stat grid with annotated mock audit page (3 findings, $-impact + suggested fix, SAMPLE watermark, honest synthesized disclaimer). (5) NEW PractitionerNote component — replaces Zero Risk + value stack + 4/month trio with one negodiuk-style paragraph in voice of /contact, italic '— Ilshat' signature. (6) Process phases rewritten in 'I' voice with practitioner specifics. (7) FAQ rewritten — kept structure, all 'we' → 'I/the audit', removed 'unlock'/transformation language. (8) Final CTA — varied copy from hero ('Book a 20-min discovery call' direct to Cal, no scarcity microcopy). (9) SelfAssessment EXTENDED — post-score email-capture step submits to existing Web3Forms endpoint with score+answers, then reveals 3 tailored leaks (3 score buckets: strong/likely/borderline) + Cal.com embed CTA, GA4 quiz_lead_captured event. Honest 'borderline' bucket says 'you may be earlier than the audit fits'. (10) Header.astro — added is:global dark variant scoped to body.home: transparent over hero, scroll-state ink rgba(20,20,19,0.85)+backdrop-blur after 80px, cream logo+nav+amber CTA. (11) Footer.astro — same dark variant scoped to body.home. (12) DifferenceTable row 4 — removed unfalsifiable '$25K guarantee', replaced with 'sample PDF before you commit'. (13) config.ts description rewrite — removed 'We' and 'Any industry' (two flagged tells). VERIFICATION: build passes 2.77s 16 pages 0 errors. Grep checks: 0 fake 'we/our' on homepage tree, 0 '$2,500' on homepage, 0 HVAC/Russia/construction, 0 AI-slop trigger words, 0 'Show Me Where I'm Losing Money' CTA. Plan: C:/Users/GigaByte/.claude/plans/resilient-knitting-cocke.md."
     }
   ],
-  "nextAction": "User creates Cloudflare Pages project from GitHub repo (3 min through dashboard). Then async: brand-name research + VSL script.",
+  "nextAction": "Session A (2026-04-21) complete. Run npm run build to verify, then visual QA localhost for new Scope & Pricing section + guarantee block + price pill rendering. Commit Session 8+9 combined (Session 8 work was in working tree uncommitted). Push to master for Cloudflare auto-deploy. Then user captures GA4/GSC/PageSpeed numbers into research/2026-04-21_setpoint-baseline/baseline.md for 30/60/90-day comparison. Session B handoff prompt: see next-session-setpoint-sessionB.md when generated.",
   "blockers": [
     "Brand name — requires separate research session (see wiki/knowledge/seo-website-for-ai-consulting.md Deployment notes)",
     "Domain purchase — blocked on brand",
-    "VSL video — blocked on script research + recording"
+    "VSL video — script DONE; blocked on shoot day (camera + light + teleprompter setup)"
   ],
   "metrics": {
     "pages": 16,
-    "buildTimeMs": 1930,
+    "buildTimeMs": 1920,
     "blogPosts": 5,
     "leadMagnets": 2,
-    "internalLinksPerPost": "5-9"
+    "internalLinksPerPost": "5-9",
+    "crossIndustryCasesHomepage": 6,
+    "roiCalculatorIndustries": 5,
+    "contactFormIndustries": 11,
+    "aboutPageIndustries": 8,
+    "redirectsCount": 5
   }
 }

@@ -1,0 +1,82 @@
+---
+interface Props {
+  target: string;
+  label: string;
+  mode?: 'count' | 'type';
+  duration?: number;
+}
+const { target, label, mode = 'count', duration = 1600 } = Astro.props;
+---
+
+<div class="authority-item countup-item" data-target={target} data-mode={mode} data-duration={duration}>
+  <div class="authority-num countup-value" aria-live="polite">{mode === 'count' ? '0' : ''}</div>
+  <div class="authority-label">{label}</div>
+</div>
+
+<script is:inline>
+  (function () {
+    const items = document.querySelectorAll('.countup-item');
+    if (!items.length) return;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const parseTarget = function (raw) {
+      // "5 days" → { prefix:"", num:5, suffix:" days" }
+      // "$500K–$10M" → treat as type
+      const m = String(raw).match(/^(\D*)(\d+)(.*)$/);
+      if (!m) return null;
+      return { prefix: m[1], num: parseInt(m[2], 10), suffix: m[3] };
+    };
+
+    const easeOutCubic = function (t) { return 1 - Math.pow(1 - t, 3); };
+
+    const animateCount = function (el, target, duration) {
+      const parsed = parseTarget(target);
+      if (!parsed) { el.textContent = target; return; }
+      const start = performance.now();
+      const step = function (now) {
+        const t = Math.min(1, (now - start) / duration);
+        const v = Math.round(parsed.num * easeOutCubic(t));
+        el.textContent = parsed.prefix + v + parsed.suffix;
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const animateType = function (el, target, duration) {
+      const chars = [...String(target)];
+      const perChar = Math.max(35, Math.min(90, duration / chars.length));
+      let i = 0;
+      el.textContent = '';
+      const tick = function () {
+        if (i < chars.length) {
+          el.textContent += chars[i];
+          i += 1;
+          setTimeout(tick, perChar);
+        }
+      };
+      tick();
+    };
+
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        const item = e.target;
+        const valueEl = item.querySelector('.countup-value');
+        const target = item.getAttribute('data-target') || '';
+        const mode = item.getAttribute('data-mode') || 'count';
+        const duration = parseInt(item.getAttribute('data-duration') || '1600', 10);
+
+        if (reduced) {
+          valueEl.textContent = target;
+        } else if (mode === 'type') {
+          animateType(valueEl, target, Math.max(800, duration / 2));
+        } else {
+          animateCount(valueEl, target, duration);
+        }
+        io.unobserve(item);
+      });
+    }, { threshold: 0.4 });
+
+    items.forEach(function (item) { io.observe(item); });
+  })();
+</script>

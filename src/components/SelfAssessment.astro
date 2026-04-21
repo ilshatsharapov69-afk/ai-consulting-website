@@ -1,0 +1,568 @@
+---
+import { SITE } from '../config';
+
+const questions = [
+  {
+    text: 'Does your business generate data in any of these systems? CRM, POS, calendar, invoicing, spreadsheets.',
+    options: [
+      { label: 'Yes, most of those', points: 3 },
+      { label: 'Some of them', points: 2 },
+      { label: 'Almost none', points: 1 },
+    ],
+  },
+  {
+    text: 'How many months of historical data do you have?',
+    options: [
+      { label: '12+ months', points: 3 },
+      { label: '3–12 months', points: 2 },
+      { label: 'Less than 3 months', points: 1 },
+    ],
+  },
+  {
+    text: 'What is your annual revenue range?',
+    options: [
+      { label: '$1M–$10M', points: 3 },
+      { label: 'Under $1M', points: 2 },
+      { label: '$10M+', points: 1 },
+    ],
+  },
+  {
+    text: 'How much time does your team spend on manual data work weekly?',
+    options: [
+      { label: '10+ hours', points: 3 },
+      { label: '3–10 hours', points: 2 },
+      { label: 'Less than 3 hours', points: 1 },
+    ],
+  },
+  {
+    text: 'Have you tried AI tools yet?',
+    options: [
+      { label: 'Tried a few, stuck', points: 3 },
+      { label: 'Not yet, curious', points: 2 },
+      { label: 'Fully integrated', points: 1 },
+    ],
+  },
+];
+---
+
+<section class="assess-section" aria-labelledby="assess-heading">
+  <div class="assess-inner">
+    <h2 id="assess-heading" class="assess-heading">Does the audit fit your business?</h2>
+    <p class="assess-sub">Five questions. No email needed for the score.</p>
+
+    <div class="progress" aria-live="polite" aria-label="Question progress">
+      {questions.map((_, i) => (
+        <span class="dot" data-i={i}></span>
+      ))}
+    </div>
+
+    <div class="questions">
+      {questions.map((q, i) => (
+        <div class="q" data-q={i} hidden={i !== 0}>
+          <p class="q-text">{q.text}</p>
+          <div class="q-options">
+            {q.options.map((opt) => (
+              <button type="button" class="assess-option" data-points={opt.points} data-answer={opt.label}>
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {/* Step A — score reveal */}
+      <div class="q-result" role="status" hidden>
+        <div class="score" aria-label="Your score"></div>
+        <p class="verdict"></p>
+
+        {/* Step B — email capture for tailored leaks */}
+        <div class="leak-capture">
+          <p class="leak-prompt">
+            Want the three specific money leaks your answers point to — written for your score?
+            Drop your email. I will show them here right away and send you a copy so you can keep
+            it. No list, no follow-up sequence.
+          </p>
+          <form class="leak-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+            <input type="hidden" name="access_key" value={SITE.formApiKey} />
+            <input type="hidden" name="subject" value="Setpoint Audit · Quiz lead" />
+            <input type="hidden" name="from_name" value="Setpoint Audit Quiz" />
+            <input type="hidden" name="quiz_score" class="hidden-score" />
+            <input type="hidden" name="quiz_answers" class="hidden-answers" />
+            <input type="checkbox" name="botcheck" class="hidden honeypot" tabindex="-1" autocomplete="off" />
+            <label class="leak-label" for="leak-email">Email</label>
+            <div class="leak-row">
+              <input
+                type="email"
+                id="leak-email"
+                name="email"
+                required
+                placeholder="you@yourbusiness.com"
+                class="leak-input"
+              />
+              <button type="submit" class="leak-submit magnetic">
+                Show my 3 leaks <span aria-hidden="true">→</span>
+              </button>
+            </div>
+            <p class="leak-error" hidden>That does not look like a valid email. Try again?</p>
+          </form>
+        </div>
+
+        {/* Step C — leaks reveal + Cal.com */}
+        <div class="leak-reveal" hidden>
+          <h3 class="leak-reveal-heading">Your three most likely leaks.</h3>
+          <ol class="leak-list"></ol>
+          <div class="leak-cta-block">
+            <p class="leak-cta-line">
+              These are starting hypotheses based on five inputs. The actual audit reads your
+              data and quantifies them in dollars.
+            </p>
+            <a
+              href={SITE.calUrl}
+              target="_blank"
+              rel="noopener"
+              class="leak-cta-btn magnetic"
+            >
+              Book a 20-min discovery call <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  type LeakSet = { title: string; body: string };
+
+  const leakSets: Record<'strong' | 'likely' | 'borderline', LeakSet[]> = {
+    strong: [
+      {
+        title: 'Manual data work is compounding into six-figure drag',
+        body: 'At 10+ hrs/week of admin pull-through, you are spending the equivalent of a $50K-70K/yr role on tasks that compound badly. Most of it is reconciliation, lookup and reporting — exactly what an audit isolates first.',
+      },
+      {
+        title: 'Twelve months of history is sitting unread',
+        body: 'You have the rarest asset a small business holds — clean longitudinal data. Most owners at your scale have never run a 12-month pattern analysis. The first audit usually surfaces 2–4 patterns that re-occur every quarter.',
+      },
+      {
+        title: 'Your AI experiments are fragmenting, not compounding',
+        body: 'When AI tools are tried independently, they overlap and conflict. The audit maps which tools are duplicating, which are idle, and which one consolidation move pays for the next two engagements.',
+      },
+    ],
+    likely: [
+      {
+        title: 'Partial data means partial decisions',
+        body: 'You have data in some systems but not others. The visibility gap is where most leaks hide — the audit starts by mapping what you can answer today vs. what is invisible.',
+      },
+      {
+        title: 'Manual time is the early-warning signal',
+        body: 'Even at 3–10 hrs/week of manual data work, the cost is real and growing. Often a single repeated workflow drives most of it — find it, kill it.',
+      },
+      {
+        title: 'Tools-before-analysis is the most expensive mistake at your stage',
+        body: 'Owners who buy software without an audit tend to spend $10K–$25K on platforms that solve the wrong problem. Analysis first, software second.',
+      },
+    ],
+    borderline: [
+      {
+        title: 'You may be earlier than the audit fits',
+        body: 'With limited historical data or revenue under $500K, the audit can still help — but only if you have a specific, painful question. If you do not, time-tracking and basic measurement come first. I will tell you honestly on the call.',
+      },
+      {
+        title: 'Pre-data investments often misallocate',
+        body: 'Without 6+ months of data, AI tooling decisions are guesses. The audit cannot find what was never measured. Start measuring before scaling.',
+      },
+      {
+        title: 'A 20-minute call is the right next step',
+        body: 'Faster, cheaper and more honest than booking the full audit. I will help you figure out whether you are ready, or what to put in place first.',
+      },
+    ],
+  };
+
+  document.querySelectorAll('.assess-section').forEach((section) => {
+    const qs = section.querySelectorAll<HTMLElement>('.q');
+    const dots = section.querySelectorAll<HTMLElement>('.dot');
+    const result = section.querySelector<HTMLElement>('.q-result');
+    const scoreEl = section.querySelector<HTMLElement>('.score');
+    const verdictEl = section.querySelector<HTMLElement>('.verdict');
+    const leakCapture = section.querySelector<HTMLElement>('.leak-capture');
+    const leakReveal = section.querySelector<HTMLElement>('.leak-reveal');
+    const leakList = section.querySelector<HTMLOListElement>('.leak-list');
+    const leakForm = section.querySelector<HTMLFormElement>('.leak-form');
+    const leakError = section.querySelector<HTMLElement>('.leak-error');
+    const hiddenScore = section.querySelector<HTMLInputElement>('.hidden-score');
+    const hiddenAnswers = section.querySelector<HTMLInputElement>('.hidden-answers');
+    if (!qs.length || !result || !scoreEl || !verdictEl || !leakCapture || !leakReveal || !leakList || !leakForm || !hiddenScore || !hiddenAnswers) return;
+
+    let current = 0;
+    let total = 0;
+    const answers: string[] = [];
+    dots[0]?.classList.add('is-active');
+
+    section.querySelectorAll<HTMLButtonElement>('.assess-option').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        total += parseInt(btn.dataset.points || '0', 10);
+        answers.push(`Q${current + 1}: ${btn.dataset.answer || btn.textContent?.trim()}`);
+        qs[current].hidden = true;
+        dots[current]?.classList.remove('is-active');
+        dots[current]?.classList.add('is-done');
+        current += 1;
+        if (current < qs.length) {
+          qs[current].hidden = false;
+          dots[current]?.classList.add('is-active');
+          return;
+        }
+        const verdict =
+          total >= 12
+            ? 'Strong fit. The audit will quantify the leaks.'
+            : total >= 7
+            ? 'Likely fit. The diagnostic call will confirm.'
+            : "Borderline. Book the call — I'll tell you honestly.";
+        scoreEl.textContent = `${total} / 15`;
+        verdictEl.textContent = verdict;
+        hiddenScore.value = `${total}/15 (${verdict})`;
+        hiddenAnswers.value = answers.join(' | ');
+        result.hidden = false;
+      });
+    });
+
+    leakForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = leakForm.querySelector<HTMLInputElement>('input[name="email"]');
+      const honeypot = leakForm.querySelector<HTMLInputElement>('.honeypot');
+      if (!emailInput) return;
+      const email = emailInput.value.trim();
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!valid) {
+        leakError && (leakError.hidden = false);
+        return;
+      }
+      leakError && (leakError.hidden = true);
+      if (honeypot && honeypot.checked) {
+        return; // bot
+      }
+
+      const submitBtn = leakForm.querySelector<HTMLButtonElement>('.leak-submit');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+      }
+
+      try {
+        const formData = new FormData(leakForm);
+        await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData,
+        });
+      } catch {
+        // Soft fail — still show insights to the user
+      }
+
+      const bucket = total >= 12 ? 'strong' : total >= 7 ? 'likely' : 'borderline';
+      const leaks = leakSets[bucket];
+      leakList.innerHTML = '';
+      leaks.forEach((leak) => {
+        const li = document.createElement('li');
+        li.className = 'leak-item';
+        const h = document.createElement('h4');
+        h.className = 'leak-item-title';
+        h.textContent = leak.title;
+        const p = document.createElement('p');
+        p.className = 'leak-item-body';
+        p.textContent = leak.body;
+        li.appendChild(h);
+        li.appendChild(p);
+        leakList.appendChild(li);
+      });
+
+      leakCapture.hidden = true;
+      leakReveal.hidden = false;
+
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'quiz_lead_captured', {
+          score: total,
+          bucket,
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  .assess-section {
+    padding: clamp(64px, 10vw, 120px) 1.5rem;
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  .assess-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .assess-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 0.75rem;
+  }
+
+  .assess-sub {
+    font-family: var(--font-body);
+    color: var(--color-stone);
+    font-size: 1rem;
+    margin: 0 0 2rem;
+  }
+
+  .progress {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--color-mist);
+    transition: background-color 200ms ease, transform 200ms ease;
+  }
+
+  .dot.is-active {
+    background: var(--color-amber);
+    transform: scale(1.15);
+  }
+
+  .dot.is-done {
+    background: var(--color-sage);
+  }
+
+  .q-text {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.55;
+    color: var(--color-ink);
+    margin: 0 0 1.25rem;
+  }
+
+  .q-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .q-options .assess-option {
+    text-align: left;
+    font-size: 1rem;
+    color: var(--color-ink);
+    border-radius: 8px;
+  }
+
+  .q-result {
+    text-align: left;
+  }
+
+  .q-result .score {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144;
+    font-weight: 900;
+    font-size: clamp(56px, 8vw, 96px);
+    color: var(--color-amber);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .q-result .verdict {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    color: var(--color-ink);
+    margin: 0 0 2rem;
+  }
+
+  /* Leak capture step */
+  .leak-capture {
+    border-top: 1px solid var(--color-mist);
+    padding-top: 1.75rem;
+  }
+
+  .leak-prompt {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-stone);
+    margin: 0 0 1.25rem;
+  }
+
+  .leak-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .leak-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-stone);
+  }
+
+  .honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+  }
+
+  .leak-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  @media (min-width: 540px) {
+    .leak-row {
+      flex-direction: row;
+      align-items: stretch;
+    }
+  }
+
+  .leak-input {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-ink);
+    background: #ffffff;
+    border: 1px solid var(--color-mist);
+    border-radius: 8px;
+    transition: border-color 200ms ease;
+  }
+
+  .leak-input:focus {
+    outline: none;
+    border-color: var(--color-amber);
+  }
+
+  .leak-submit {
+    padding: 0.875rem 1.25rem;
+    background: var(--color-amber);
+    color: var(--color-cream);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 200ms ease;
+  }
+
+  .leak-submit:hover {
+    background: var(--color-amber-soft);
+  }
+
+  .leak-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .leak-error {
+    margin: 0.5rem 0 0;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: #b34d3a;
+  }
+
+  /* Leak reveal step */
+  .leak-reveal-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(22px, 3vw, 28px);
+    line-height: 1.15;
+    color: var(--color-ink);
+    margin: 0 0 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .leak-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    counter-reset: leak;
+  }
+
+  .leak-item {
+    counter-increment: leak;
+    border-left: 2px solid var(--color-amber);
+    padding-left: 1.25rem;
+  }
+
+  .leak-item-title {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 72, 'SOFT' 50;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--color-ink);
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .leak-item-title::before {
+    content: counter(leak, decimal-leading-zero) " · ";
+    color: var(--color-amber);
+    font-weight: 700;
+  }
+
+  .leak-item-body {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-stone);
+    margin: 0;
+  }
+
+  .leak-cta-block {
+    border-top: 1px solid var(--color-mist);
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .leak-cta-line {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-stone);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  .leak-cta-btn {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: var(--color-amber);
+    color: var(--color-cream);
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 200ms ease;
+  }
+
+  .leak-cta-btn:hover {
+    background: var(--color-amber-soft);
+  }
+</style>

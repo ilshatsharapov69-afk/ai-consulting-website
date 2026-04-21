@@ -1,0 +1,468 @@
+---
+interface Bar {
+  h: number;
+  leak?: boolean;
+  tip?: string;
+}
+
+const findings: Array<{
+  label: string;
+  title: string;
+  detail: string;
+  impact: string;
+  fix: string;
+  chartLabel: string;
+  bars: Bar[];
+}> = [
+  {
+    label: 'Finding 03 of 17',
+    title: 'Tuesday lunch service is running 38% over food cost target',
+    detail: 'Cross-referenced 12 weeks of Toast POS line items against vendor invoices. 4 SKUs (chicken thigh, romaine, jalapeño, avocado) account for 62% of the variance. Same recipes, different prep cooks.',
+    impact: '$8,400 / quarter',
+    fix: 'Re-portion pilot for 2 weeks. Verifiable in week 3 P&L.',
+    chartLabel: 'Food cost variance · 12 Tuesdays',
+    bars: [
+      { h: 22 }, { h: 28 }, { h: 24, leak: true, tip: '$720 over' },
+      { h: 26 }, { h: 32, leak: true, tip: '$880 over' }, { h: 25 },
+      { h: 30, leak: true, tip: '$760 over' }, { h: 27 }, { h: 29 },
+      { h: 34, leak: true, tip: '$940 over' }, { h: 26 }, { h: 28 },
+    ],
+  },
+  {
+    label: 'Finding 07 of 17',
+    title: 'Reservation no-shows on Friday evenings = 19% (industry: 7%)',
+    detail: 'OpenTable + Toast cross-reference. No-shows cluster between 7:15 PM and 8:30 PM, primarily 4-top reservations booked 5+ days out. SMS confirmation rate at 24-hour mark: 41%.',
+    impact: '$3,200 / month opportunity cost',
+    fix: 'Move confirmation SMS from -24h to -4h window. Add deposit hold on parties of 5+.',
+    chartLabel: 'No-show rate · 12 Fridays',
+    bars: [
+      { h: 12 }, { h: 14 }, { h: 16, leak: true, tip: '21% no-show' },
+      { h: 13 }, { h: 18, leak: true, tip: '23% no-show' },
+      { h: 14 }, { h: 15 }, { h: 19, leak: true, tip: '24% no-show' },
+      { h: 13 }, { h: 17, leak: true, tip: '22% no-show' },
+      { h: 14 }, { h: 12 },
+    ],
+  },
+  {
+    label: 'Finding 11 of 17',
+    title: 'Office manager spends 11 hrs/week on tip-out reconciliation',
+    detail: 'Time-tracked over 3 weeks via Toggl integration with QuickBooks. Manual entry of cash tips, credit tips, and shared-pool calculations. Two formula errors found in last quarter would have understated server pay by $1,140.',
+    impact: '$14,300 / year (manager hours + error risk)',
+    fix: 'Toast tip-out export → Sheets template. 90-min setup. Documented in audit appendix.',
+    chartLabel: 'Hours on tip-out reconciliation · 12 weeks',
+    bars: [
+      { h: 18 }, { h: 20 }, { h: 22, leak: true, tip: '12.0 hrs' },
+      { h: 19 }, { h: 24, leak: true, tip: '12.5 hrs' }, { h: 20 },
+      { h: 21 }, { h: 23, leak: true, tip: '12.2 hrs' }, { h: 19 },
+      { h: 25, leak: true, tip: '13.1 hrs' }, { h: 21 }, { h: 20 },
+    ],
+  },
+];
+
+const barWidth = 18;
+const barGap = 6;
+const chartHeight = 56;
+const chartWidth = findings[0].bars.length * (barWidth + barGap);
+---
+
+<section class="sample-audit" id="sample-audit-preview" aria-labelledby="sample-audit-heading">
+  <div class="sample-inner">
+    <header class="sample-section-head">
+      <h2 id="sample-audit-heading" class="sample-section-heading">
+        What an audit page actually looks like.
+      </h2>
+      <p class="sample-section-sub">
+        One page from a 14-page audit. Synthesized from typical SMB findings — not a real
+        client's data. Real audits use redacted real exports from your systems.
+      </p>
+    </header>
+
+    <article class="audit-page reveal" aria-label="Sample audit page mockup">
+      <div class="audit-paper">
+        <div class="audit-paper-head">
+          <div class="audit-meta">
+            <span class="audit-meta-line">Audit for: <em>[Anonymized — Restaurant, ~$2.4M revenue]</em></span>
+            <span class="audit-meta-line">Page 7 of 14 — Findings &amp; Quantified Impact</span>
+          </div>
+          <div class="audit-paper-mark" aria-hidden="true">SAMPLE</div>
+        </div>
+
+        <div class="audit-findings">
+          {findings.map((f) => (
+            <div class="audit-finding reveal">
+              <div class="audit-finding-label">{f.label}</div>
+              <h3 class="audit-finding-title">{f.title}</h3>
+              <p class="audit-finding-detail">{f.detail}</p>
+
+              <div class="audit-minichart" aria-label={f.chartLabel}>
+                <div class="audit-minichart-label">{f.chartLabel}</div>
+                <svg viewBox={`0 0 ${chartWidth} ${chartHeight + 4}`} width="100%" height="60" preserveAspectRatio="xMidYMid meet" role="img">
+                  <line x1="0" y1={chartHeight} x2={chartWidth} y2={chartHeight} stroke="var(--color-mist)" stroke-width="1" />
+                  {f.bars.map((b, i) => (
+                    <g
+                      class:list={['mini-bar-group', b.leak ? 'mini-bar--leak' : 'mini-bar--ok']}
+                      data-tip={b.tip || ''}
+                    >
+                      <rect
+                        class="mini-bar"
+                        x={i * (barWidth + barGap)}
+                        y={chartHeight - b.h}
+                        width={barWidth}
+                        height={b.h}
+                        fill={b.leak ? '#c14a3a' : '#cfccc1'}
+                      />
+                    </g>
+                  ))}
+                </svg>
+              </div>
+
+              <div class="audit-finding-row">
+                <div class="audit-impact">
+                  <span class="audit-impact-label">Quantified impact</span>
+                  <span class="audit-impact-value">{f.impact}</span>
+                </div>
+                <div class="audit-fix">
+                  <span class="audit-fix-label">Suggested fix</span>
+                  <span class="audit-fix-value">{f.fix}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <footer class="audit-paper-foot">
+          <span>Setpoint Audit · Data-to-Dollars · 5-day delivery</span>
+          <span>Page 7 of 14</span>
+        </footer>
+      </div>
+
+      <p class="audit-disclaimer">
+        Synthesized from typical SMB findings — no real client data shown. Real audits run
+        12–20 pages, use your actual exports, and quantify every finding in dollars.
+      </p>
+    </article>
+  </div>
+</section>
+
+<style>
+  .sample-audit {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    padding: clamp(72px, 10vw, 120px) 1.5rem;
+  }
+
+  .sample-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .sample-section-head {
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    max-width: 760px;
+  }
+
+  .sample-section-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(32px, 4.5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 0.875rem;
+  }
+
+  .sample-section-sub {
+    font-family: var(--font-body);
+    color: var(--color-stone);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .audit-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .audit-paper {
+    width: 100%;
+    max-width: 880px;
+    background: #ffffff;
+    border: 1px solid var(--color-mist);
+    box-shadow:
+      0 1px 0 rgba(20, 20, 19, 0.04),
+      0 24px 48px -24px rgba(20, 20, 19, 0.18),
+      0 8px 16px -8px rgba(20, 20, 19, 0.08);
+    padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .audit-paper-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    border-bottom: 1px solid var(--color-mist);
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .audit-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .audit-meta-line {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: var(--color-stone);
+    line-height: 1.5;
+  }
+
+  .audit-meta-line em {
+    font-style: normal;
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .audit-paper-mark {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.18em;
+    color: var(--color-amber);
+    border: 1px solid var(--color-amber);
+    padding: 0.25rem 0.625rem;
+    transform: rotate(-2deg);
+    background: rgba(217, 119, 87, 0.06);
+  }
+
+  .audit-findings {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .audit-finding {
+    border-left: 2px solid var(--color-amber);
+    padding-left: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .audit-finding-label {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .audit-finding-title {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 72, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+    line-height: 1.3;
+    color: var(--color-ink);
+    margin: 0 0 0.625rem;
+    letter-spacing: -0.01em;
+  }
+
+  .audit-finding-detail {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-stone);
+    margin: 0 0 1rem;
+  }
+
+  .audit-finding-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+    padding: 0.875rem 1rem;
+    background: var(--color-cream-soft);
+    border: 1px solid var(--color-mist);
+  }
+
+  @media (min-width: 640px) {
+    .audit-finding-row {
+      grid-template-columns: minmax(160px, auto) 1fr;
+      gap: 1.25rem;
+    }
+  }
+
+  .audit-impact,
+  .audit-fix {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .audit-impact {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  @media (min-width: 640px) {
+    .audit-impact {
+      border-right: 1px solid var(--color-mist);
+      padding-right: 1.25rem;
+    }
+  }
+
+  .audit-impact-label,
+  .audit-fix-label {
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-stone);
+  }
+
+  .audit-impact-value {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 72;
+    font-weight: 700;
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    color: var(--color-amber);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .audit-fix-value {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+    line-height: 1.45;
+  }
+
+  .audit-paper-foot {
+    margin-top: 2.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-mist);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-stone);
+  }
+
+  .audit-disclaimer {
+    margin-top: 1.5rem;
+    max-width: 640px;
+    text-align: center;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.8125rem;
+    color: var(--color-stone);
+    line-height: 1.55;
+  }
+
+  /* === Mini bar chart per finding === */
+  .audit-minichart {
+    margin: 0 0 1rem;
+    position: relative;
+  }
+
+  .audit-minichart-label {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-stone);
+    margin-bottom: 0.4rem;
+  }
+
+  .mini-bar {
+    transition: opacity 180ms ease, transform 180ms ease;
+    transform-origin: bottom center;
+    transform-box: fill-box;
+  }
+
+  .is-visible .mini-bar {
+    animation: miniBarGrow 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  @keyframes miniBarGrow {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  .mini-bar-group:hover .mini-bar {
+    transform: translateY(-2px);
+  }
+
+  .mini-bar--leak .mini-bar {
+    cursor: help;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mini-bar--leak .mini-bar {
+      animation-name: miniBarGrow, miniBarLeakPulse;
+      animation-duration: 600ms, 2s;
+      animation-delay: 0ms, 700ms;
+      animation-iteration-count: 1, infinite;
+      animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1), ease-in-out;
+    }
+  }
+
+  @keyframes miniBarLeakPulse {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 1; }
+  }
+
+  .audit-minichart-tooltip {
+    position: absolute;
+    transform: translate(-50%, -110%);
+    background: var(--color-ink);
+    color: var(--color-cream);
+    padding: 0.35rem 0.6rem;
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.7rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 150ms ease;
+    white-space: nowrap;
+    z-index: 3;
+  }
+
+  .audit-minichart-tooltip.is-on { opacity: 1; }
+</style>
+
+<script is:inline>
+  (function () {
+    const charts = document.querySelectorAll('.audit-minichart');
+    charts.forEach(function (chart) {
+      const tip = document.createElement('div');
+      tip.className = 'audit-minichart-tooltip';
+      chart.appendChild(tip);
+      const bars = chart.querySelectorAll('.mini-bar--leak');
+      bars.forEach(function (bar) {
+        bar.addEventListener('mouseenter', function (e) {
+          const text = bar.getAttribute('data-tip') || '';
+          if (!text) return;
+          tip.textContent = text;
+          const r = bar.getBoundingClientRect();
+          const cr = chart.getBoundingClientRect();
+          tip.style.left = (r.left + r.width / 2 - cr.left) + 'px';
+          tip.style.top = (r.top - cr.top) + 'px';
+          tip.classList.add('is-on');
+        });
+        bar.addEventListener('mouseleave', function () {
+          tip.classList.remove('is-on');
+        });
+      });
+    });
+  })();
+</script>

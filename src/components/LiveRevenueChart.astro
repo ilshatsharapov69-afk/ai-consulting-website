@@ -1,0 +1,298 @@
+---
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// Y-values are inverted (lower = higher revenue on screen).
+// Viewbox 560x340. Chart area: x [40, 520], y [40, 280]. Axis labels at y=320.
+const values = [230, 220, 225, 260, 205, 195, 210, 240, 175, 160, 195, 140];
+const leakIndexes = new Set([3, 7, 10]);
+const leakAmounts: Record<number, string> = {
+  3: '$6,800 / mo',
+  7: '$4,200 / mo',
+  10: '$3,150 / mo',
+};
+
+const chartX = (i: number) => 40 + (i * (520 - 40)) / (months.length - 1);
+const pathD = values
+  .map((v, i) => `${i === 0 ? 'M' : 'L'}${chartX(i).toFixed(1)} ${v}`)
+  .join(' ');
+const areaD =
+  values
+    .map((v, i) => `${i === 0 ? 'M' : 'L'}${chartX(i).toFixed(1)} ${v}`)
+    .join(' ') + ` L520 300 L40 300 Z`;
+
+// Approximate path length for stroke-dashoffset animation
+const pathLength = 900;
+---
+
+<div class="revenue-chart-wrap" aria-label="Monthly revenue with 3 quantified leak moments">
+  <div class="revenue-chart-head">
+    <span class="chart-subtitle">12-month revenue · sample audit</span>
+    <span class="chart-legend">
+      <span class="legend-dot legend-dot--amber" aria-hidden="true"></span>
+      <span>revenue</span>
+      <span class="legend-dot legend-dot--red" aria-hidden="true"></span>
+      <span>leak moment</span>
+    </span>
+  </div>
+
+  <svg viewBox="0 0 560 340" preserveAspectRatio="xMidYMid meet" class="revenue-chart-svg" role="img">
+    <defs>
+      <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#d97757" stop-opacity="0.22" />
+        <stop offset="100%" stop-color="#d97757" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+
+    {/* Grid */}
+    <g class="chart-grid" aria-hidden="true">
+      <line x1="40" y1="80" x2="520" y2="80" />
+      <line x1="40" y1="180" x2="520" y2="180" />
+      <line x1="40" y1="280" x2="520" y2="280" />
+    </g>
+
+    {/* Area fill */}
+    <path class="chart-area" d={areaD} fill="url(#areaFill)" />
+
+    {/* Revenue line */}
+    <path
+      class="chart-line"
+      d={pathD}
+      fill="none"
+      stroke="#d97757"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      style={`stroke-dasharray:${pathLength};stroke-dashoffset:${pathLength};`}
+    />
+
+    {/* Leak markers */}
+    {values.map((v, i) =>
+      leakIndexes.has(i) ? (
+        <g class="leak-group" data-leak-amount={leakAmounts[i]} data-leak-month={months[i]}>
+          <circle class="leak-halo" cx={chartX(i)} cy={v} r="10" />
+          <circle class="leak-dot" cx={chartX(i)} cy={v} r="5" />
+        </g>
+      ) : null
+    )}
+
+    {/* Month labels */}
+    <g class="chart-months" aria-hidden="true">
+      {months.map((m, i) => (
+        <text x={chartX(i)} y="322" text-anchor="middle">{m}</text>
+      ))}
+    </g>
+  </svg>
+
+  <div id="leakTip" class="leak-tip" role="tooltip" aria-hidden="true">
+    <span class="leak-tip-amount"></span>
+    <span class="leak-tip-label">leak · quantified</span>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const wrap = document.querySelector('.revenue-chart-wrap');
+    if (!wrap) return;
+    const tip = wrap.querySelector('#leakTip');
+    const svg = wrap.querySelector('svg');
+    if (!tip || !svg) return;
+
+    const groups = wrap.querySelectorAll('.leak-group');
+    groups.forEach(function (g) {
+      g.addEventListener('mouseenter', function (e) {
+        const amount = g.getAttribute('data-leak-amount') || '';
+        const month = g.getAttribute('data-leak-month') || '';
+        const amountEl = tip.querySelector('.leak-tip-amount');
+        const labelEl = tip.querySelector('.leak-tip-label');
+        if (amountEl) amountEl.textContent = amount;
+        if (labelEl) labelEl.textContent = month + ' · quantified leak';
+        const svgRect = svg.getBoundingClientRect();
+        const wrapRect = wrap.getBoundingClientRect();
+        const circle = g.querySelector('.leak-dot');
+        if (!circle) return;
+        const cBox = circle.getBoundingClientRect();
+        const cx = cBox.left + cBox.width / 2 - wrapRect.left;
+        const cy = cBox.top + cBox.height / 2 - wrapRect.top;
+        tip.style.left = cx + 'px';
+        tip.style.top = cy - 16 + 'px';
+        tip.setAttribute('aria-hidden', 'false');
+        tip.classList.add('leak-tip--visible');
+      });
+      g.addEventListener('mouseleave', function () {
+        tip.classList.remove('leak-tip--visible');
+        tip.setAttribute('aria-hidden', 'true');
+      });
+    });
+
+    // Trigger line-draw on first paint (small delay for smoothness)
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        wrap.classList.add('chart-drawn');
+      });
+    });
+  })();
+</script>
+
+<style>
+  .revenue-chart-wrap {
+    position: relative;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(232, 230, 220, 0.14);
+    background: rgba(250, 249, 245, 0.025);
+    box-shadow: inset 0 0 0 1px rgba(232, 230, 220, 0.04);
+  }
+
+  .revenue-chart-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0 0.75rem;
+    margin-bottom: 0.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chart-subtitle {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ash);
+  }
+
+  .chart-legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ash);
+  }
+  .chart-legend > span:nth-child(even) {
+    margin-right: 0.5rem;
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .legend-dot--amber { background: var(--color-amber); }
+  .legend-dot--red { background: #c14a3a; }
+
+  .revenue-chart-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .chart-grid line {
+    stroke: rgba(232, 230, 220, 0.1);
+    stroke-width: 1;
+    stroke-dasharray: 2 4;
+  }
+
+  .chart-months text {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 10px;
+    fill: var(--color-ash);
+    letter-spacing: 0.04em;
+  }
+
+  /* Line draw-in animation on load */
+  @media (prefers-reduced-motion: no-preference) {
+    .chart-drawn .chart-line {
+      animation: chartDraw 2400ms cubic-bezier(0.2, 0.8, 0.2, 1) 200ms forwards;
+    }
+    .chart-drawn .chart-area {
+      opacity: 0;
+      animation: chartAreaIn 900ms ease-out 2200ms forwards;
+    }
+    .chart-drawn .leak-group {
+      opacity: 0;
+      animation: leakIn 400ms ease-out forwards;
+    }
+    .chart-drawn .leak-group:nth-of-type(1) { animation-delay: 1900ms; }
+    .chart-drawn .leak-group:nth-of-type(2) { animation-delay: 2200ms; }
+    .chart-drawn .leak-group:nth-of-type(3) { animation-delay: 2500ms; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chart-line { stroke-dashoffset: 0 !important; }
+    .chart-area { opacity: 1 !important; }
+    .leak-group { opacity: 1 !important; }
+  }
+
+  @keyframes chartDraw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes chartAreaIn {
+    to { opacity: 1; }
+  }
+
+  @keyframes leakIn {
+    to { opacity: 1; }
+  }
+
+  .leak-halo {
+    fill: rgba(193, 74, 58, 0.18);
+  }
+
+  .leak-dot {
+    fill: #c14a3a;
+    cursor: pointer;
+    transition: r 180ms ease;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .leak-dot {
+      animation: leakBlink 1.6s ease-in-out infinite;
+    }
+  }
+
+  @keyframes leakBlink {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
+
+  .leak-group:hover .leak-dot { r: 6; }
+
+  .leak-tip {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background: var(--color-ink-soft);
+    color: var(--color-cream);
+    border: 1px solid rgba(193, 74, 58, 0.4);
+    padding: 0.5rem 0.75rem;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    opacity: 0;
+    transition: opacity 180ms ease;
+    white-space: nowrap;
+    z-index: 3;
+  }
+
+  .leak-tip--visible { opacity: 1; }
+
+  .leak-tip-amount {
+    color: #e87a6a;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .leak-tip-label {
+    color: var(--color-ash);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>

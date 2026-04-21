@@ -1,0 +1,219 @@
+---
+// Inline SVG "Before" (chaotic dashboard) vs "After" (clean audit output).
+// Uses img-comparison-slider web component (lazy import in motion.client.ts).
+---
+
+<section class="ba-section" aria-labelledby="ba-heading">
+  <div class="ba-inner">
+    <header class="ba-head">
+      <h2 id="ba-heading" class="ba-heading">What your numbers look like after 5 days.</h2>
+      <p class="ba-sub">
+        Drag the handle. Left: the dashboard you have now — twelve overlapping signals, no
+        hierarchy. Right: the same data, three findings, quantified in dollars.
+      </p>
+    </header>
+
+    <img-comparison-slider class="ba-slider" value="52" hover="hover">
+      <figure slot="first" class="ba-figure ba-figure--before">
+        <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-label="Cluttered dashboard with no hierarchy">
+          <rect width="800" height="500" fill="#f3f1e8" />
+
+          {/* Scattered grid with no hierarchy */}
+          <g stroke="#d6d3c6" stroke-width="1" opacity="0.55">
+            {Array.from({ length: 11 }, (_, i) => (
+              <line x1={i * 72 + 40} y1={30} x2={i * 72 + 40} y2={460} />
+            ))}
+            {Array.from({ length: 7 }, (_, i) => (
+              <line x1={40} y1={i * 65 + 40} x2={780} y2={i * 65 + 40} />
+            ))}
+          </g>
+
+          {/* 12 chaotic overlapping lines */}
+          {[
+            ['#7c7a70', 'M40 380 L120 340 L200 360 L280 300 L360 330 L440 290 L520 310 L600 270 L680 290 L760 260'],
+            ['#9b9791', 'M40 310 L120 330 L200 290 L280 340 L360 280 L440 320 L520 270 L600 300 L680 250 L760 280'],
+            ['#b0aea5', 'M40 260 L120 280 L200 240 L280 290 L360 230 L440 270 L520 220 L600 250 L680 200 L760 230'],
+            ['#83807a', 'M40 420 L120 390 L200 410 L280 380 L360 400 L440 370 L520 395 L600 360 L680 380 L760 350'],
+            ['#6b6a62', 'M40 200 L120 220 L200 180 L280 230 L360 175 L440 215 L520 165 L600 200 L680 155 L760 195'],
+            ['#a5a39a', 'M40 340 L120 310 L200 350 L280 305 L360 345 L440 300 L520 340 L600 295 L680 335 L760 290'],
+            ['#bdbab1', 'M40 150 L120 170 L200 130 L280 180 L360 120 L440 165 L520 110 L600 155 L680 95 L760 145'],
+            ['#8c897f', 'M40 270 L120 255 L200 280 L280 250 L360 275 L440 245 L520 270 L600 240 L680 265 L760 235'],
+            ['#9e9b93', 'M40 430 L120 440 L200 420 L280 435 L360 415 L440 430 L520 410 L600 425 L680 405 L760 420'],
+            ['#757369', 'M40 225 L120 235 L200 215 L280 230 L360 210 L440 220 L520 200 L600 215 L680 195 L760 205'],
+            ['#c6c3ba', 'M40 365 L120 355 L200 375 L280 345 L360 370 L440 340 L520 360 L600 335 L680 355 L760 325'],
+            ['#aaa79e', 'M40 400 L120 420 L200 385 L280 405 L360 380 L440 400 L520 375 L600 395 L680 370 L760 385'],
+          ].map(([color, d]) => (
+            <path d={d} stroke={color} stroke-width="1.2" fill="none" opacity="0.85" />
+          ))}
+
+          {/* Scattered meaningless numbers */}
+          <g font-family="ui-monospace, 'IBM Plex Mono', monospace" font-size="13" fill="#6b6a62">
+            <text x="60" y="70">#847</text>
+            <text x="310" y="90">0.42</text>
+            <text x="520" y="60">19%</text>
+            <text x="620" y="95">+3.1</text>
+            <text x="100" y="470">$12,419</text>
+            <text x="380" y="475">QTY 1,204</text>
+            <text x="650" y="470">±4.2</text>
+            <text x="720" y="120">0.073</text>
+            <text x="160" y="170">t=2.4</text>
+            <text x="440" y="220">×1.18</text>
+          </g>
+
+          {/* "Dashboard" label */}
+          <text x="40" y="22" font-family="ui-sans-serif, system-ui" font-size="11" fill="#8c897f" letter-spacing="2">DASHBOARD · 42 METRICS</text>
+        </svg>
+        <figcaption class="ba-cap">Before</figcaption>
+      </figure>
+
+      <figure slot="second" class="ba-figure ba-figure--after">
+        <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-label="Clean audit output with three quantified findings">
+          <rect width="800" height="500" fill="#ffffff" />
+
+          <text x="40" y="30" font-family="ui-sans-serif, system-ui" font-size="11" fill="#6b6a62" letter-spacing="2">AUDIT OUTPUT · 3 FINDINGS</text>
+
+          {/* 3 clean trend lines */}
+          <g>
+            <line x1="40" y1="210" x2="760" y2="210" stroke="#e8e6dc" stroke-dasharray="2 4" />
+            <line x1="40" y1="150" x2="760" y2="150" stroke="#e8e6dc" stroke-dasharray="2 4" />
+            <line x1="40" y1="90" x2="760" y2="90" stroke="#e8e6dc" stroke-dasharray="2 4" />
+          </g>
+
+          <path d="M40 180 L150 170 L260 160 L370 145 L480 130 L590 110 L700 92 L760 80" stroke="#788c5d" stroke-width="2.5" fill="none" stroke-linecap="round" />
+          <path d="M40 190 L150 188 L260 185 L370 183 L480 180 L590 178 L700 175 L760 173" stroke="#b0aea5" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-dasharray="4 4" />
+
+          {/* KPI cards */}
+          <g>
+            <rect x="40" y="260" width="230" height="100" fill="#faf9f5" stroke="#e8e6dc" />
+            <text x="55" y="285" font-family="ui-sans-serif, system-ui" font-size="10" fill="#6b6a62" letter-spacing="1.5">LEAK #1 · FOOD COST</text>
+            <text x="55" y="330" font-family="'Fraunces', ui-serif" font-weight="700" font-size="30" fill="#d97757">$8,400</text>
+            <text x="55" y="350" font-family="ui-sans-serif, system-ui" font-size="11" fill="#6b6a62">per quarter, 4 SKUs</text>
+
+            <rect x="285" y="260" width="230" height="100" fill="#faf9f5" stroke="#e8e6dc" />
+            <text x="300" y="285" font-family="ui-sans-serif, system-ui" font-size="10" fill="#6b6a62" letter-spacing="1.5">LEAK #2 · NO-SHOWS</text>
+            <text x="300" y="330" font-family="'Fraunces', ui-serif" font-weight="700" font-size="30" fill="#d97757">$3,200</text>
+            <text x="300" y="350" font-family="ui-sans-serif, system-ui" font-size="11" fill="#6b6a62">per month, Fri 7-9 PM</text>
+
+            <rect x="530" y="260" width="230" height="100" fill="#faf9f5" stroke="#e8e6dc" />
+            <text x="545" y="285" font-family="ui-sans-serif, system-ui" font-size="10" fill="#6b6a62" letter-spacing="1.5">LEAK #3 · MGR HOURS</text>
+            <text x="545" y="330" font-family="'Fraunces', ui-serif" font-weight="700" font-size="30" fill="#d97757">$14,300</text>
+            <text x="545" y="350" font-family="ui-sans-serif, system-ui" font-size="11" fill="#6b6a62">per year, tip reconciliation</text>
+          </g>
+
+          {/* Recovery line (sage, thicker, amber checkmark) */}
+          <g transform="translate(40 400)">
+            <rect width="720" height="70" fill="#f4f8ee" stroke="#788c5d" stroke-width="1" />
+            <circle cx="30" cy="35" r="12" fill="#788c5d" />
+            <path d="M24 35 L29 40 L37 31" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <text x="60" y="32" font-family="ui-sans-serif, system-ui" font-size="11" fill="#6b6a62" letter-spacing="1">TOTAL QUANTIFIED · RECOVERABLE IN 30/60/90</text>
+            <text x="60" y="55" font-family="'Fraunces', ui-serif" font-weight="700" font-size="20" fill="#788c5d">$25,900 / year minimum</text>
+          </g>
+        </svg>
+        <figcaption class="ba-cap ba-cap--right">After</figcaption>
+      </figure>
+
+      <svg slot="handle" class="ba-handle" viewBox="-20 -20 40 40" width="48" height="48" aria-hidden="true">
+        <circle cx="0" cy="0" r="17" fill="#d97757" />
+        <path d="M-6 -5 L-11 0 L-6 5" stroke="#faf9f5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M6 -5 L11 0 L6 5" stroke="#faf9f5" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </img-comparison-slider>
+
+    <p class="ba-footnote">Illustrative. Real audits use your actual exports and quantify in dollars.</p>
+  </div>
+</section>
+
+<style>
+  .ba-section {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    padding: clamp(72px, 10vw, 120px) 1.5rem;
+    border-top: 1px solid var(--color-mist);
+  }
+
+  .ba-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .ba-head {
+    max-width: 760px;
+    margin: 0 0 clamp(2rem, 4vw, 3rem);
+  }
+
+  .ba-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(32px, 4.5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 0.875rem;
+  }
+
+  .ba-sub {
+    font-family: var(--font-body);
+    color: var(--color-stone);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .ba-slider {
+    --divider-width: 2px;
+    --divider-color: #d97757;
+    --default-handle-color: #d97757;
+    --default-handle-opacity: 1;
+    display: block;
+    width: 100%;
+    aspect-ratio: 800 / 500;
+    border: 1px solid var(--color-mist);
+    box-shadow: 0 24px 48px -24px rgba(20, 20, 19, 0.18);
+    background: #fff;
+  }
+
+  .ba-figure {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ba-figure svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ba-cap {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-stone);
+    background: rgba(255, 255, 255, 0.88);
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--color-mist);
+  }
+
+  .ba-cap--right {
+    left: auto;
+    right: 1rem;
+    color: var(--color-amber);
+    border-color: rgba(217, 119, 87, 0.3);
+  }
+
+  .ba-footnote {
+    margin: 1.25rem 0 0;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.8125rem;
+    color: var(--color-stone);
+    text-align: center;
+  }
+</style>

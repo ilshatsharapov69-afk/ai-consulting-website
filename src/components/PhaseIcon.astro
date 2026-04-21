@@ -1,0 +1,79 @@
+---
+interface Props {
+  phase: 1 | 2 | 3 | 4;
+  class?: string;
+}
+const { phase, class: className = '' } = Astro.props;
+---
+
+<span class:list={['phase-icon', `phase-icon--${phase}`, className]} aria-hidden="true">
+  {phase === 1 && (
+    <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path class="pi-path" d="M24 13 C28 13 30 16 30 20 C30 25 27 28 23 28 C21 28 20 27 20 25 C20 23 22 22 22 20 C22 18 21 17 19 17 C17 17 15 19 15 22 C15 27 19 30 24 30" />
+      <path class="pi-path pi-wave" d="M6 20 L9 20" />
+      <path class="pi-path pi-wave" d="M4 15 L8 15" />
+      <path class="pi-path pi-wave" d="M4 25 L8 25" />
+    </svg>
+  )}
+
+  {phase === 2 && (
+    <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect class="pi-path" x="14" y="10" width="20" height="16" rx="1" />
+      <path class="pi-path" d="M14 16 L34 16" />
+      <path class="pi-path" d="M18 13 L22 13" />
+      <path class="pi-path pi-arrow" d="M4 20 L14 20 M10 16 L14 20 L10 24" />
+      <circle class="pi-path" cx="19" cy="31" r="2" />
+      <circle class="pi-path" cx="29" cy="31" r="2" />
+    </svg>
+  )}
+
+  {phase === 3 && (
+    <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle class="pi-path" cx="18" cy="18" r="9" />
+      <line class="pi-path" x1="25" y1="25" x2="32" y2="32" />
+      <polyline class="pi-path pi-chart" points="13,22 16,19 19,20 22,15 25,17" />
+    </svg>
+  )}
+
+  {phase === 4 && (
+    <svg viewBox="0 0 40 40" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path class="pi-path" d="M8 10 L24 10 L30 16 L30 30 L8 30 Z" />
+      <path class="pi-path" d="M24 10 L24 16 L30 16" />
+      <path class="pi-path pi-lines" d="M13 19 L25 19 M13 23 L22 23 M13 27 L20 27" />
+    </svg>
+  )}
+</span>
+
+<style>
+  .phase-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--color-mist);
+    background: var(--color-cream-soft);
+    color: var(--color-amber);
+    flex-shrink: 0;
+  }
+
+  .phase-icon svg { display: block; }
+
+  .pi-path {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+  }
+
+  .is-visible .pi-path {
+    animation: piDraw 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: calc(var(--phase-delay, 0) * 100ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pi-path { stroke-dashoffset: 0 !important; animation: none !important; }
+  }
+
+  @keyframes piDraw {
+    to { stroke-dashoffset: 0; }
+  }
+</style>

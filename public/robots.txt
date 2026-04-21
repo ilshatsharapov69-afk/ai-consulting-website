@@ -1,13 +1,75 @@
 User-agent: *
 Allow: /
 
+# Explicitly allow AI crawlers — being citable by LLMs is the 2026 equivalent of ranking #1.
+# Ref: Seer Interactive Sept 2025 — cited brands gain +35% organic CTR even when AI Overviews displace traditional rankings.
+
+# OpenAI
 User-agent: GPTBot
 Allow: /
 
-User-agent: PerplexityBot
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
 Allow: /
 
 User-agent: Claude-SearchBot
 Allow: /
 
-Sitemap: /sitemap-index.xml
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Microsoft
+User-agent: Bingbot
+Allow: /
+
+# Common Crawl (used by many LLM training pipelines)
+User-agent: CCBot
+Allow: /
+
+# Meta
+User-agent: FacebookBot
+Allow: /
+
+# Apple
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Bytedance / ByteSpider
+User-agent: Bytespider
+Allow: /
+
+# Mistral AI
+User-agent: MistralAI-User
+Allow: /
+
+# Diffbot (used for AI knowledge graphs)
+User-agent: Diffbot
+Allow: /
+
+Sitemap: https://setpointaudit.com/sitemap-index.xml

@@ -1,0 +1,110 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id, class: className = '' } = Astro.props;
+---
+
+<section id={id} class:list={['aurora-bg', 'grainy-aurora', className]} data-aurora-parallax>
+  <div class="aurora-parallax-layer aurora-layer-a" aria-hidden="true"></div>
+  <div class="aurora-parallax-layer aurora-layer-b" aria-hidden="true"></div>
+  <slot />
+</section>
+
+<script is:inline>
+  (function () {
+    if (!matchMedia('(pointer: fine)').matches) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const sections = document.querySelectorAll('[data-aurora-parallax]');
+    if (!sections.length) return;
+
+    sections.forEach(function (section) {
+      const a = section.querySelector('.aurora-layer-a');
+      const b = section.querySelector('.aurora-layer-b');
+      if (!a || !b) return;
+
+      let targetX = 0;
+      let targetY = 0;
+      let currX = 0;
+      let currY = 0;
+      let rafId = null;
+
+      section.addEventListener('mousemove', function (e) {
+        const rect = section.getBoundingClientRect();
+        const nx = (e.clientX - rect.left) / rect.width - 0.5;
+        const ny = (e.clientY - rect.top) / rect.height - 0.5;
+        targetX = nx * 16;
+        targetY = ny * 10;
+        if (!rafId) loop();
+      });
+
+      section.addEventListener('mouseleave', function () {
+        targetX = 0;
+        targetY = 0;
+        if (!rafId) loop();
+      });
+
+      function loop() {
+        currX += (targetX - currX) * 0.08;
+        currY += (targetY - currY) * 0.08;
+        a.style.transform = 'translate3d(' + currX.toFixed(2) + 'px,' + currY.toFixed(2) + 'px,0)';
+        b.style.transform = 'translate3d(' + (-currX).toFixed(2) + 'px,' + (-currY).toFixed(2) + 'px,0)';
+        if (Math.abs(targetX - currX) > 0.1 || Math.abs(targetY - currY) > 0.1) {
+          rafId = requestAnimationFrame(loop);
+        } else {
+          rafId = null;
+        }
+      }
+    });
+  })();
+</script>
+
+<style>
+  .grainy-aurora {
+    position: relative;
+    background: var(--color-ink);
+    color: var(--color-cream);
+    padding: clamp(80px, 12vw, 160px) 1.5rem;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .grainy-aurora > :global(*:not(.aurora-parallax-layer)) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .aurora-parallax-layer {
+    position: absolute;
+    inset: -8%;
+    pointer-events: none;
+    z-index: -1;
+    will-change: transform;
+    transition: transform 160ms linear;
+  }
+
+  .aurora-layer-a {
+    background-image:
+      radial-gradient(at 22% 32%, rgba(217, 119, 87, 0.18) 0px, transparent 55%),
+      radial-gradient(at 88% 18%, rgba(120, 140, 93, 0.14) 0px, transparent 50%);
+    filter: blur(28px);
+    mix-blend-mode: screen;
+    opacity: 0.8;
+  }
+
+  .aurora-layer-b {
+    background-image:
+      radial-gradient(at 58% 86%, rgba(217, 119, 87, 0.1) 0px, transparent 60%),
+      radial-gradient(at 96% 72%, rgba(232, 230, 220, 0.05) 0px, transparent 45%);
+    filter: blur(36px);
+    mix-blend-mode: screen;
+    opacity: 0.6;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora-parallax-layer { transform: none !important; }
+  }
+</style>

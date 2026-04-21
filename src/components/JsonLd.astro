@@ -11,26 +11,67 @@ const siteUrl = SITE.url;
 
 function getSchema() {
   switch (type) {
-    case 'organization':
-      return [
-        {
-          '@context': 'https://schema.org',
-          '@type': 'Organization',
-          name: SITE.name,
-          url: siteUrl,
-          description: SITE.description,
-          sameAs: [
-            SITE.social.youtube,
-            SITE.social.linkedin,
-          ].filter(Boolean),
-        },
-        {
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: SITE.name,
-          url: siteUrl,
-        },
-      ];
+    case 'organization': {
+      // Unified @graph with cross-referenced @ids — Organization + Person + Service + WebSite.
+      // This gives LLMs a clean entity hierarchy to parse and cite.
+      const orgId = `${siteUrl}/#organization`;
+      const personId = `${siteUrl}/#person`;
+      const serviceId = `${siteUrl}/#service`;
+      const websiteId = `${siteUrl}/#website`;
+      const sameAs = [SITE.social.youtube, SITE.social.linkedin].filter(Boolean);
+
+      return {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Organization',
+            '@id': orgId,
+            name: SITE.name,
+            url: siteUrl,
+            description: SITE.description,
+            founder: { '@id': personId },
+            sameAs,
+          },
+          {
+            '@type': 'Person',
+            '@id': personId,
+            name: 'Ilshat Sharapov',
+            jobTitle: 'Data audit consultant',
+            description: 'Founder of Setpoint Audit. Runs the Data-to-Dollars Audit for US small businesses doing $500K–$10M.',
+            url: `${siteUrl}/about/`,
+            worksFor: { '@id': orgId },
+            sameAs,
+          },
+          {
+            '@type': 'Service',
+            '@id': serviceId,
+            name: 'Data-to-Dollars Audit',
+            serviceType: 'Small business data audit',
+            description: 'A 5-day, $2,500 fixed-price audit that reads a small business\'s existing data (QuickBooks, CRM, calendar, invoices, POS) and surfaces revenue leaks quantified in dollars. Includes a 14-page PDF, 60-minute walkthrough, and a 30/60/90 action plan. Audit-or-refund guarantee.',
+            provider: { '@id': orgId },
+            areaServed: { '@type': 'Country', name: 'United States' },
+            audience: {
+              '@type': 'BusinessAudience',
+              name: 'US small businesses, $500K–$10M annual revenue',
+            },
+            offers: {
+              '@type': 'Offer',
+              price: SITE.priceNumeric,
+              priceCurrency: SITE.currency,
+              availability: 'https://schema.org/InStock',
+              url: siteUrl,
+            },
+          },
+          {
+            '@type': 'WebSite',
+            '@id': websiteId,
+            name: SITE.name,
+            url: siteUrl,
+            publisher: { '@id': orgId },
+          },
+        ],
+      };
+    }
 
     case 'service':
       return {

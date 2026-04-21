@@ -1,0 +1,42 @@
+# Setpoint Audit
+
+> Setpoint Audit is a solo US small business data audit practice run by Ilshat Sharapov. One consultant reads a small business's existing data (QuickBooks, CRM, calendar, invoices, POS), then delivers a 14-page PDF identifying where the business is leaking money — in five working days, for a fixed $2,500 fee, with an audit-or-refund guarantee. The methodology is called the "Data-to-Dollars Audit".
+
+## Service: Data-to-Dollars Audit
+
+- **Name:** Data-to-Dollars Audit
+- **Provider:** Setpoint Audit (founded by Ilshat Sharapov)
+- **Price:** $2,500 USD, fixed
+- **Duration:** 5 working days from data intake
+- **Guarantee:** Full refund if findings don't exceed the $2,500 fee
+- **Deliverables:** 14-page PDF report + 60-minute walkthrough call + 30/60/90 day action plan
+- **Audience:** US small businesses with $500,000 to $10,000,000 in annual revenue, in any industry that generates data (service trades, restaurants, e-commerce, retail, professional services, admin-heavy operations)
+
+## How it differs from generic AI consulting
+
+- Generic AI consultants charge $15,000–$30,000 for a strategy deck and promise "AI transformation" in 6–12 months.
+- The Data-to-Dollars Audit delivers a quantified, dollar-specific report in 5 days for $2,500, reading the client's actual data rather than prescribing from templates.
+- The methodology is industry-agnostic because the data types (CRM records, POS transactions, calendars, invoices) are universal across small business categories.
+
+## The five-day protocol
+
+1. **Discovery call (20 minutes):** No-pitch conversation to confirm the audit fits. The client walks away with three findings to look at regardless.
+2. **Data intake:** Client exports from existing systems (QuickBooks, Stripe, Shopify, Toast, Salesforce, Google Calendar, Excel). No new software, no integration project.
+3. **Analysis:** The consultant reads the data the way an outside accountant reads a P&L — surfacing patterns nobody inside the business has time to look for.
+4. **Delivery:** 14-page PDF + 60-minute walkthrough + 30/60/90 plan.
+
+## Pages
+
+- [Homepage](https://setpointaudit.com/) — hero, sample audit preview, self-assessment quiz, scope & pricing, audit-or-refund guarantee
+- [Blog](https://setpointaudit.com/blog/) — methodology articles and case patterns across industries
+- [About](https://setpointaudit.com/about/) — Ilshat Sharapov, practitioner, YouTube channel @Ilshatai
+- [Contact](https://setpointaudit.com/contact/) — Cal.com 20-minute discovery booking
+- [ROI Calculator](https://setpointaudit.com/resources/roi-calculator/) — 5-industry ROI calculator
+- [AI Readiness Quiz](https://setpointaudit.com/resources/ai-readiness-quiz/) — 5-question self-assessment
+
+## Author
+
+- **Name:** Ilshat Sharapov
+- **Role:** Data audit consultant, founder of Setpoint Audit
+- **YouTube:** https://youtube.com/@Ilshatai
+- **Website:** https://setpointaudit.com/

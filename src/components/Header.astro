@@ -4,11 +4,12 @@ import { SITE, NAV_LINKS } from '../config';
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="bg-white sticky top-0 z-50 border-b border-gray-200">
+<header class="site-header bg-white sticky top-0 z-50 border-b border-gray-200">
+  <div class="scroll-progress" aria-hidden="true"></div>
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="text-navy font-bold text-xl no-underline hover:text-blue transition-colors">
+      <a href="/" class="site-logo text-navy font-bold text-xl no-underline hover:text-blue transition-colors">
         {SITE.name}
       </a>
 
@@ -18,9 +19,9 @@ const currentPath = Astro.url.pathname;
           <a
             href={link.href}
             class:list={[
-              'px-3 py-2 rounded-md text-sm font-medium no-underline transition-colors',
+              'site-nav-link px-3 py-2 rounded-md text-sm font-medium no-underline transition-colors',
               currentPath.startsWith(link.href)
-                ? 'text-blue bg-blue/5'
+                ? 'site-nav-link-active text-blue bg-blue/5'
                 : 'text-gray-600 hover:text-navy hover:bg-gray-50',
             ]}
           >
@@ -29,7 +30,7 @@ const currentPath = Astro.url.pathname;
         ))}
         <a
           href={SITE.ctaUrl}
-          class="ml-4 inline-flex items-center px-4 py-2 rounded-lg bg-green text-white text-sm font-semibold no-underline hover:bg-green-light transition-colors"
+          class="site-cta ml-4 inline-flex items-center px-4 py-2 rounded-lg bg-green text-white text-sm font-semibold no-underline hover:bg-green-light transition-colors"
         >
           {SITE.ctaText}
         </a>
@@ -38,7 +39,7 @@ const currentPath = Astro.url.pathname;
       <!-- Mobile menu button -->
       <button
         id="mobile-menu-btn"
-        class="md:hidden p-2 rounded-md text-gray-600 hover:text-navy hover:bg-gray-50"
+        class="site-burger md:hidden p-2 rounded-md text-gray-600 hover:text-navy hover:bg-gray-50"
         aria-label="Open menu"
         aria-expanded="false"
       >
@@ -49,15 +50,15 @@ const currentPath = Astro.url.pathname;
     </div>
 
     <!-- Mobile Navigation -->
-    <div id="mobile-menu" class="hidden md:hidden pb-4">
+    <div id="mobile-menu" class="site-mobile-menu hidden md:hidden pb-4">
       <div class="flex flex-col gap-1">
         {NAV_LINKS.map((link) => (
           <a
             href={link.href}
             class:list={[
-              'px-3 py-2 rounded-md text-base font-medium no-underline transition-colors',
+              'site-nav-link px-3 py-2 rounded-md text-base font-medium no-underline transition-colors',
               currentPath.startsWith(link.href)
-                ? 'text-blue bg-blue/5'
+                ? 'site-nav-link-active text-blue bg-blue/5'
                 : 'text-gray-600 hover:text-navy hover:bg-gray-50',
             ]}
           >
@@ -66,7 +67,7 @@ const currentPath = Astro.url.pathname;
         ))}
         <a
           href={SITE.ctaUrl}
-          class="mt-2 text-center px-4 py-2 rounded-lg bg-green text-white font-semibold no-underline hover:bg-green-light transition-colors"
+          class="site-cta mt-2 text-center px-4 py-2 rounded-lg bg-green text-white font-semibold no-underline hover:bg-green-light transition-colors"
         >
           {SITE.ctaText}
         </a>
@@ -85,4 +86,114 @@ const currentPath = Astro.url.pathname;
       menu.classList.toggle('hidden');
     });
   }
+
+  // Homepage scroll-state — adds .is-scrolled to header after hero
+  if (document.body.classList.contains('home')) {
+    const headerEl = document.querySelector('.site-header');
+    if (headerEl) {
+      const onScroll = () => {
+        if (window.scrollY > 80) {
+          headerEl.classList.add('is-scrolled');
+        } else {
+          headerEl.classList.remove('is-scrolled');
+        }
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+  }
 </script>
+
+<style is:global>
+  /* Dark variant scoped to homepage — leaves all other pages untouched */
+  body.home .site-header {
+    background-color: transparent;
+    border-bottom-color: transparent;
+    transition: background-color 250ms ease, border-bottom-color 250ms ease, backdrop-filter 250ms ease;
+  }
+
+  body.home .site-header.is-scrolled {
+    background-color: rgba(20, 20, 19, 0.85);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    border-bottom-color: rgba(232, 230, 220, 0.08);
+  }
+
+  body.home .site-header .site-logo {
+    color: var(--color-cream);
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 72, 'SOFT' 50;
+    letter-spacing: -0.01em;
+  }
+
+  body.home .site-header .site-logo:hover {
+    color: var(--color-amber);
+  }
+
+  body.home .site-header .site-nav-link {
+    color: var(--color-ash);
+    background-color: transparent !important;
+  }
+
+  body.home .site-header .site-nav-link:hover {
+    color: var(--color-cream);
+    background-color: rgba(250, 249, 245, 0.05) !important;
+  }
+
+  body.home .site-header .site-nav-link-active {
+    color: var(--color-cream);
+  }
+
+  body.home .site-header .site-cta {
+    background-color: var(--color-amber);
+    color: var(--color-cream);
+    box-shadow: 0 6px 18px -6px rgba(217, 119, 87, 0.5);
+  }
+
+  body.home .site-header .site-cta:hover {
+    background-color: var(--color-amber-soft);
+  }
+
+  body.home .site-header .site-burger {
+    color: var(--color-ash);
+  }
+
+  body.home .site-header .site-burger:hover {
+    color: var(--color-cream);
+    background-color: rgba(250, 249, 245, 0.05);
+  }
+
+  body.home .site-header .site-mobile-menu {
+    background-color: rgba(20, 20, 19, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(232, 230, 220, 0.08);
+    margin: 0 -1rem;
+    padding: 0.75rem 1rem 1rem;
+  }
+
+  /* Scroll progress — thin amber line that grows as user scrolls */
+  .site-header .scroll-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    transform-origin: left center;
+    transform: scaleX(0);
+    background: linear-gradient(90deg, var(--color-amber), var(--color-amber-soft));
+    z-index: 3;
+    pointer-events: none;
+    will-change: transform;
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+
+  body.home .site-header.is-scrolled .scroll-progress {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header .scroll-progress { display: none; }
+  }
+</style>

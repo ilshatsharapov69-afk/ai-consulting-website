@@ -1,358 +1,234 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CTABlock from '../components/CTABlock.astro';
+import GrainyAurora from '../components/GrainyAurora.astro';
+import DifferenceTable from '../components/DifferenceTable.astro';
+import SampleAuditPreview from '../components/SampleAuditPreview.astro';
+import PractitionerNote from '../components/PractitionerNote.astro';
+import SelfAssessment from '../components/SelfAssessment.astro';
 import JsonLd from '../components/JsonLd.astro';
+import Preloader from '../components/Preloader.astro';
+import AmbientDataParticles from '../components/AmbientDataParticles.astro';
+import LiveRevenueChart from '../components/LiveRevenueChart.astro';
+import CountUpMetric from '../components/CountUpMetric.astro';
+import SocialProofStrip from '../components/SocialProofStrip.astro';
+import SignalDivider from '../components/SignalDivider.astro';
+import BeforeAfterSlider from '../components/BeforeAfterSlider.astro';
+import PhaseIcon from '../components/PhaseIcon.astro';
 import { SITE } from '../config';
+
+const heroPart1 = "Your small business data knows where the money's leaking.";
+const heroPart2 = "Most owners never ask it.";
+
+let heroCharIdx = 0;
+const buildWords = (line: string) =>
+  line.split(' ').map((word) => ({
+    chars: [...word].map((c) => ({ c, i: heroCharIdx++ })),
+  }));
+const heroWords1 = buildWords(heroPart1);
+const heroWords2 = buildWords(heroPart2);
+
+const authorityMetrics = [
+  { num: '5 days', label: 'intake to delivery' },
+  { num: '20 min', label: 'discovery call · no pitch' },
+  { num: '14 pages', label: 'sample audit before you pay' },
+  { num: '$500K–$10M', label: 'revenue range I work with' },
+];
+
+const painQuotes = [
+  "You were slammed all quarter, but the P&L doesn't show it. Where did the money go?",
+  "Your best employee just quit — and years of undocumented know-how walked out the door.",
+  "A competitor just ate your market share with a faster response time.",
+  "Your office manager is drowning in paperwork. Again.",
+];
+
+const phases = [
+  {
+    num: '01',
+    name: 'Discovery call',
+    desc: 'Twenty minutes. I listen for the leak you can already feel. By the end, you know whether the audit fits — and three things to look at even if it does not.',
+  },
+  {
+    num: '02',
+    name: 'Data intake',
+    desc: 'Exports from whatever you already use — QuickBooks, Stripe, Shopify, Toast, Salesforce, Google Calendar, Excel. No new software, no integration project.',
+  },
+  {
+    num: '03',
+    name: 'Analysis',
+    desc: 'I read your data the way an outside accountant reads a P&L. Patterns no one inside the business has time to look for, surfaced and quantified in dollars.',
+  },
+  {
+    num: '04',
+    name: 'Delivery',
+    desc: 'A 14-page PDF and a 60-minute walkthrough. Every finding tied to a number. A 30/60/90 plan you can execute alone or hand to anyone.',
+  },
+];
+
+const faqs = [
+  {
+    q: "Can't I just use ChatGPT myself?",
+    a: "You can — and you should, for drafting and summarizing. But analyzing 2,000 customer records, cross-referencing twelve months of transactions, and surfacing patterns nobody has time to look for needs specialized tooling and someone who knows the signals. ChatGPT is a calculator. The audit is the accountant.",
+  },
+  {
+    q: 'Why not just buy better software?',
+    a: "Software solves one problem. Analysis tells you which problem to solve first — and whether new software is even the right answer. Most owners who buy all-in-one platforms without a plan spend $10K–$25K on implementation and wait months for payoff. Analysis first, software second.",
+  },
+  {
+    q: 'What if my data is messy?',
+    a: "Messy data is the norm — exports with blanks, inconsistent formats, legacy fields. Cleaning is the first day or two of the audit. If the data genuinely cannot be analyzed, I tell you on the discovery call before you commit.",
+  },
+  {
+    q: "I'm not sure AI can help my specific industry.",
+    a: "The methodology is industry-agnostic because the data types are — CRM records, POS transactions, calendars, invoices show up everywhere. On the discovery call you tell me what systems you run; I tell you honestly whether the audit fits.",
+  },
+  {
+    q: 'Can my office manager figure this out?',
+    a: "She is already doing the work of three people — admin, bookkeeping, customer service, scheduling. She does not have forty hours to dig through transaction logs, and she does not have AI tools that read ten thousand records in minutes. This is not about capability. It is about time and tools.",
+  },
+  {
+    q: 'Why $2,500? Why fixed?',
+    a: "Fixed price means I stop the clock at 5 days whether the audit took 30 hours or 60. Methodology scales; my time does not. If your data would take more than a week to read, I tell you on the discovery call and we both walk away — no invoice, no obligation.",
+  },
+  {
+    q: "What if the audit doesn't find anything valuable?",
+    a: "Then I refund the full $2,500. I track every finding against your fee, and if the total dollar impact doesn't clear $2,500 by day 5, you get the audit deliverable for free and the money back. Falsifiable, no fine print.",
+  },
+];
 ---
 
-<BaseLayout title={SITE.name} description={SITE.description}>
+<BaseLayout title={SITE.name} description={SITE.description} bodyClass="home">
   <JsonLd type="organization" />
+  <Preloader />
 
-  <!-- 1. HERO — open loop -->
-  <section class="bg-navy text-white py-16 sm:py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6">
-            Your Business Has More Data Than You Think. Most of It Hides Money Leaks.
-          </h1>
-          <p class="text-lg sm:text-xl text-gray-300 mb-4 leading-relaxed">
-            We run AI analysis on your small business data — CRM exports, spreadsheets, calendar, POS, invoices — and deliver a report showing every dollar you're losing. <strong class="text-white">$2,500. Takes 5-7 days. Any industry.</strong>
-          </p>
-          <div class="mt-8">
-            <a
-              href={SITE.ctaUrl}
-              class="inline-flex items-center px-6 py-3 rounded-lg bg-green text-white font-semibold text-lg no-underline hover:bg-green-light transition-colors shadow-lg hover:shadow-xl"
-            >
-              {SITE.ctaText}
-              <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </a>
-            <p class="text-gray-400 text-sm mt-3">You'll walk away knowing your top 3 money leaks — even if you never hire us.</p>
-            <a href={SITE.social.youtube} target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-4 text-sm text-gray-300 hover:text-white no-underline transition-colors">
-              <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-              Just watched the breakdown on YouTube? This is the next step →
-            </a>
-          </div>
-          <!-- Open loop — scroll hook -->
-          <div class="mt-10 flex items-center gap-2 text-gray-400 text-sm">
-            <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-            Scroll down to see what AI finds across 5 real small business audits
-          </div>
-        </div>
-        <div class="hidden lg:flex justify-center">
-          <!-- TODO: replace with VSL iframe when recorded. See handoff notes Research prompt #2. -->
-          <a
-            href={SITE.social.youtube}
-            target="_blank"
-            rel="noopener"
-            class="w-full max-w-md aspect-video rounded-2xl bg-white/10 hover:bg-white/15 transition-colors flex flex-col items-center justify-center p-6 no-underline group"
-          >
-            <svg class="w-20 h-20 text-red-500 mb-4 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            <div class="text-white font-semibold text-lg text-center">Watch the AI Audit Breakdowns</div>
-            <div class="text-gray-300 text-sm mt-2">on @Ilshatai — where these findings come from</div>
+  <svg aria-hidden="true" class="grain-defs" width="0" height="0">
+    <defs>
+      <filter id="grain-filter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+    </defs>
+  </svg>
+
+  {/* SECTION 1 — HERO */}
+  <GrainyAurora class="hero">
+    <AmbientDataParticles count={30} />
+    <div class="hero-inner">
+      <div class="hero-main">
+        <a href={SITE.social.youtube} target="_blank" rel="noopener" class="authority-badge">
+          <img
+            src="/assets/founder-avatar-round.jpg"
+            alt=""
+            class="avatar-48"
+            width="72"
+            height="72"
+            loading="eager"
+            decoding="async"
+            onerror="this.style.display='none';"
+          />
+          <span>As seen on <strong>@Ilshatai</strong> on YouTube</span>
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="margin-left:4px;opacity:0.65;">
+            <path d="M6 3h7v7M13 3L5.5 10.5M3 6v7h7" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+
+        <h1 class="hero-display kinetic-headline">
+          <span class="hero-line">
+            {heroWords1.flatMap((w, wi) => [
+              <span class="kinetic-word">
+                {w.chars.map((ch) => (
+                  <span class="kinetic-char" style={`--char-i: ${ch.i}`}>{ch.c}</span>
+                ))}
+              </span>,
+              wi < heroWords1.length - 1 ? ' ' : '',
+            ])}
+          </span>
+          <span class="hero-line">
+            {heroWords2.flatMap((w, wi) => [
+              <span class="kinetic-word">
+                {w.chars.map((ch) => (
+                  <span class="kinetic-char" style={`--char-i: ${ch.i}`}>{ch.c}</span>
+                ))}
+              </span>,
+              wi < heroWords2.length - 1 ? ' ' : '',
+            ])}
+          </span>
+        </h1>
+
+        <p class="hero-sub">
+          I read your QuickBooks, your CRM, your calendar — then I tell you where the
+          money you can feel but cannot point at is hiding. One person, five days, fixed
+          price. For US small businesses doing $500K–$10M.
+        </p>
+
+        <div class="hero-cta-wrap">
+          <a href="#sample-audit-preview" class="cta-primary magnetic">
+            See a sample audit page <span class="cta-arrow">→</span>
           </a>
+          <a href={SITE.calUrl} target="_blank" rel="noopener" class="cta-secondary">
+            Or skip the preview — book a 20-min call
+          </a>
+          <p class="hero-price-pill">$2,500 · 5 days · fixed · audit-or-refund</p>
         </div>
       </div>
+
+      <aside class="hero-visual" aria-label="Sample 12-month revenue with quantified leak moments">
+        <LiveRevenueChart />
+      </aside>
+    </div>
+  </GrainyAurora>
+
+  {/* SECTION 2 — AUTHORITY STRIP (count-up metrics) */}
+  <section class="authority-strip" aria-label="Audit at a glance">
+    <div class="authority-inner">
+      <CountUpMetric target="5 days" label="intake to delivery" />
+      <CountUpMetric target="20 min" label="discovery call · no pitch" />
+      <CountUpMetric target="14 pages" label="sample audit before you pay" />
+      <CountUpMetric target="$500K–$10M" label="revenue range I work with" mode="type" duration={1600} />
     </div>
   </section>
 
-  <!-- 2. TRUST BAR -->
-  <section class="border-b border-gray-200 bg-white py-6">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
-        <div>
-          <div class="text-2xl font-bold text-navy">6+</div>
-          <div class="text-xs text-gray-500 uppercase tracking-wider">Industries Covered</div>
-        </div>
-        <div>
-          <div class="text-2xl font-bold text-navy">10,000+</div>
-          <div class="text-xs text-gray-500 uppercase tracking-wider">Data Points Per Analysis</div>
-        </div>
-        <div>
-          <div class="text-2xl font-bold text-navy">5-7 Days</div>
-          <div class="text-xs text-gray-500 uppercase tracking-wider">Report Delivery</div>
-        </div>
-        <div>
-          <div class="text-2xl font-bold text-navy">$2,500</div>
-          <div class="text-xs text-gray-500 uppercase tracking-wider">Flat Fee. No Surprises.</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <SignalDivider variant="ekg" theme="dark" />
 
-  <!-- 3. SOUND FAMILIAR? (Recognition) -->
-  <section class="py-16">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-navy text-center mb-12">
-        Sound Familiar?
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {[
-          "You were slammed all quarter, but the P&L doesn't show it. Where did the money go?",
-          "Your best employee just quit — and years of undocumented know-how walked out the door.",
-          "A competitor just ate your market share with a faster response time — and you can't figure out what they're doing differently.",
-          "Your office manager is drowning in paperwork. Again. And she's already doing the work of three people.",
-        ].map((text) => (
-          <div class="p-6 rounded-xl border border-gray-200 bg-white">
-            <p class="text-gray-700 text-lg leading-relaxed italic">"{text}"</p>
-          </div>
+  {/* SECTION 2.5 — SOCIAL PROOF STRIP (marquee) */}
+  <SocialProofStrip />
+
+  {/* SECTION 3 — SOUND FAMILIAR */}
+  <section class="sound-familiar">
+    <div class="sf-inner">
+      <h2 class="sf-heading">Sound familiar?</h2>
+      <div class="sf-wall">
+        {painQuotes.map((q, i) => (
+          <blockquote class={`sf-card reveal sf-card-${i + 1}`}>
+            <p>&ldquo;{q}&rdquo;</p>
+          </blockquote>
         ))}
       </div>
-      <p class="text-center text-gray-500 mt-8">These are the moments when small business owners call us.</p>
+      <p class="sf-caption">These are the moments owners call me.</p>
     </div>
   </section>
 
-  <!-- 4. COST OF WAITING (Anxiety) -->
-  <section class="py-16 bg-gray-900 text-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-2xl sm:text-3xl font-bold mb-8">
-        Every Month You Wait Is Another Month of Losses
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
-        <div>
-          <div class="text-3xl font-bold text-red-400 mb-2">60-73%</div>
-          <p class="text-gray-300 text-sm">of business data never gets analyzed — every invoice, transaction, and record you generate sits untouched while competitors mine theirs. (Forrester Research)</p>
-        </div>
-        <div>
-          <div class="text-3xl font-bold text-red-400 mb-2">58%</div>
-          <p class="text-gray-300 text-sm">of US small businesses now use AI — up from 23% two years ago. The gap between adopters and holdouts is widening every quarter. (U.S. Chamber of Commerce, 2025)</p>
-        </div>
-        <div>
-          <div class="text-3xl font-bold text-red-400 mb-2">$0</div>
-          <p class="text-gray-300 text-sm">is what it costs to find out if you have these problems. The free call takes 20 minutes. The answer might save you six figures.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <SignalDivider variant="candle" theme="light" />
 
-  <!-- 5. WHAT AI FINDS (Hope — before/after) -->
-  <section class="py-16">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-navy text-center mb-4">
-        What AI Actually Finds
-      </h2>
-      <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">
-        Representative findings from data audits across industries. Every number is sourced.
-      </p>
-      <div class="space-y-6">
-        <!-- Before/After cards -->
-        <div class="bg-white p-6 rounded-xl border border-gray-200">
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 w-16 h-16 rounded-lg bg-blue/10 flex items-center justify-center">
-              <span class="text-2xl font-bold text-blue">70%</span>
-            </div>
-            <div>
-              <h3 class="font-bold text-navy mb-1">E-commerce: Cart Abandonment</h3>
-              <p class="text-gray-600">
-                <span class="text-red-500 font-medium">Before:</span> 70% of carts abandoned — industry baseline.
-                <span class="text-green font-medium">After:</span> Automated recovery flows are the highest-revenue email type for Shopify/WooCommerce stores, averaging $3.65 per recipient.
-              </p>
-              <p class="text-xs text-gray-400 mt-1">Baymard Institute (2025), Klaviyo benchmarks</p>
-            </div>
-          </div>
-        </div>
+  {/* SECTION 4 — DIFFERENCE TABLE */}
+  <DifferenceTable />
 
-        <div class="bg-white p-6 rounded-xl border border-gray-200">
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 w-16 h-16 rounded-lg bg-blue/10 flex items-center justify-center">
-              <span class="text-xl font-bold text-blue">4-10%</span>
-            </div>
-            <div>
-              <h3 class="font-bold text-navy mb-1">Restaurants: Food Waste</h3>
-              <p class="text-gray-600">
-                <span class="text-red-500 font-medium">Before:</span> Commercial kitchens waste 4-10% of food purchased — $40K-$100K/yr on a $1M food budget.
-                <span class="text-green font-medium">After:</span> AI inventory tools cut food waste up to 50% and food costs 3-8%.
-              </p>
-              <p class="text-xs text-gray-400 mt-1">National Restaurant Association / LeanPath; Winnow case data (2024)</p>
-            </div>
-          </div>
-        </div>
+  {/* SECTION 5 — SAMPLE AUDIT PREVIEW (now with mini bar charts per finding) */}
+  <SampleAuditPreview />
 
-        <div class="bg-white p-6 rounded-xl border border-gray-200">
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 w-16 h-16 rounded-lg bg-blue/10 flex items-center justify-center">
-              <span class="text-2xl font-bold text-blue">37%</span>
-            </div>
-            <div>
-              <h3 class="font-bold text-navy mb-1">Professional Services: Billable-Hour Leakage</h3>
-              <p class="text-gray-600">
-                <span class="text-red-500 font-medium">Before:</span> Lawyers bill just 2.9 hours of an 8-hour day — 37% utilization.
-                <span class="text-green font-medium">After:</span> 74% of hourly billable work (drafting, retrieval, analysis) is automatable by AI.
-              </p>
-              <p class="text-xs text-gray-400 mt-1">Clio 2024 Legal Trends Report</p>
-            </div>
-          </div>
-        </div>
+  <SignalDivider variant="spark" theme="light" />
 
-        <div class="bg-white p-6 rounded-xl border border-gray-200">
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 w-16 h-16 rounded-lg bg-blue/10 flex items-center justify-center">
-              <span class="text-2xl font-bold text-blue">62%</span>
-            </div>
-            <div>
-              <h3 class="font-bold text-navy mb-1">Home Services: Missed Calls</h3>
-              <p class="text-gray-600">
-                <span class="text-red-500 font-medium">Before:</span> In a 30-day study of 85 small businesses across 58 industries, only 37.8% of incoming calls were answered live.
-                <span class="text-green font-medium">After:</span> 24/7 AI answering captures every lead — calls that used to go to voicemail now book appointments.
-              </p>
-              <p class="text-xs text-gray-400 mt-1">411 Locals research study</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl border border-gray-200">
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 w-16 h-16 rounded-lg bg-blue/10 flex items-center justify-center">
-              <span class="text-xl font-bold text-blue">20-50%</span>
-            </div>
-            <div>
-              <h3 class="font-bold text-navy mb-1">Retail & Inventory: Dead Stock Cut</h3>
-              <p class="text-gray-600">
-                <span class="text-red-500 font-medium">Before:</span> Inventory distortion costs global retailers $1.73T/yr — 6.5% of total retail sales.
-                <span class="text-green font-medium">After:</span> AI demand forecasting reduces inventory levels 20-50% and improves forecast accuracy from 75% to 90%+.
-              </p>
-              <p class="text-xs text-gray-400 mt-1">IHL Group (2025); McKinsey distribution operations research</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl border border-gray-200">
-          <div class="flex items-start gap-4">
-            <div class="shrink-0 w-16 h-16 rounded-lg bg-blue/10 flex items-center justify-center">
-              <span class="text-xl font-bold text-blue">60-70%</span>
-            </div>
-            <div>
-              <h3 class="font-bold text-navy mb-1">All Industries: Admin Automation Potential</h3>
-              <p class="text-gray-600">
-                <span class="text-red-500 font-medium">Before:</span> Office staff buried in repetitive admin — drafting, lookups, data entry, scheduling.
-                <span class="text-green font-medium">After:</span> Current AI can automate 60-70% of activities that consume employee time across industries.
-              </p>
-              <p class="text-xs text-gray-400 mt-1">McKinsey Global Institute, "The Economic Potential of Generative AI" (June 2023)</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. WHAT YOU GET — scope + value stack (Desire) -->
-  <section class="py-16 bg-gray-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-navy text-center mb-12">
-        What You Get for $2,500
-      </h2>
-      <div class="bg-white rounded-2xl border-2 border-blue p-8 sm:p-10">
-        <div class="flex items-baseline justify-between mb-8">
-          <h3 class="text-2xl font-bold text-navy">AI Business Analysis</h3>
-          <div class="text-right">
-            <span class="text-3xl font-bold text-blue">$2,500</span>
-            <span class="text-gray-500 block text-sm">one-time</span>
-          </div>
-        </div>
-
-        <!-- Deliverables -->
-        <div class="space-y-4 mb-8">
-          <h4 class="font-semibold text-navy">What's included:</h4>
-          {[
-            '12-20 page PDF report with your AI Readiness Score',
-            '8-15 scored opportunities ranked by impact and ROI',
-            'Exact dollar amounts — what you\'re losing, where, and how much you\'d save',
-            '30/60/90 day action plan with specific tools and costs',
-            '60-minute walkthrough call — we go through every finding together',
-          ].map((item) => (
-            <div class="flex items-start gap-3">
-              <svg class="w-5 h-5 text-green shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span class="text-gray-700">{item}</span>
-            </div>
-          ))}
-        </div>
-
-        <!-- Value stack -->
-        <div class="p-5 bg-blue/5 rounded-lg mb-8">
-          <h4 class="font-semibold text-navy mb-3">What this analysis is worth:</h4>
-          <div class="space-y-2 text-sm">
-            {[
-              { item: 'Business process audit (6 dimensions)', value: '$1,500' },
-              { item: 'Technology stack review & integration mapping', value: '$800' },
-              { item: 'AI opportunity mapping (8-15 use cases)', value: '$2,000' },
-              { item: 'ROI calculation per opportunity', value: '$1,200' },
-              { item: '30/60/90 day action plan', value: '$500' },
-            ].map((row) => (
-              <div class="flex justify-between">
-                <span class="text-gray-600">{row.item}</span>
-                <span class="text-gray-400">{row.value}</span>
-              </div>
-            ))}
-            <div class="border-t border-gray-200 pt-2 mt-3 flex justify-between font-semibold">
-              <span class="text-gray-500">Total value</span>
-              <span class="text-gray-400 line-through">$6,000+</span>
-            </div>
-            <div class="flex justify-between text-lg font-bold">
-              <span class="text-navy">Your investment</span>
-              <span class="text-blue">$2,500</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- What's NOT included -->
-        <div class="space-y-3 p-4 bg-gray-50 rounded-lg mb-6">
-          <h4 class="font-semibold text-navy">What's NOT included (we're upfront):</h4>
-          {[
-            'We don\'t implement anything — this is analysis only',
-            'We don\'t sell you software',
-            'You get the report and decide what to do with it',
-          ].map((item) => (
-            <div class="flex items-start gap-3">
-              <span class="text-gray-400 shrink-0">—</span>
-              <span class="text-gray-600 text-sm">{item}</span>
-            </div>
-          ))}
-        </div>
-
-        <div class="flex flex-wrap gap-6 text-sm text-gray-500">
-          <div class="flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            5-7 business days
-          </div>
-          <div class="flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            ~3 hours of your time
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. HOW IT WORKS -->
-  <section class="py-16">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-navy text-center mb-12">
-        How It Works
-      </h2>
-      <div class="space-y-8">
-        {[
-          { n: 1, title: 'Free call (20 min)', desc: 'We talk about your business. You tell us the headaches. We figure out if our analysis can actually help. If not, we\'ll say so.' },
-          { n: 2, title: 'We pull your data', desc: 'From systems you already use — QuickBooks, Stripe, Shopify, Toast, Salesforce, Google Calendar, Excel, or whatever your business runs on. We work with what you have. No extra work for you.' },
-          { n: 3, title: 'AI analyzes everything', desc: 'Thousands of data points — orders, transactions, schedules, customer records, costs. AI finds patterns that no person has time to look for.' },
-          { n: 4, title: 'You get the report', desc: 'PDF + 60-minute walkthrough. Every finding explained with dollar amounts. The report is yours to keep and act on however you want.' },
-        ].map((step) => (
-          <div class="flex gap-4">
-            <div class="shrink-0 w-12 h-12 rounded-full bg-blue text-white flex items-center justify-center font-bold text-lg">
-              {step.n}
-            </div>
-            <div>
-              <h3 class="text-lg font-bold text-navy mb-1">{step.title}</h3>
-              <p class="text-gray-600 leading-relaxed">{step.desc}</p>
+  {/* SECTION 6 — DATA-TO-DOLLARS PROCESS (with animated phase icons) */}
+  <section class="process">
+    <div class="process-inner">
+      <h2 class="process-heading">The Data-to-Dollars process.</h2>
+      <div class="process-phases">
+        {phases.map((p, idx) => (
+          <div class="phase reveal">
+            <PhaseIcon phase={(idx + 1) as 1 | 2 | 3 | 4} />
+            <span class="phase-num" aria-hidden="true">{p.num}</span>
+            <div class="phase-text">
+              <h3 class="phase-name">{p.name}</h3>
+              <p class="phase-desc">{p.desc}</p>
             </div>
           </div>
         ))}
@@ -360,97 +236,666 @@ import { SITE } from '../config';
     </div>
   </section>
 
-  <!-- 8. ZERO RISK -->
-  <section class="py-16 bg-green/5">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="w-16 h-16 rounded-full bg-green/10 flex items-center justify-center mx-auto mb-6">
-        <svg class="w-8 h-8 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-        </svg>
+  {/* SECTION 6.5 — BEFORE/AFTER SLIDER (chaotic dashboard → clean audit) */}
+  <BeforeAfterSlider />
+
+  <SignalDivider variant="dots" theme="light" />
+
+  {/* SECTION 7 — SELF-ASSESSMENT (now with email capture) */}
+  <SelfAssessment />
+
+  {/* SECTION 8 — PRACTITIONER NOTE (2-column with real portrait) */}
+  <PractitionerNote />
+
+  {/* SECTION 8.5 — SCOPE & PRICING */}
+  <section class="scope-pricing" id="scope-pricing">
+    <div class="scope-inner">
+      <h2 class="scope-heading">What $2,500 buys you.</h2>
+      <div class="scope-grid">
+        <div class="scope-col">
+          <div class="scope-label">Deliverable</div>
+          <p class="scope-text">14-page PDF + 60-minute walkthrough + a 30/60/90 action plan you can hand to anyone.</p>
+        </div>
+        <div class="scope-col">
+          <div class="scope-label">Timeline</div>
+          <p class="scope-text">Five working days from the moment your data lands in my inbox. I quote the exact delivery date on the discovery call.</p>
+        </div>
+        <div class="scope-col">
+          <div class="scope-label">Scope</div>
+          <p class="scope-text">One business, cross-industry, $500K–$10M revenue. No retainers. No Phase 2. If the discovery call shows scope is bigger than 5 days, I tell you and you walk away.</p>
+        </div>
       </div>
-      <h2 class="text-2xl sm:text-3xl font-bold text-navy mb-4">
-        Zero Risk
+      <div class="scope-guarantee">
+        <span class="scope-guarantee-label">Audit-or-refund guarantee</span>
+        <p class="scope-guarantee-text">
+          If during my 5-day analysis I find nothing worth more than your $2,500 fee, I refund the full amount. Falsifiable. No fine print.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* SECTION 9 — FAQ */}
+  <section class="faq">
+    <div class="faq-inner">
+      <h2 class="faq-heading">The usual questions.</h2>
+      {faqs.map((item) => (
+        <details>
+          <summary>{item.q}</summary>
+          <div>{item.a}</div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <SignalDivider variant="ekg" theme="light" />
+
+  {/* SECTION 10 — FINAL CTA */}
+  <GrainyAurora class="final-cta">
+    <AmbientDataParticles count={20} class="particles-reverse" />
+    <div class="final-inner">
+      <h2 class="final-heading">
+        Your data is already paying for the audit. You just cannot see it yet.
       </h2>
-      <p class="text-lg text-gray-700 leading-relaxed">
-        If our report doesn't identify at least <strong>$25,000 in annual savings opportunities</strong>, we refund the full $2,500. No questions asked.
+      <p class="final-sub">
+        Twenty minutes. I review what you already have beforehand. You leave with three
+        findings — yours to keep, no follow-up sequence.
       </p>
-    </div>
-  </section>
-
-  <!-- 9. WHY NOT JUST... (Objections) -->
-  <section class="py-16">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl sm:text-3xl font-bold text-navy text-center mb-12">
-        "Why Can't I Just..."
-      </h2>
-      <div class="space-y-6">
-        <details>
-          <summary>"...use ChatGPT myself?"</summary>
-          <div>
-            You can — and you should, for basic tasks like drafting emails, rewriting product descriptions, or summarizing documents. But analyzing 2,000 customer records, cross-referencing with transaction history, and finding patterns across 12 months of data? That takes specialized AI tools and someone who knows what to look for. ChatGPT is a calculator. We're the accountant.
-          </div>
-        </details>
-        <details>
-          <summary>"...just buy better software?"</summary>
-          <div>
-            Software solves one problem. Analysis tells you WHICH problem to solve first — and whether new software is even the answer. Small businesses who bought all-in-one platforms (Shopify Plus, ServiceTitan, Toast, Salesforce) without a plan often spent $10,000-$25,000 on implementation and took 6-8 months to go live. Some never did. Analysis first, software second.
-          </div>
-        </details>
-        <details>
-          <summary>"...have my office manager figure this out?"</summary>
-          <div>
-            She's already doing the work of three people — admin, bookkeeping, customer service, scheduling. She doesn't have 40 hours to dig through transaction logs and customer histories. And she doesn't have AI tools that process 10,000 records in minutes. This isn't about capability — it's about time and tools.
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- 10. LIMITED CAPACITY (Urgency) -->
-  <section class="py-12 bg-gray-50">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-xl sm:text-2xl font-bold text-navy mb-3">
-        We Work With 4 Small Businesses Per Month
-      </h2>
-      <p class="text-gray-600">
-        Every analysis gets our full attention — no templates, no rushing. This means availability is limited.
-        If we're booked, we'll let you know the next available slot.
-      </p>
-    </div>
-  </section>
-
-  <!-- 11. FREE CALL CTA -->
-  <section class="bg-navy py-16">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6">
-        Free Call — Here's What You Get
-      </h2>
-      <p class="text-gray-300 text-lg mb-4">20 minutes. Free. No pitch.</p>
-      <div class="text-left max-w-md mx-auto mb-8 space-y-3">
-        {[
-          'Your 3 biggest operational money leaks',
-          'A rough dollar estimate of what they cost you',
-          'Whether AI analysis makes sense for your business size and industry',
-        ].map((item) => (
-          <div class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-green shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-            <span class="text-gray-200">{item}</span>
-          </div>
-        ))}
-      </div>
-      <p class="text-gray-400 text-sm mb-8">Even if you never hire us.</p>
-      <a
-        href={SITE.ctaUrl}
-        class="inline-flex items-center px-8 py-4 rounded-lg bg-green text-white font-semibold text-lg no-underline hover:bg-green-light transition-colors shadow-lg"
-      >
-        {SITE.ctaText}
-        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-        </svg>
+      <a href={SITE.calUrl} target="_blank" rel="noopener" class="cta-primary magnetic">
+        Book a 20-min discovery call <span class="cta-arrow">→</span>
       </a>
-      <p class="text-gray-400 text-sm mt-4">20 min. No pitch. No follow-up emails. Just findings.</p>
+      <div class="final-signature">
+        <img
+          src="/assets/founder-avatar-round.jpg"
+          alt=""
+          width="80"
+          height="80"
+          loading="lazy"
+          decoding="async"
+          onerror="this.style.display='none';"
+        />
+        <span>— Ilshat, practitioner · 4 audits / month</span>
+      </div>
     </div>
-  </section>
+  </GrainyAurora>
 </BaseLayout>
+
+<script>
+  // Always run IntersectionObserver — reliable across all browsers.
+  // (Native animation-timeline is opt-in via .reveal-native class only.)
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  const fineAndMotion =
+    matchMedia('(pointer: fine)').matches &&
+    matchMedia('(prefers-reduced-motion: no-preference)').matches;
+
+  if (fineAndMotion) {
+    document.querySelectorAll<HTMLElement>('.magnetic').forEach((btn) => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+        const y = (e.clientY - rect.top - rect.height / 2) * 0.25;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
+  }
+
+  // Load full motion orchestration (GSAP + ScrollTrigger + SplitText + tilt)
+  import('../scripts/motion.client');
+</script>
+
+<style>
+  /* ========== Helpers ========== */
+  .grain-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  /* ========== SECTION 1 — HERO ========== */
+  .hero {
+    padding: clamp(96px, 13vw, 160px) 1.5rem clamp(96px, 11vw, 140px);
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .hero-inner {
+      grid-template-columns: 61.8fr 38.2fr;
+      gap: 4rem;
+    }
+  }
+
+  .authority-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid rgba(232, 230, 220, 0.2);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: var(--color-ash);
+    text-decoration: none;
+    margin-bottom: 2.5rem;
+    transition: border-color 200ms ease, color 200ms ease;
+  }
+
+  .authority-badge:hover {
+    border-color: var(--color-amber);
+    color: var(--color-cream);
+  }
+
+  .authority-badge strong {
+    color: var(--color-cream);
+    font-weight: 600;
+  }
+
+  .authority-badge-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--color-amber);
+  }
+
+  .kinetic-headline {
+    margin: 0 0 1.75rem;
+    font-size: clamp(38px, 5.4vw, 84px);
+    color: var(--color-cream);
+  }
+
+  .hero-line {
+    display: block;
+  }
+
+  .kinetic-word {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .hero-sub {
+    font-family: var(--font-body);
+    color: var(--color-ash);
+    font-size: clamp(1rem, 1.3vw, 1.175rem);
+    line-height: 1.6;
+    max-width: 58ch;
+    margin: 0 0 2.25rem;
+  }
+
+  .hero-cta-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.875rem;
+  }
+
+  .hero-price-pill {
+    margin: 0.5rem 0 0;
+    padding: 0.35rem 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-ash);
+    letter-spacing: 0.02em;
+    border: 1px solid rgba(217, 119, 87, 0.35);
+    border-radius: 999px;
+    background: rgba(217, 119, 87, 0.06);
+  }
+
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.75rem;
+    background: var(--color-amber);
+    color: var(--color-cream);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1.0625rem;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(217, 119, 87, 0.25);
+    transition: background-color 200ms ease, box-shadow 200ms ease, transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform;
+  }
+
+  .cta-primary:hover {
+    background: var(--color-amber-soft);
+    box-shadow: 0 12px 32px rgba(217, 119, 87, 0.35);
+  }
+
+  .cta-arrow {
+    display: inline-block;
+    transition: transform 200ms ease;
+  }
+
+  .cta-primary:hover .cta-arrow {
+    transform: translateX(3px);
+  }
+
+  .cta-secondary {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--color-ash);
+    text-decoration: underline;
+    text-decoration-color: rgba(176, 174, 165, 0.35);
+    text-underline-offset: 4px;
+    transition: color 200ms ease, text-decoration-color 200ms ease;
+  }
+
+  .cta-secondary:hover {
+    color: var(--color-cream);
+    text-decoration-color: var(--color-amber);
+  }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .vsl-placeholder {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid rgba(232, 230, 220, 0.18);
+    background: rgba(250, 249, 245, 0.03);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vsl-corner {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--color-amber);
+  }
+  .vsl-corner:nth-child(1) { top: 0; left: 0; border-right: none; border-bottom: none; }
+  .vsl-corner:nth-child(2) { top: 0; right: 0; border-left: none; border-bottom: none; }
+  .vsl-corner:nth-child(3) { bottom: 0; left: 0; border-right: none; border-top: none; }
+  .vsl-corner:nth-child(4) { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+  .vsl-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ash);
+  }
+
+  /* ========== SECTION 2 — AUTHORITY STRIP ========== */
+  .authority-strip {
+    background: var(--color-ink);
+    padding: clamp(36px, 5vw, 56px) 1.5rem;
+    border-top: 1px solid rgba(232, 230, 220, 0.08);
+    border-bottom: 1px solid rgba(232, 230, 220, 0.08);
+  }
+
+  .authority-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 2rem;
+    align-items: end;
+  }
+
+  @media (min-width: 768px) {
+    .authority-inner {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .authority-item + .authority-item {
+      border-left: 1px solid rgba(232, 230, 220, 0.12);
+      padding-left: 2rem;
+    }
+  }
+
+  .authority-num {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96;
+    font-weight: 700;
+    font-size: clamp(24px, 2.6vw, 30px);
+    color: var(--color-amber);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+  }
+
+  .authority-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-ash);
+  }
+
+  /* ========== SECTION 3 — SOUND FAMILIAR ========== */
+  .sound-familiar {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    padding: clamp(72px, 10vw, 120px) 1.5rem;
+  }
+
+  .sf-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .sf-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(32px, 4.5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 3rem;
+  }
+
+  .sf-wall {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .sf-wall {
+      grid-template-columns: 60fr 40fr;
+      grid-auto-flow: row dense;
+    }
+    .sf-card-1 { grid-column: 1 / 2; }
+    .sf-card-2 { grid-column: 2 / 3; margin-top: 32px; }
+    .sf-card-3 { grid-column: 1 / 2; }
+    .sf-card-4 { grid-column: 2 / 3; margin-top: 24px; }
+  }
+
+  .sf-card {
+    background: #ffffff;
+    border: 1px solid var(--color-mist);
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    margin: 0;
+  }
+
+  .sf-card p {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 72, 'SOFT' 50;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+    line-height: 1.45;
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  .sf-caption {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--color-stone);
+    text-align: right;
+    margin: 2.5rem 0 0;
+  }
+
+  /* ========== SECTION 6 — DATA-TO-DOLLARS PROCESS ========== */
+  .process {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    padding: clamp(72px, 10vw, 120px) 1.5rem;
+    border-top: 1px solid var(--color-mist);
+  }
+
+  .process-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .process-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(32px, 4.5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 3rem;
+  }
+
+  .process-phases {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .phase {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: clamp(1rem, 2vw, 2rem);
+    align-items: start;
+  }
+
+  @media (max-width: 560px) {
+    .phase {
+      grid-template-columns: auto 1fr;
+    }
+    .phase .phase-icon { grid-column: 1; grid-row: 1; }
+    .phase .phase-num { grid-column: 2; grid-row: 1; align-self: center; }
+    .phase .phase-text { grid-column: 1 / -1; grid-row: 2; }
+  }
+
+  .phase-num {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144;
+    font-weight: 900;
+    font-size: clamp(64px, 10vw, 120px);
+    line-height: 0.85;
+    color: var(--color-amber);
+    letter-spacing: -0.04em;
+    opacity: 0.9;
+  }
+
+  .phase-text {
+    padding-top: 0.4rem;
+  }
+
+  .phase-name {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(22px, 2.6vw, 32px);
+    line-height: 1.15;
+    color: var(--color-ink);
+    margin: 0 0 0.625rem;
+    letter-spacing: -0.01em;
+  }
+
+  .phase-desc {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-stone);
+    margin: 0;
+    max-width: 56ch;
+  }
+
+  /* ========== SECTION 8.5 — SCOPE & PRICING ========== */
+  .scope-pricing {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    padding: clamp(64px, 9vw, 112px) 1.5rem;
+    border-top: 1px solid var(--color-mist);
+  }
+
+  .scope-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  .scope-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 2.5rem;
+    max-width: 18ch;
+  }
+
+  .scope-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 720px) {
+    .scope-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.75rem;
+    }
+  }
+
+  .scope-col {
+    border-top: 1px solid var(--color-mist);
+    padding-top: 1.25rem;
+  }
+
+  .scope-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-amber);
+    margin-bottom: 0.625rem;
+  }
+
+  .scope-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-stone);
+    margin: 0;
+  }
+
+  .scope-guarantee {
+    margin-top: 3rem;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid rgba(217, 119, 87, 0.5);
+    border-left: 3px solid var(--color-amber);
+    border-radius: 6px;
+    background: rgba(217, 119, 87, 0.04);
+  }
+
+  .scope-guarantee-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .scope-guarantee-text {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 24, 'SOFT' 50;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(17px, 2vw, 20px);
+    line-height: 1.5;
+    color: var(--color-ink);
+    margin: 0;
+    max-width: 64ch;
+  }
+
+  /* ========== SECTION 9 — FAQ ========== */
+  .faq {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    padding: clamp(72px, 10vw, 120px) 1.5rem;
+    border-top: 1px solid var(--color-mist);
+  }
+
+  .faq-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .faq-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(32px, 4.5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 2rem;
+  }
+
+  /* ========== SECTION 10 — FINAL CTA ========== */
+  .final-cta {
+    padding: clamp(96px, 13vw, 160px) 1.5rem;
+    text-align: center;
+  }
+
+  .final-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .final-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    font-weight: 900;
+    font-size: clamp(36px, 5.6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--color-cream);
+    margin: 0 0 1.5rem;
+  }
+
+  .final-sub {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    color: var(--color-ash);
+    margin: 0 0 2.5rem;
+    max-width: 56ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ========== Mobile trims ========== */
+  @media (max-width: 640px) {
+    .sf-card-2,
+    .sf-card-4 {
+      margin-top: 0;
+    }
+    .hero-inner {
+      gap: 2.5rem;
+    }
+    .hero-visual {
+      order: 2;
+    }
+  }
+</style>

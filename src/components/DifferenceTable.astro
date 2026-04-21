@@ -1,0 +1,59 @@
+---
+const rows = [
+  { typical: 'Hands you a strategy deck',
+    ours: 'Hands you <strong>specific dollar amounts</strong>' },
+  { typical: 'Generic best practices from a blog post',
+    ours: 'Analysis of <strong>your actual CRM, POS, calendar, invoices</strong>' },
+  { typical: 'Promises "AI transformation" in 6–12 months',
+    ours: 'Delivers the report in <strong>5–7 days</strong>' },
+  { typical: '$15,000–$30,000 for a strategy deck',
+    ours: '<strong>$2,500 fixed</strong> for the audit, delivered in 5 days' },
+  { typical: 'You implement alone after they leave',
+    ours: 'You get a <strong>30/60/90 action plan</strong> you can hand to anyone' },
+];
+---
+
+<section class="diff-section">
+  <div class="diff-inner">
+    <h2 class="diff-heading">What you usually get vs. what this is.</h2>
+    <div class="diff-table reveal">
+      {rows.map((row) => (
+        <div class="diff-row">
+          <div class="typical">{row.typical}</div>
+          <div class="ours" set:html={row.ours} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .diff-section {
+    padding: clamp(64px, 10vw, 120px) 1.5rem;
+    background: var(--color-cream);
+    color: var(--color-ink);
+  }
+
+  .diff-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .diff-heading {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 96, 'SOFT' 50;
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    margin: 0 0 2.5rem;
+    max-width: 20ch;
+  }
+
+  .diff-table :global(.diff-row) {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+</style>

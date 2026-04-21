@@ -1,0 +1,86 @@
+---
+interface Props {
+  count?: number;
+  class?: string;
+}
+const { count = 30, class: className = '' } = Astro.props;
+
+const symbols = ['$', '•', '▲', '▼', '$', '•'];
+const particles = Array.from({ length: count }, (_, i) => {
+  const sym = symbols[i % symbols.length];
+  const left = Math.round(Math.random() * 100);
+  const size = 10 + Math.round(Math.random() * 6);
+  const delay = -Math.round(Math.random() * 28000);
+  const duration = 18000 + Math.round(Math.random() * 10000);
+  const driftX = -60 + Math.round(Math.random() * 120);
+  const opacity = 0.08 + Math.random() * 0.14;
+  return { sym, left, size, delay, duration, driftX, opacity };
+});
+---
+
+<div class:list={['particles', className]} aria-hidden="true">
+  {particles.map((p) => (
+    <span
+      class="particle"
+      style={`left:${p.left}%;font-size:${p.size}px;animation-delay:${p.delay}ms;animation-duration:${p.duration}ms;--drift-x:${p.driftX}px;--p-opacity:${p.opacity};`}
+    >
+      {p.sym}
+    </span>
+  ))}
+</div>
+
+<style>
+  .particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .particle {
+    position: absolute;
+    bottom: -40px;
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-weight: 500;
+    color: var(--color-amber);
+    opacity: 0;
+    will-change: transform, opacity;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .particle {
+      animation-name: particleDrift;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+  }
+
+  @keyframes particleDrift {
+    0% {
+      transform: translate3d(0, 0, 0);
+      opacity: 0;
+    }
+    12% {
+      opacity: var(--p-opacity, 0.15);
+    }
+    88% {
+      opacity: var(--p-opacity, 0.15);
+    }
+    100% {
+      transform: translate3d(var(--drift-x, 0), -110vh, 0);
+      opacity: 0;
+    }
+  }
+
+  @media (pointer: coarse) {
+    .particle:nth-child(n + 16) {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .particles { display: none; }
+  }
+</style>

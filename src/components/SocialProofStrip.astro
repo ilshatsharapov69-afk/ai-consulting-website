@@ -1,0 +1,105 @@
+---
+const items = [
+  { num: 'Fixed scope', label: '14-page deliverable' },
+  { num: '5-day turnaround', label: 'intake to delivery' },
+  { num: 'Data-driven', label: 'no methodology theater' },
+  { num: '$500K–$10M', label: 'revenue range' },
+  { num: '20-minute call', label: 'no pitch, three takeaways' },
+  { num: '4 / month', label: 'engagement cap' },
+];
+// Duplicate once for seamless marquee loop
+const doubled = [...items, ...items];
+---
+
+<section class="proof-strip" aria-label="Audit at a glance">
+  <div class="proof-track">
+    {doubled.map((it) => (
+      <span class="proof-item">
+        <span class="proof-num">{it.num}</span>
+        <span class="proof-sep" aria-hidden="true">·</span>
+        <span class="proof-label">{it.label}</span>
+        <span class="proof-dot" aria-hidden="true">◆</span>
+      </span>
+    ))}
+  </div>
+</section>
+
+<style>
+  .proof-strip {
+    background: var(--color-ink);
+    color: var(--color-ash);
+    border-top: 1px solid rgba(232, 230, 220, 0.06);
+    border-bottom: 1px solid rgba(232, 230, 220, 0.06);
+    overflow: hidden;
+    padding: 0.9rem 0;
+    position: relative;
+  }
+
+  .proof-strip::before,
+  .proof-strip::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .proof-strip::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--color-ink), transparent);
+  }
+  .proof-strip::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--color-ink), transparent);
+  }
+
+  .proof-track {
+    display: inline-flex;
+    gap: 0;
+    white-space: nowrap;
+    animation: proofScroll 44s linear infinite;
+    will-change: transform;
+  }
+
+  .proof-strip:hover .proof-track {
+    animation-play-state: paused;
+  }
+
+  .proof-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+  }
+
+  .proof-num {
+    color: var(--color-amber);
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 72, 'SOFT' 50;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .proof-sep, .proof-label {
+    color: var(--color-ash);
+  }
+
+  .proof-dot {
+    color: rgba(217, 119, 87, 0.55);
+    font-size: 0.5rem;
+    margin-left: 1rem;
+  }
+
+  @keyframes proofScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proof-track { animation: none; }
+  }
+</style>

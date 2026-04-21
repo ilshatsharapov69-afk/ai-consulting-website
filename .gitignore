@@ -26,3 +26,4 @@ pnpm-debug.log*
 # Browser automation profile
 .browser-profile/
 scripts/.browser-profile/
+*.bak
